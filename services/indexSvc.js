@@ -2,7 +2,8 @@ var Errors = require('./error.js');
 var Result = require('./result.js');
 const Promise = require('promise');
 const _ = require('lodash');
-const Item = require('../models/item.js');
+const fs = require('fs');
+const junk = require('junk');
 
 var IndexSvc = function() {
 
@@ -10,13 +11,15 @@ var IndexSvc = function() {
 
 IndexSvc.prototype.getSwipers = function() {
   return new Promise(function(resolve, reject) {
-    Item.find({
-      isForIndexSwiper: true
-    }).then(data => {
-      resolve(data);
-    }).catch(err => {
-      console.log(err);
-      reject(err);
+    return new Promise(function(resolve, reject) {
+      var path = __dirname + '/..' + '/public/images/swiper/index';
+      fs.readdir(path, (err, files) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(files.filter(junk.not));
+        }
+      })
     });
   });
 };
