@@ -5,7 +5,7 @@ const Jssdk = require('../services/jssdk.js');
 router.use(Jssdk.jssdk);
 
 /* GET home page. */
-router.get('/index', function(req, res, next) {
+router.get('/', function(req, res, next) {
   res.render('index', {
     title: "Express",
     jssdk: req.jssdk

@@ -11,14 +11,17 @@
     "debug": "~2.6.3",
     "express": "~4.15.2",
     "hbs": "~4.0.1",
+    "helmet": "^3.6.0",
     "jquery": "^3.2.1",
     "lodash": "^4.17.4",
     "moment": "^2.18.1",
+    "mongoose": "^4.9.9",
     "morgan": "~1.8.1",
     "promise": "^7.1.1",
     "serve-favicon": "~2.4.2",
     "swiper": "^3.4.2",
     "url": "^0.11.0",
+    "wechat-oauth": "^1.2.1",
     "weixin-node-jssdk": "^0.1.0"
   }
 }
