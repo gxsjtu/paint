@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 const db = require('./services/db.js');
 var index = require('./routes/index');
 const helmet = require('helmet');
+var hbs = require('hbs');
 var app = express();
 app.use(helmet());
 // view engine setup
@@ -21,6 +22,25 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'node_modules')));
+
+var blocks = {};
+
+hbs.registerHelper('extend', function(name, context) {
+    var block = blocks[name];
+    if (!block) {
+        block = blocks[name] = [];
+    }
+
+    block.push(context.fn(this)); // for older versions of handlebars, use block.push(context(this));
+});
+
+hbs.registerHelper('block', function(name) {
+    var val = (blocks[name] || []).join('\n');
+
+    // clear the block
+    blocks[name] = [];
+    return val;
+});
 
 app.use('/', index);
 

@@ -1,11 +1,13 @@
+{{#extend "stylesheets"}}
+<link rel='stylesheet' href="/swiper/dist/css/swiper.min.css" />
+{{/extend}}
 <h1>{{title}}</h1>
 <p>Welcome to {{title}}</p>
+{{#extend "scripts"}}
 <script type="text/javascript" src="/swiper/dist/js/swiper.min.js"></script>
-<link rel='stylesheet' href="/swiper/dist/css/swiper.min.css" />
 <script>
+  wx.ready(function(){
 
-wx.ready(function(){
-  
-});
-
+  });
 </script>
+{{/extend}}
