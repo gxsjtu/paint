@@ -3,16 +3,23 @@
 
 <head>
   <title>{{title}}</title>
-  <script type="text/javascript" src="../node_modules/jquery/dist/jquery.min.js"></script>
+  <script type="text/javascript" src="/jquery/dist/jquery.min.js"></script>
   <link rel='stylesheet' href='/stylesheets/style.css' />
+  <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+  <script>
+    wx.config({
+    debug: true,
+    appId: '{{jssdk.appId}}', // 必填，公众号的唯一标识
+    timestamp: {{jssdk.timestamp}}, // 必填，生成签名的时间戳
+    nonceStr: '{{jssdk.nonceStr}}', // 必填，生成签名的随机串
+    signature: '{{jssdk.signature}}',// 必填，签名，见附录1
+    jsApiList: ['onMenuShareTimeline','onMenuShareAppMessage','onMenuShareQQ','onMenuShareWeibo','onMenuShareQZone']
+  });
+  </script>
 </head>
 
 <body>
+
   {{{body}}}
-  <p>{{jssdk.appId}}</p>
-  <p>{{jssdk.nonceStr}}</p>
-  <p>{{jssdk.signature}}</p>
-  <p>{{jssdk.timestamp}}</p>
-</body>
 
 </html>
