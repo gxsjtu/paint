@@ -4,6 +4,7 @@ const Promise = require('promise');
 const _ = require('lodash');
 const fs = require('fs');
 const junk = require('junk');
+const Global = require('../global.js');
 
 var IndexSvc = function() {
 
@@ -17,7 +18,13 @@ IndexSvc.prototype.getSwipers = function() {
         if (err) {
           reject(err);
         } else {
-          resolve(files.filter(junk.not));
+          var res = [];
+          _.forEach(files.filter(junk.not), x => {
+            res.push({
+              Global.server + '/images/swiper/index/' + x;
+            });
+          })
+          resolve(res);
         }
       })
     });
