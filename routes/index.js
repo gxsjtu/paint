@@ -14,6 +14,7 @@ router.get('/', function(req, res, next) {
   var indexSvc = new IndexSvc();
   Promise.all([indexSvc.getSwipers()]).then(data => {
     res.render("index", {
+      jssdk: req.jssdk,
       headers: data[0]
     });
   }).catch(err => console.log(err));
