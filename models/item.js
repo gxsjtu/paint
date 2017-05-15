@@ -7,11 +7,6 @@ var ItemSchema = new Schema({
   name: String,
   author: String,
   price: String,
-  isForIndexSwiper: {
-    type: Boolean,
-    default: false,
-
-  },
   dimension: {
     height: Number,
     width: Number
