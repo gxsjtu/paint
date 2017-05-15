@@ -9,4 +9,8 @@ var ItemSvc = function(){
 
 }
 
+ItemSvc.prototype.save = function () {
+
+};
+
 module.exports = ItemSvc;

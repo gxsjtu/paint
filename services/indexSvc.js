@@ -20,9 +20,9 @@ IndexSvc.prototype.getSwipers = function() {
         } else {
           var res = [];
           _.forEach(files.filter(junk.not), x => {
-            res.push({
-              Global.server + '/images/swiper/index/' + x;
-            });
+            res.push(
+              Global.server + '/images/swiper/index/' + x
+            );
           })
           resolve(res);
         }
