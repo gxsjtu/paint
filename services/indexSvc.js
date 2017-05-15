@@ -12,23 +12,21 @@ var IndexSvc = function() {
 
 IndexSvc.prototype.getSwipers = function() {
   return new Promise(function(resolve, reject) {
-    return new Promise(function(resolve, reject) {
-      var path = __dirname + '/..' + '/public/images/swiper/index';
-      fs.readdir(path, (err, files) => {
-        if (err) {
-          reject(err);
-        } else {
-          var res = [];
-          _.forEach(files.filter(junk.not), x => {
-            res.push(
-              Global.server + '/images/swiper/index/' + x
-            );
-          })
-          resolve(res);
-        }
-      })
-    });
+    var path = __dirname + '/..' + '/public/images/swiper/index';
+    fs.readdir(path, (err, files) => {
+      if (err) {
+        reject(err);
+      } else {
+        var res = [];
+        _.forEach(files.filter(junk.not), x => {
+          res.push(
+            Global.server + '/images/swiper/index/' + x
+          );
+        })
+        resolve(res);
+      }
+    })
   });
-};
+}
 
 module.exports = IndexSvc;
