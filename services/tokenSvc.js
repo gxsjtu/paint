@@ -28,3 +28,5 @@ TokenSvc.prototype.setToken = function(openid, token, cb) {
     return cb(null);
   });
 };
+
+module.exports = TokenSvc;

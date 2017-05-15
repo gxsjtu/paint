@@ -13,5 +13,5 @@ var TokenSchema = new Schema({
   versionKey: false
 });
 
-var Token = mongoose.model('Log', TokenSchema);
+var Token = mongoose.model('Token', TokenSchema);
 module.exports = Token;

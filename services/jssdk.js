@@ -15,7 +15,7 @@ module.exports.jssdk = function(req, res, next) {
   weixinJsConfig(options, function(error, config) {
     //config
     if (!error) {
-      req.jssdk = config;
+      res.jssdk = config;
       next();
     } else {
       next(error);
