@@ -12,7 +12,6 @@
 
     .swiper-container {
       width: 100%;
-      height: 300px;
       background: #fff;
     }
 
@@ -36,12 +35,18 @@
     }
   </style>
 {{/extend}}
-<div class="swiper-container">
+<div class="swiper-container"  style="position:relative">
   <div class="swiper-wrapper">
 
   </div>
   <!-- Add Pagination -->
   <div class="swiper-pagination"></div>
+  <div style="position:absolute;left:2%;bottom:2%;z-index:99999;font-size:3rem;opacity:0.6;">
+    <button id="btnAddImg" type="button" class="btn btn-info btn-lg"><span class="glyphicon glyphicon-plus-sign"></span></button>
+  </div>
+  <div style="position:absolute;right:2%;bottom:2%;z-index:99999;font-size:3rem;opacity:0.6;">
+    <button id="btnRemoveImg" type="button" class="btn btn-danger btn-lg"><span class="glyphicon glyphicon-minus-sign"></span></button>
+  </div>
 </div>
 <!-- <button id="btnSelectImg">选择图片</button> -->
 <!-- <div style="background:#fff;margin-top:2em;"> -->
@@ -131,13 +136,14 @@
 {{#extend "scripts"}}
   <script type="text/javascript" src="/swiper/dist/js/swiper.min.js"></script>
   <script>
+  var swiperDiv;
     $(function() {
-      var swiper = new Swiper('.swiper-container', {
+      swiperDiv = new Swiper('.swiper-container', {
         pagination: '.swiper-pagination',
         paginationClickable: true,
         spaceBetween: 30,
       });
-
+      getSwiperHeight();
       $("#ulType li").on('click', function(){
         // alert($("#typeTitle").text());
         $("#typeTitle").text($(this).text());
@@ -147,11 +153,21 @@
         // alert($("#typeTitle").text());
         $("#catalogTitle").text($(this).text());
       })
-    })
+    });
+    var getSwiperHeight = function(){
+        var winWidth;
+        if(window.innerWidth){
+          winWidth = window.innerWidth;
+        }else if((document.body) && (document.body.clientWidth)){
+          winWidth = document.body.clientWidth;
+        }
+
+        $(".swiper-container").height(winWidth / 2);
+      }
     wx.ready(function() {
       var localIds = [];
       var serverIds = [];
-      $("#btnSelectImg").click(function() {
+      $("#btnAddImg").click(function() {
         wx.chooseImage({
           count: 9,
           success: function(res) {
@@ -161,12 +177,50 @@
             for(var i = 0; i <Ids.length; i++){
               d.append('<div class="swiper-slide"><img src="'+Ids[i]+'"  /></div>');
             }
+            swiperDiv = new Swiper('.swiper-container', {
+              pagination: '.swiper-pagination',
+              paginationClickable: true,
+              spaceBetween: 30,
+            });
+            getSwiperHeight();
+            swiperDiv.slideTo(localIds.length - 1);
           }
         });
       });
       $("#btnSave").click(function() {
         syncUpload(localIds);
       });
+
+      $("#btnRemoveImg").click(function(){
+        var imgDiv = $(".swiper-slide-active img");
+        var removeDiv = $(".swiper-slide-active");
+          if(imgDiv != null && imgDiv != undefined && imgDiv.length > 0) {
+            removeDiv.remove();
+            var src = imgDiv[0].src;
+            var index = localIds.indexOf(src);
+            var isLastIndex = false;
+            if((index + 1) == localIds.length){
+              //说明删除的是最后一张
+              isLastIndex = true;
+            }
+
+            if(swiperDiv != null && swiperDiv != undefined){
+              swiperDiv.destroy(true, true);
+            }
+            swiperDiv = new Swiper('.swiper-container', {
+              pagination: '.swiper-pagination',
+              paginationClickable: true,
+              spaceBetween: 30,
+            });
+            getSwiperHeight();
+            if(isLastIndex){
+              swiperDiv.slideTo(localIds.length - 1, 0);
+            }else{
+              swiperDiv.slideTo(index, 0);
+            }
+
+          }
+      })
 
       var syncUpload = function(localIds){
         var localId = localIds.pop();
