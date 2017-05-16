@@ -37,7 +37,6 @@
 {{/extend}}
 <div class="swiper-container"  style="position:relative">
   <div class="swiper-wrapper">
-
   </div>
   <!-- Add Pagination -->
   <div class="swiper-pagination"></div>
@@ -134,10 +133,14 @@
     </div>
   </div>
 </div>
+<div id="testDiv">
+
+</div>
 {{#extend "scripts"}}
   <script type="text/javascript" src="/swiper/dist/js/swiper.min.js"></script>
   <script>
   var swiperDiv;
+  var imgHeight;
     $(function() {
       swiperDiv = new Swiper('.swiper-container', {
         pagination: '.swiper-pagination',
@@ -163,8 +166,8 @@
         }else if((document.body) && (document.body.clientWidth)){
           winWidth = document.body.clientWidth;
         }
-
-        $(".swiper-container").height(winWidth / 2);
+        imgHeight = (winWidth / 2);
+        $(".swiper-container").height(imgHeight);
       }
     wx.ready(function() {
       var localIds = [];
@@ -176,9 +179,11 @@
             var Ids = res.localIds;
             localIds.push(Ids);
             var d = $(".swiper-wrapper");
+            var t = $("#testDiv");
             for (var i = 0; i < Ids.length; i++) {
               alert(Ids[i]);
-              d.append('<div class="swiper-slide"><img src="' + Ids[i] + '.png"  /></div>');
+              t.append('<img src="' + Ids[i] + '" />')
+              d.append('<div class="swiper-slide"><img src="' + Ids[i] + '" /></div>');
             }
             swiperDiv = new Swiper('.swiper-container', {
               pagination: '.swiper-pagination',
