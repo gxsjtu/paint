@@ -50,7 +50,7 @@
     <div class="col-xs-12">
       <div class="input-group">
         <span class="input-group-addon">作者</span>
-          <input placeholder="请输入作者名称" class="form-control" type="text" id="txtAuthorName"/>
+        <input placeholder="请输入作者名称" class="form-control" type="text" id="txtAuthorName" />
       </div>
     </div>
   </div>
@@ -58,7 +58,7 @@
     <div class="col-xs-12">
       <div class="input-group">
         <span class="input-group-addon">画名</span>
-          <input placeholder="请输入画名" class="form-control" type="text" id="txtImgName"/>
+        <input placeholder="请输入画名" class="form-control" type="text" id="txtImgName" />
       </div>
     </div>
   </div>
@@ -101,8 +101,9 @@
     <div class="col-xs-12">
       <div class="input-group">
         <span class="input-group-addon">尺寸</span>
-          <input placeholder="宽" class="form-control" type="text" id="txtImgWidth" style="width:35%;float:none;text-align:center;"/> x <input placeholder="高" style="text-align:center;width:35%;border-radius:0;float:none;" class="form-control" type="text" id="txtImgHeight"/>
-          <span style="font-size:0.8em;color:gray;">（单位:cm）</span>
+        <input placeholder="宽" class="form-control" type="number" id="txtImgWidth" style="width:35%;float:none;text-align:center;" /> x <input placeholder="高" style="text-align:center;width:35%;border-radius:0;float:none;" class="form-control" type="number"
+          id="txtImgHeight" />
+        <span style="font-size:0.8em;color:gray;">（单位:cm）</span>
       </div>
     </div>
   </div>
@@ -110,7 +111,7 @@
     <div class="col-xs-12">
       <div class="input-group">
         <span class="input-group-addon">底价</span>
-          <input placeholder="请输入底价" class="form-control" type="text" id="txtImgPrice"/>
+        <input placeholder="请输入底价" class="form-control" type="number" id="txtImgPrice" />
       </div>
     </div>
   </div>
@@ -118,7 +119,7 @@
     <div class="col-xs-12">
       <div class="input-group">
         <span class="input-group-addon">备注</span>
-          <input placeholder="请输入备注" class="form-control" type="text" id="txtDesc"/>
+        <input placeholder="请输入备注" class="form-control" type="text" id="txtDesc" />
       </div>
     </div>
   </div>
@@ -138,12 +139,12 @@
         spaceBetween: 30,
       });
 
-      $("#ulType li").on('click', function(){
+      $("#ulType li").on('click', function() {
         // alert($("#typeTitle").text());
         $("#typeTitle").text($(this).text());
       })
 
-      $("#ulCatalog li").on('click', function(){
+      $("#ulCatalog li").on('click', function() {
         // alert($("#typeTitle").text());
         $("#catalogTitle").text($(this).text());
       })
@@ -158,8 +159,8 @@
             var Ids = res.localIds;
             localIds.push(Ids);
             var d = $(".swiper-wrapper");
-            for(var i = 0; i <Ids.length; i++){
-              d.append('<div class="swiper-slide"><img src="'+Ids[i]+'"  /></div>');
+            for (var i = 0; i < Ids.length; i++) {
+              d.append('<div class="swiper-slide"><img src="' + Ids[i] + '"  /></div>');
             }
           }
         });
@@ -168,25 +169,33 @@
         syncUpload(localIds);
       });
 
-      var syncUpload = function(localIds){
+      var syncUpload = function(localIds) {
         var localId = localIds.pop();
         wx.uploadImage({
           localId: localId,
-          success: function(res){
+          success: function(res) {
             var serverId = res.serverId;
             serverIds.push(serverId);
-            if(localIds.length > 0){
+            if (localIds.length > 0) {
               syncUpload(localIds);
-            }else{
+            } else {
               $.ajax({
-                url:'/saleDetail/saveItem',
-                type:'POST',
-                data:{name:$("#txtImgName").val(), author:$("#txtAuthorName").val(), width:$("#txtImgWidth").val(),height:$("#txtImgWidth").val(),comment:$("#txtDesc").val(),type:$("#typeTitle").text(),price:$("#txtImgPrice").val(),images:serverIds,catalog:$("#catalogTitle").text()},
-                success: function(data){
+                url: '/saleDetail/saveItem',
+                type: 'POST',
+                data: {
+                  name: $("#txtImgName").val(),
+                  author: $("#txtAuthorName").val(),
+                  width: $("#txtImgWidth").val(),
+                  height: $("#txtImgWidth").val(),
+                  comment: $("#txtDesc").val(),
+                  type: $("#typeTitle").text(),
+                  price: $("#txtImgPrice").val(),
+                  images: serverIds,
+                  catalog: $("#catalogTitle").text()
                 },
-                error:function(req, status, err){
-                },
-                complete:function(res,status){
+                success: function(data) {},
+                error: function(req, status, err) {},
+                complete: function(res, status) {
                   console.log(res);
                 }
               })
