@@ -1,18 +1,19 @@
-html, body {
+/*html, body {
 	height: 100%;
 }
 
 body {
 	background: #333;
 	margin: 0;
-}
+}*/
 
 #ptr {
 	position: absolute;
 	top: 0;
 	left: 0;
 	width: 100%;
-	color: #fff;
+	/*color: #fff;*/
+	color: #000;
 	z-index: 10;
 	text-align: center;
 	height: 50px;
@@ -86,7 +87,7 @@ body {
 	100% {
 		-webkit-transform: scale(1);
 		transform: scale(1);
-		background-color: #fff;
+		background-color: #000;
 		opacity: 1;
 	}
 }
@@ -101,13 +102,13 @@ body {
 	100% {
 		-webkit-transform: scale(1);
 		transform: scale(1);
-		background-color: #fff;
+		background-color: #000;
 		opacity: 1;
 	}
 }
 
-#content {
-	/*background: #fff;
+/*#content {
+	background: #fff;
 	min-height: 100%;
 	z-index: 20;
 	-webkit-backface-visibility: hidden;
@@ -118,8 +119,8 @@ body {
 	font-size: 24px;
 	font-weight: 200;
 	color: #555;
-	box-sizing: border-box;*/
-}
+	box-sizing: border-box;
+}*/
 
 .ptr-loading #content, .ptr-reset #content,
 .ptr-loading #ptr, .ptr-reset #ptr {
