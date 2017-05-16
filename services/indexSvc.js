@@ -5,6 +5,7 @@ const _ = require('lodash');
 const fs = require('fs');
 const junk = require('junk');
 const Global = require('../global.js');
+const Item = require('../models/item.js');
 
 var IndexSvc = function() {
 
@@ -28,5 +29,18 @@ IndexSvc.prototype.getSwipers = function() {
     })
   });
 }
+
+IndexSvc.prototype.getTodayItems = function() {
+  return new Promise((resolve, reject) => {
+    Item.find().gt(moment().date()).lt(moment().date().add(1, "days")).sort({
+      create_at: -1
+    }).take(6).exec((err, data) => {
+      if (err) {
+        return reject(err);
+      }
+      return resolve(data);
+    });
+  });
+};
 
 module.exports = IndexSvc;

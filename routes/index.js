@@ -15,15 +15,16 @@ router.use(Oauth.oauth);
 router.get('/', function(req, res, next) {
   //获取index页面的走马灯图片
   var indexSvc = new IndexSvc();
-  Promise.all([indexSvc.getSwipers()]).then(data => {
+  Promise.all([indexSvc.getSwipers(), indexSvc.getTodayItems()]).then(data => {
     res.render("index", {
       jssdk: req.jssdk,
-      headers: data[0]
+      headers: data[0],
+      today: data[1],
     });
   }).catch(err => console.log(err));
 });
 
-router.get('/openId', function(req, res, next) {
+router.get('/today', function(req, res, next) {
   console.log(req.params);
 });
 

@@ -10,3 +10,7 @@ module.exports.SaveItemFailed = {
   status: 2,
   message: '保存画作失败！'
 };
+module.exports.GetTodayFailed = {
+  status: 3,
+  message: '获取今日最新失败！'
+};
