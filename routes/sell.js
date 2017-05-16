@@ -5,11 +5,12 @@ const Promise = require('Promise');
 const ItemSvc = require('../services/itemSvc.js');
 const Result = require('../services/result.js');
 const Errors = require('../services/error.js');
+const oAuth = require('../services/oAuth.js');
 
 router.use(Jssdk.jssdk);
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', oAuth.oAuth, function(req, res, next) {
   res.render('sell', {
     title: "Express",
     jssdk: req.jssdk
@@ -17,7 +18,6 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/saveItem', function(req, res, next) {
-
   var images = req.body.images;
   var name = req.body.name;
   var author = req.body.author;
