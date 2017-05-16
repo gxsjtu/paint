@@ -1,9 +1,6 @@
 <link rel='stylesheet' href="/swiper/dist/css/swiper.min.css" />
 {{#extend "stylesheets"}}
   <style>
-  label{
-    font-size: 1.5em;
-  }
     body {
       background: #eee;
       font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
@@ -15,7 +12,7 @@
 
     .swiper-container {
       width: 100%;
-      height: 500px;
+      height: 300px;
       background: #fff;
     }
 
@@ -47,123 +44,89 @@
   <div class="swiper-pagination"></div>
 </div>
 <!-- <button id="btnSelectImg">选择图片</button> -->
-<div style="background:#fff;width:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;margin-top:2em;">
-  <div style="width:100%;display:flex;border-bottom:1px solid #eee;height:50px;padding-left:20px;flex-direction:row;align-items:center;">
-      <button id="btnSelectImg" style="background:#007aff;height:90%;width:20%;color:#fff;font-size:1.5em;border:0px;">选择图片</button>
+<!-- <div style="background:#fff;margin-top:2em;"> -->
+<div class="container-fluid" style="background:#fff;margin-top:10px;height:100%;">
+  <div class="row" style="margin-top:5px;">
+    <div class="col-xs-12">
+      <div class="input-group">
+        <span class="input-group-addon">作者</span>
+          <input placeholder="请输入作者名称" class="form-control" type="text" id="txtAuthorName"/>
+      </div>
+    </div>
   </div>
-  <div style="width:100%;display:flex;border-bottom:1px solid #eee;height:50px;padding-left:20px;flex-direction:row;align-items:center;">
-    <label>作者：</label><input type="text" id="txtAuthorName" style="width:90%;height:95%;border:0px;font-size:1.5em;" placeholder="请输入作者名称"/>
+  <div class="row" style="margin-top:5px;">
+    <div class="col-xs-12">
+      <div class="input-group">
+        <span class="input-group-addon">画名</span>
+          <input placeholder="请输入画名" class="form-control" type="text" id="txtImgName"/>
+      </div>
+    </div>
   </div>
-  <div style="width:100%;display:flex;border-bottom:1px solid #eee;height:50px;padding-left:20px;flex-direction:row;align-items:center;">
-    <label>画名：</label><input type="text" id="txtImgName" style="width:90%;height:95%;border:0px;font-size:1.5em;" placeholder="请输入画名"/>
+  <div class="row" style="margin-top:5px;">
+    <div class="col-xs-12">
+      <div class="input-group">
+        <span class="input-group-addon">画种</span>
+        <!-- Split button -->
+        <div class="dropdown">
+          <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="border-radius:0;width:100%;text-align:right;">
+            <span id="typeTitle">选择画种</span>
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" id="ulType" aria-labelledby="dropdownMenu1">
+            <li><a href="#">山水画</a></li>
+            <li><a href="#">人物画</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
   </div>
-  <div style="width:100%;display:flex;border-bottom:1px solid #eee;height:50px;padding-left:20px;flex-direction:row;align-items:center;">
-    <label>画种：</label>
-    <select id="slImgType" style="height:50%;">
-      <option value="0">--选择画种--</option>
-      <option value="1">山水画</option>
-    </select>
+  <div class="row" style="margin-top:5px;">
+    <div class="col-xs-12">
+      <div class="input-group">
+        <span class="input-group-addon">题材</span>
+        <div class="dropdown">
+          <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="border-radius:0;width:100%;text-align:right;">
+            <span id="catalogTitle">选择题材</span>
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" id="ulCatalog" aria-labelledby="dropdownMenu2">
+            <li><a href="#">题材1</a></li>
+            <li><a href="#">题材2</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
   </div>
-  <div style="width:100%;display:flex;border-bottom:1px solid #eee;height:50px;padding-left:20px;flex-direction:row;align-items:center;">
-    <label>题材：</label>
-    <select id="slImgCatalog" style="height:50%;">
-      <option value="0">--选择题材--</option>
-    </select>
+  <div class="row" style="margin-top:5px;">
+    <div class="col-xs-12">
+      <div class="input-group">
+        <span class="input-group-addon">尺寸</span>
+          <input placeholder="宽" class="form-control" type="text" id="txtImgWidth" style="width:35%;float:none;text-align:center;"/> * <input placeholder="高" style="text-align:center;width:35%;border-radius:0;float:none;" class="form-control" type="text" id="txtImgHeight"/>
+          <span style="font-size:0.5em;color:gray;">（单位:cm）</span>
+      </div>
+    </div>
   </div>
-  <div style="width:100%;display:flex;border-bottom:1px solid #eee;height:50px;padding-left:20px;flex-direction:row;align-items:center;">
-    <label>尺寸：</label>
-    <input type="text" id="txtImgWidth" style="width:40%;height:95%;border:0px;font-size:1.5em;text-align:center;" placeholder="宽"/> * <input type="text" style="width:40%;height:95%;border:0px;font-size:1.5em;text-align:center;" id="txtImgHeight" placeholder="高"/>
-    <label style="font-size:1em;color:gray;">（单位：cm）</label>
+  <div class="row" style="margin-top:5px;">
+    <div class="col-xs-12">
+      <div class="input-group">
+        <span class="input-group-addon">底价</span>
+          <input placeholder="请输入底价" class="form-control" type="text" id="txtImgPrice"/>
+      </div>
+    </div>
   </div>
-  <div style="width:100%;display:flex;border-bottom:1px solid #eee;height:50px;padding-left:20px;flex-direction:row;align-items:center;">
-    <label>底价：</label><input type="text" id="txtImgPrice" pattern="[0-9]" style="width:90%;height:95%;border:0px;font-size:1.5em;" placeholder="请输入底价"/>
+  <div class="row" style="margin-top:5px;">
+    <div class="col-xs-12">
+      <div class="input-group">
+        <span class="input-group-addon">备注</span>
+          <input placeholder="请输入备注" class="form-control" type="text" id="txtDesc"/>
+      </div>
+    </div>
   </div>
-  <div style="width:100%;display:flex;border-bottom:1px solid #eee;height:80px;padding-left:20px;flex-direction:row;">
-    <label>备注：</label><textarea id="txtDesc" style="width:90%;height:95%;border:0px;font-size:1.5em;" placeholder="请输入备注"></textarea>
+  <div class="row" style="margin-top:5px;">
+    <div class="col-xs-12" style="display:flex;flex-direction:row;align-items:center;justify-content:center;">
+      <button id="btnSave" type="button" class="btn btn-primary">提 交</button>
+    </div>
   </div>
-  <div style="width:100%;display:flex;border-bottom:1px solid #eee;height:50px;padding-left:20px;flex-direction:row;align-items:center;justify-content:center;">
-    <button id="btnSave" style="background:#007aff;height:90%;width:30%;color:#fff;font-size:1.5em;border:0px;">提交</button>
-  </div>
-  <!-- <table style="width:80%;">
-    <tr>
-      <td colspan="2">
-        <button id="btnSelectImg">选择图片</button>
-      </td>
-    </tr>
-    <tr>
-      <td align="right">
-        <label>作者：</label>
-      </td>
-      <td>
-        <input type="text" id="txtAuthorName" style="width:100%" />
-      </td>
-    </tr>
-    <tr>
-      <td align="right">
-        <label>画名：</label>
-      </td>
-      <td>
-        <input type="text" id="txtImgName" style="width:100%" />
-      </td>
-    </tr>
-    <tr>
-      <td align="right">
-        <label>画种：</label>
-      </td>
-      <td>
-        <select>
-          <option value="0">--选择画种--</option>
-        </select>
-      </td>
-    </tr>
-    <tr>
-      <td align="right">
-        <label>题材：</label>
-      </td>
-      <td>
-        <select>
-          <option value="0">--选择题材--</option>
-        </select>
-      </td>
-    </tr>
-    <tr>
-      <td align="right">
-        <label>尺寸：</label>
-      </td>
-      <td>
-        <input type="text" id="txtImgWidth" style="width:45%" /> * <input type="text" style="width:45%" id="txtImgHeight" />
-      </td>
-    </tr>
-    <tr>
-      <td>
-
-      </td>
-      <td>
-        <label style="font-size:10px;color:gray;">宽 * 高（单位：cm）</label>
-      </td>
-    </tr>
-    <tr>
-      <td align="right">
-        <lable>底价：</lable>
-      </td>
-      <td>
-        <input type="text" id="txtImgPrice" pattern="[0-9]" style="width:100%" />
-      </td>
-    </tr>
-    <tr>
-      <td align="right">
-        <label>备注：</label>
-      </td>
-      <td>
-        <textarea id="txtDesc" style="width:100%"></textarea>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2" align="center">
-        <button id="btnSave">提交</button>
-      </td>
-    </tr>
-  </table> -->
 </div>
 {{#extend "scripts"}}
   <script type="text/javascript" src="/swiper/dist/js/swiper.min.js"></script>
@@ -174,6 +137,16 @@
         paginationClickable: true,
         spaceBetween: 30,
       });
+
+      $("#ulType li").on('click', function(){
+        // alert($("#typeTitle").text());
+        $("#typeTitle").text($(this).text());
+      })
+
+      $("#ulCatalog li").on('click', function(){
+        // alert($("#typeTitle").text());
+        $("#catalogTitle").text($(this).text());
+      })
     })
     wx.ready(function() {
       var localIds = [];
@@ -208,7 +181,7 @@
               $.ajax({
                 url:'/saleDetail/saveItem',
                 type:'POST',
-                data:{name:$("#txtImgName").val(), author:$("#txtAuthorName").val(), width:$("#txtImgWidth").val(),height:$("#txtImgWidth").val(),comment:$("#txtDesc").val(),type:$("#slImgType").val(),price:$("#txtImgPrice").val(),images:serverIds, catalog:$("#slImgCatalog").val()},
+                data:{name:$("#txtImgName").val(), author:$("#txtAuthorName").val(), width:$("#txtImgWidth").val(),height:$("#txtImgWidth").val(),comment:$("#txtDesc").val(),type:$("#typeTitle").text(),price:$("#txtImgPrice").val(),images:serverIds,catalog:$("#catalogTitle").text()},
                 success: function(data){
                 },
                 error:function(req, status, err){
