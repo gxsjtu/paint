@@ -182,7 +182,7 @@
             var t = $("#testDiv");
             for (var i = 0; i < Ids.length; i++) {
               alert(Ids[i]);
-              t.append('<img src="' + Ids[i] + '" />')
+              t.append('<img src="' + Ids[i] + '" style="width:100px;height:100px;"/>')
               d.append('<div class="swiper-slide"><img src="' + Ids[i] + '" /></div>');
             }
             swiperDiv = new Swiper('.swiper-container', {
