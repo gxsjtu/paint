@@ -33,9 +33,9 @@ IndexSvc.prototype.getSwipers = function() {
 
 IndexSvc.prototype.getTodayItems = function() {
   return new Promise((resolve, reject) => {
-    Item.where().gt(moment().date()).lt(moment().date().add(1, "days")).sort({
+    Item.where({create_at: {$gt: moment().format('YYYY-MM-DD'), $lt: moment().add(1, "days").format('YYYY-MM-DD')}}).sort({
       create_at: -1
-    }).take(6).exec((err, data) => {
+    }).limit(6).exec((err, data) => {
       if (err) {
         return reject(err);
       }
