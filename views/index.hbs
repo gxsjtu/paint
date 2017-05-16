@@ -1,5 +1,7 @@
 {{#extend "stylesheets"}}
+<link rel="stylesheet" href="/web-pull-to-refresh-master/lib/genericons/genericons.css">
 <link rel='stylesheet' href="/swiper/dist/css/swiper.min.css" />
+<link rel='stylesheet' href="/web-pull-to-refresh-master/base.css" />
 <style>
    body {
        background: #fff;
@@ -77,75 +79,107 @@
    </style>
 {{/extend}}
 
-{{#if headers}}
-<div class="swiper-container">
-    <div class="swiper-wrapper">
-      {{#each headers}}
+
+<div id="ptr" style="background:black;">
+  <!-- Pull down arrow indicator -->
+  <span class="genericon genericon-next"></span>
+
+  <!-- CSS-based loading indicator -->
+  <div class="loading">
+    <span id="l1"></span>
+    <span id="l2"></span>
+    <span id="l3"></span>
+  </div>
+</div>
+<div id="content">
+
+  {{#if headers}}
+  <div class="swiper-container">
+      <div class="swiper-wrapper">
+        {{#each headers}}
+          <div class="swiper-slide">
+            <img src="{{this}}" alt="">
+          </div>
+        {{/each}}
+      </div>
+      <div class="swiper-pagination"></div>
+      <div class="search">
+        <div>搜索</div>
+      </div>
+  </div>
+  {{/if}}
+
+  <div class="menu">
+    <div class="item">
+      <img src="/images/油画.png" alt="油画">
+      <div class="name">油画</div>
+    </div>
+    <div class="item">
+      <img src="/images/国画.png" alt="国画">
+      <div class="name">国画</div>
+    </div>
+    <div class="item">
+      <img src="/images/水彩.png" alt="水彩">
+      <div class="name">水彩</div>
+    </div>
+    <div class="item">
+      <img src="/images/彩铅.png" alt="彩铅">
+      <div class="name">彩铅</div>
+    </div>
+  </div>
+
+  <div class="split">
+
+  </div>
+
+  <!-- {{#if today}}
+  <div class="swiper-container">
+      {{#each today}}
         <div class="swiper-slide">
           <img src="{{this}}" alt="">
         </div>
       {{/each}}
-    </div>
-    <div class="swiper-pagination"></div>
-    <div class="search">
-      <div>搜索</div>
-    </div>
-</div>
-{{/if}}
-
-<div class="menu">
-  <div class="item">
-    <img src="/images/油画.png" alt="油画">
-    <div class="name">油画</div>
   </div>
-  <div class="item">
-    <img src="/images/国画.png" alt="国画">
-    <div class="name">国画</div>
-  </div>
-  <div class="item">
-    <img src="/images/水彩.png" alt="水彩">
-    <div class="name">水彩</div>
-  </div>
-  <div class="item">
-    <img src="/images/彩铅.png" alt="彩铅">
-    <div class="name">彩铅</div>
-  </div>
-</div>
-
-<div class="split">
+  {{/if}} -->
 
 </div>
 
-<!-- {{#if today}}
-<div class="swiper-container">
-    {{#each today}}
-      <div class="swiper-slide">
-        <img src="{{this}}" alt="">
-      </div>
-    {{/each}}
-</div>
-{{/if}} -->
 
 {{#extend "scripts"}}
 <script type="text/javascript" src="/swiper/dist/js/swiper.min.js"></script>
+<script src="/web-pull-to-refresh-master/lib/hammer.2.0.4.js"></script>
+<script src="/web-pull-to-refresh-master/lib/wptr.1.1.js"></script>
 <script>
+var exampleLoadingFunction = function(){
+
+  return new Promise(function(resolve,reject){
+    // Run some async loading code here
+    if (true) {
+      resolve();
+    }else {
+      reject();
+    }
+  });
+};
 
 $(function(){
-  // $('img').bind('load',function(e){
-  //
-  // })
+  var swiper = new Swiper('.swiper-container', {
+     autoplay : 2000,
+     loop:true,
+     pagination: '.swiper-pagination',
+     paginationClickable: true
+  });
+
+  WebPullToRefresh.init( {
+      loadingFunction: exampleLoadingFunction
+  } );
 });
 
- var swiper = new Swiper('.swiper-container', {
-    autoplay : 2000,
-    loop:true,
-    pagination: '.swiper-pagination',
-    paginationClickable: true
- });
+
  </script>
-<script>
+<!-- <script>
   wx.ready(function(){
 
   });
-</script>
+</script> -->
 {{/extend}}
