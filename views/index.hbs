@@ -80,7 +80,7 @@
 {{/extend}}
 
 
-<div id="ptr" style="background:black;">
+<div id="ptr">
   <!-- Pull down arrow indicator -->
   <span class="genericon genericon-next"></span>
 
@@ -153,10 +153,16 @@
 var exampleLoadingFunction = function(){
 
   return new Promise(function(resolve,reject){
+    //$("#ptr").show();
+    //console.log($("#ptr"));
+    //console.log(1);
     // Run some async loading code here
     if (true) {
-      resolve();
+      //$("#ptr").hide();
+      // alert(1);
+       resolve();
     }else {
+      //$("#ptr").hide();
       reject();
     }
   });
