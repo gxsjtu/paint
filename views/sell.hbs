@@ -108,7 +108,7 @@
         <span class="input-group-addon">尺寸</span>
         <input placeholder="宽" class="form-control" type="number" id="txtImgWidth" style="width:35%;float:none;text-align:center;" /> x <input placeholder="高" style="text-align:center;width:35%;border-radius:0;float:none;" class="form-control" type="number"
           id="txtImgHeight" />
-        <span style="font-size:0.8em;color:gray;">（单位:cm）</span>
+        <span style="font-size:0.8em;color:gray;"> (单位:cm)</span>
       </div>
     </div>
   </div>
@@ -177,6 +177,7 @@
             localIds.push(Ids);
             var d = $(".swiper-wrapper");
             for (var i = 0; i < Ids.length; i++) {
+              alert(Ids[i]);
               d.append('<div class="swiper-slide"><img src="' + Ids[i] + '"  /></div>');
             }
             swiperDiv = new Swiper('.swiper-container', {
