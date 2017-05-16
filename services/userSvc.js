@@ -13,7 +13,7 @@ var UserSvc = function(){
 
 UserSvc.prototype.getProfile = function (openId) {
   return new Promise((resolve, reject) => {
-    api.getUser(openid, (err, data) => {
+    api.getUser(openId, (err, data) => {
       if(err){
         return reject(err);
       }

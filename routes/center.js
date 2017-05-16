@@ -12,8 +12,7 @@ router.use(Jssdk.jssdk);
 /* GET home page. */
 router.get('/', oAuth.oAuth, function(req, res, next) {
   var usrSvc = new UserSvc();
-  userSvc.getProfile(req.session.openId).then(data => {
-    console.log(data);
+  usrSvc.getProfile(req.session.openId).then(data => {
     res.json(data);
   }).catch(err => {
     res.json(err);
