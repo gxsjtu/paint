@@ -1,6 +1,9 @@
 <link rel='stylesheet' href="/swiper/dist/css/swiper.min.css" />
 {{#extend "stylesheets"}}
   <style>
+  label{
+    font-size: 1.5em;
+  }
     body {
       background: #eee;
       font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
@@ -11,9 +14,9 @@
     }
 
     .swiper-container {
-      width: 500px;
-      height: 300px;
-      margin: 20px auto;
+      width: 100%;
+      height: 500px;
+      background: #fff;
     }
 
     .swiper-slide {
@@ -38,23 +41,50 @@
 {{/extend}}
 <div class="swiper-container">
   <div class="swiper-wrapper">
-    <div class="swiper-slide">Slide 1</div>
-    <div class="swiper-slide">Slide 2</div>
-    <div class="swiper-slide">Slide 3</div>
-    <div class="swiper-slide">Slide 4</div>
-    <div class="swiper-slide">Slide 5</div>
-    <div class="swiper-slide">Slide 6</div>
-    <div class="swiper-slide">Slide 7</div>
-    <div class="swiper-slide">Slide 8</div>
-    <div class="swiper-slide">Slide 9</div>
-    <div class="swiper-slide">Slide 10</div>
+
   </div>
   <!-- Add Pagination -->
   <div class="swiper-pagination"></div>
 </div>
 <!-- <button id="btnSelectImg">选择图片</button> -->
-<div style="width:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;">
-  <table style="width:500px;">
+<div style="background:#fff;width:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;margin-top:2em;">
+  <div style="width:100%;display:flex;border-bottom:1px solid #eee;height:50px;padding-left:20px;flex-direction:row;align-items:center;">
+      <button id="btnSelectImg" style="background:#007aff;height:90%;width:20%;color:#fff;font-size:1.5em;border:0px;">选择图片</button>
+  </div>
+  <div style="width:100%;display:flex;border-bottom:1px solid #eee;height:50px;padding-left:20px;flex-direction:row;align-items:center;">
+    <label>作者：</label><input type="text" id="txtAuthorName" style="width:90%;height:95%;border:0px;font-size:1.5em;" placeholder="请输入作者名称"/>
+  </div>
+  <div style="width:100%;display:flex;border-bottom:1px solid #eee;height:50px;padding-left:20px;flex-direction:row;align-items:center;">
+    <label>画名：</label><input type="text" id="txtImgName" style="width:90%;height:95%;border:0px;font-size:1.5em;" placeholder="请输入画名"/>
+  </div>
+  <div style="width:100%;display:flex;border-bottom:1px solid #eee;height:50px;padding-left:20px;flex-direction:row;align-items:center;">
+    <label>画种：</label>
+    <select id="slImgType" style="height:50%;">
+      <option value="0">--选择画种--</option>
+      <option value="1">山水画</option>
+    </select>
+  </div>
+  <div style="width:100%;display:flex;border-bottom:1px solid #eee;height:50px;padding-left:20px;flex-direction:row;align-items:center;">
+    <label>题材：</label>
+    <select id="slImgCatalog" style="height:50%;">
+      <option value="0">--选择题材--</option>
+    </select>
+  </div>
+  <div style="width:100%;display:flex;border-bottom:1px solid #eee;height:50px;padding-left:20px;flex-direction:row;align-items:center;">
+    <label>尺寸：</label>
+    <input type="text" id="txtImgWidth" style="width:40%;height:95%;border:0px;font-size:1.5em;text-align:center;" placeholder="宽"/> * <input type="text" style="width:40%;height:95%;border:0px;font-size:1.5em;text-align:center;" id="txtImgHeight" placeholder="高"/>
+    <label style="font-size:1em;color:gray;">（单位：cm）</label>
+  </div>
+  <div style="width:100%;display:flex;border-bottom:1px solid #eee;height:50px;padding-left:20px;flex-direction:row;align-items:center;">
+    <label>底价：</label><input type="text" id="txtImgPrice" pattern="[0-9]" style="width:90%;height:95%;border:0px;font-size:1.5em;" placeholder="请输入底价"/>
+  </div>
+  <div style="width:100%;display:flex;border-bottom:1px solid #eee;height:80px;padding-left:20px;flex-direction:row;">
+    <label>备注：</label><textarea id="txtDesc" style="width:90%;height:95%;border:0px;font-size:1.5em;" placeholder="请输入备注"></textarea>
+  </div>
+  <div style="width:100%;display:flex;border-bottom:1px solid #eee;height:50px;padding-left:20px;flex-direction:row;align-items:center;justify-content:center;">
+    <button id="btnSave" style="background:#007aff;height:90%;width:30%;color:#fff;font-size:1.5em;border:0px;">提交</button>
+  </div>
+  <!-- <table style="width:80%;">
     <tr>
       <td colspan="2">
         <button id="btnSelectImg">选择图片</button>
@@ -133,7 +163,7 @@
         <button id="btnSave">提交</button>
       </td>
     </tr>
-  </table>
+  </table> -->
 </div>
 {{#extend "scripts"}}
   <script type="text/javascript" src="/swiper/dist/js/swiper.min.js"></script>
@@ -147,48 +177,50 @@
     })
     wx.ready(function() {
       var localIds = [];
+      var serverIds = [];
       $("#btnSelectImg").click(function() {
         wx.chooseImage({
           count: 9,
           success: function(res) {
-            localIds = res.localIds;
+            var Ids = res.localIds;
+            localIds.push(Ids);
+            var d = $(".swiper-wrapper");
+            for(var i = 0; i <Ids.length; i++){
+              d.append('<div class="swiper-slide"><img src="'+Ids[i]+'"  /></div>');
+            }
           }
         });
       });
       $("#btnSave").click(function() {
+        syncUpload(localIds);
+      });
+
+      var syncUpload = function(localIds){
+        var localId = localIds.pop();
         wx.uploadImage({
-          localId: localIds[0],
-          success: function(res) {
-            console.log(res);
+          localId: localId,
+          success: function(res){
             var serverId = res.serverId;
-            //{name:$("#txtImgName").val(), author:"", width:0,height:0,comment:"",type:0,price:0,images:[0], catalog:0}
-            $.ajax({
-              url: '/sell/saveItem',
-              type: 'POST',
-              data: {
-                name: $("#txtImgName").val(),
-                author: "",
-                width: 0,
-                height: 0,
-                comment: "",
-                type: 0,
-                price: 0,
-                images: serverId,
-                catalog: 0
-              },
-              success: function(data) {
-
-              },
-              error: function(req, status, err) {
-
-              },
-              complete: function(res, status) {
-                console.log(res);
-              }
-            })
+            serverIds.push(serverId);
+            if(localIds.length > 0){
+              syncUpload(localIds);
+            }else{
+              $.ajax({
+                url:'/saleDetail/saveItem',
+                type:'POST',
+                data:{name:$("#txtImgName").val(), author:$("#txtAuthorName").val(), width:$("#txtImgWidth").val(),height:$("#txtImgWidth").val(),comment:$("#txtDesc").val(),type:$("#slImgType").val(),price:$("#txtImgPrice").val(),images:serverIds, catalog:$("#slImgCatalog").val()},
+                success: function(data){
+                },
+                error:function(req, status, err){
+                },
+                complete:function(res,status){
+                  console.log(res);
+                }
+              })
+            }
           }
         })
-      });
+      }
     });
   </script>
 {{/extend}}
