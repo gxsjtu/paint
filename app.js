@@ -9,7 +9,16 @@ var index = require('./routes/index');
 var sell = require('./routes/sell.js');
 const helmet = require('helmet');
 var hbs = require('hbs');
+const session = require('express-session')
 var app = express();
+app.use(session({
+  secret: 'guoxuan',
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    secure: false
+  }
+}))
 app.use(helmet());
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -19,7 +28,9 @@ app.set('view engine', 'hbs');
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'node_modules')));
@@ -27,20 +38,20 @@ app.use(express.static(path.join(__dirname, 'node_modules')));
 var blocks = {};
 
 hbs.registerHelper('extend', function(name, context) {
-    var block = blocks[name];
-    if (!block) {
-        block = blocks[name] = [];
-    }
+  var block = blocks[name];
+  if (!block) {
+    block = blocks[name] = [];
+  }
 
-    block.push(context.fn(this)); // for older versions of handlebars, use block.push(context(this));
+  block.push(context.fn(this)); // for older versions of handlebars, use block.push(context(this));
 });
 
 hbs.registerHelper('block', function(name) {
-    var val = (blocks[name] || []).join('\n');
+  var val = (blocks[name] || []).join('\n');
 
-    // clear the block
-    blocks[name] = [];
-    return val;
+  // clear the block
+  blocks[name] = [];
+  return val;
 });
 
 app.use('/', index);
