@@ -19,10 +19,63 @@
        width: 100%;
        height: 50%;
    }
+   .search{
+     position: absolute;
+     width: 70%;
+     left: 15%;
+     top: 10px;
+     height: 30px;
+     border-radius: 30px;
+     background: rgba(255, 255, 255, 0.3);
+     text-align: center;
+     font-size: 18px;
+     z-index: 99;
+     overflow: hidden;
+   }
+
+   .search div{
+     width: 100%;
+     height: 30px;
+     line-height: 30px;
+     color: white;
+     z-index: 100;
+   }
+
+   .menu{
+     display: flex;
+     flex-direction: row;
+     flex-wrap: wrap;
+     justify-content:space-between;
+     padding-left: 20px;
+     padding-right: 20px;
+   }
+   .menu .item{
+     width: 20%;
+     /*height: 100px;*/
+     text-align: center;
+     padding-top: 20px;
+     padding-bottom: 20px;
+   }
+
+   .menu .item img{
+     width: 60%;
+   }
+
+   .menu .item .name{
+     text-align: center;
+     margin-top: 2px;
+     font-family: 黑体;
+     font-size: 13px;
+   }
+
+   .split{
+     width: 100%;
+     height: 12px;
+     background: #f2f2f2;
+   }
+
    </style>
 {{/extend}}
-<!-- <h1>{{title}}</h1>
-<p>Welcome to {{title}}</p> -->
 
 {{#if headers}}
 <div class="swiper-container">
@@ -34,25 +87,60 @@
       {{/each}}
     </div>
     <div class="swiper-pagination"></div>
+    <div class="search">
+      <div>搜索</div>
+    </div>
 </div>
 {{/if}}
+
+<div class="menu">
+  <div class="item">
+    <img src="/images/油画.png" alt="油画">
+    <div class="name">油画</div>
+  </div>
+  <div class="item">
+    <img src="/images/国画.png" alt="国画">
+    <div class="name">国画</div>
+  </div>
+  <div class="item">
+    <img src="/images/水彩.png" alt="水彩">
+    <div class="name">水彩</div>
+  </div>
+  <div class="item">
+    <img src="/images/彩铅.png" alt="彩铅">
+    <div class="name">彩铅</div>
+  </div>
+</div>
+
+<div class="split">
+
+</div>
+
+<!-- {{#if today}}
+<div class="swiper-container">
+    {{#each today}}
+      <div class="swiper-slide">
+        <img src="{{this}}" alt="">
+      </div>
+    {{/each}}
+</div>
+{{/if}} -->
 
 {{#extend "scripts"}}
 <script type="text/javascript" src="/swiper/dist/js/swiper.min.js"></script>
 <script>
 
 $(function(){
-  $('img').bind('load',function(e){
-
-  })
+  // $('img').bind('load',function(e){
+  //
+  // })
 });
 
  var swiper = new Swiper('.swiper-container', {
-   autoplay : 2000,
-   loop:true,
-     pagination: '.swiper-pagination',
-     width : window.innerWidth,
-     height: window.innerWidth / 2,
+    autoplay : 2000,
+    loop:true,
+    pagination: '.swiper-pagination',
+    paginationClickable: true
  });
  </script>
 <script>

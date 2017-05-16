@@ -16,6 +16,7 @@ router.get('/', function(req, res, next) {
   //获取index页面的走马灯图片
   var indexSvc = new IndexSvc();
   Promise.all([indexSvc.getSwipers(), indexSvc.getTodayItems()]).then(data => {
+    console.log(data[1]);
     res.render("index", {
       jssdk: req.jssdk,
       headers: data[0],
