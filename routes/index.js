@@ -28,23 +28,23 @@ router.get('/today', function(req, res, next) {
   console.log(req.params);
 });
 
-router.post('/saveItem', function(req, res, next) {
-  var images = req.body.images;
-  var name = req.body.name;
-  var author = req.body.author;
-  var catalog = req.body.catalog;
-  var comment = req.body.comment;
-  var type = req.body.type;
-  var price = req.body.price;
-  var width = req.body.width;
-  var height = req.body.height;
-
-  var itemSvc = new ItemSvc(name, author, width, height, comment, type, catalog, price, images);
-  itemSv.save().then(data => {
-    res.json(new Result(Errors.Success));
-  }).catch(err => {
-    res.json(new Result(Errors.SaveItemFailed, err));
-  });
-});
+// router.post('/saveItem', function(req, res, next) {
+//   var images = req.body.images;
+//   var name = req.body.name;
+//   var author = req.body.author;
+//   var catalog = req.body.catalog;
+//   var comment = req.body.comment;
+//   var type = req.body.type;
+//   var price = req.body.price;
+//   var width = req.body.width;
+//   var height = req.body.height;
+//
+//   var itemSvc = new ItemSvc(name, author, width, height, comment, type, catalog, price, images);
+//   itemSv.save().then(data => {
+//     res.json(new Result(Errors.Success));
+//   }).catch(err => {
+//     res.json(new Result(Errors.SaveItemFailed, err));
+//   });
+// });
 
 module.exports = router;
