@@ -1,0 +1,194 @@
+<link rel='stylesheet' href="/swiper/dist/css/swiper.min.css" />
+{{#extend "stylesheets"}}
+  <style>
+    body {
+      background: #eee;
+      font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      color: #000;
+      margin: 0;
+      padding: 0;
+    }
+
+    .swiper-container {
+      width: 500px;
+      height: 300px;
+      margin: 20px auto;
+    }
+
+    .swiper-slide {
+      text-align: center;
+      font-size: 18px;
+      background: #fff;
+      /* Center slide text vertically */
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      -webkit-justify-content: center;
+      justify-content: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      -webkit-align-items: center;
+      align-items: center;
+    }
+  </style>
+{{/extend}}
+<div class="swiper-container">
+  <div class="swiper-wrapper">
+    <div class="swiper-slide">Slide 1</div>
+    <div class="swiper-slide">Slide 2</div>
+    <div class="swiper-slide">Slide 3</div>
+    <div class="swiper-slide">Slide 4</div>
+    <div class="swiper-slide">Slide 5</div>
+    <div class="swiper-slide">Slide 6</div>
+    <div class="swiper-slide">Slide 7</div>
+    <div class="swiper-slide">Slide 8</div>
+    <div class="swiper-slide">Slide 9</div>
+    <div class="swiper-slide">Slide 10</div>
+  </div>
+  <!-- Add Pagination -->
+  <div class="swiper-pagination"></div>
+</div>
+<!-- <button id="btnSelectImg">选择图片</button> -->
+<div style="width:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;">
+  <table style="width:500px;">
+    <tr>
+      <td colspan="2">
+        <button id="btnSelectImg">选择图片</button>
+      </td>
+    </tr>
+    <tr>
+      <td align="right">
+        <label>作者：</label>
+      </td>
+      <td>
+        <input type="text" id="txtAuthorName" style="width:100%" />
+      </td>
+    </tr>
+    <tr>
+      <td align="right">
+        <label>画名：</label>
+      </td>
+      <td>
+        <input type="text" id="txtImgName" style="width:100%" />
+      </td>
+    </tr>
+    <tr>
+      <td align="right">
+        <label>画种：</label>
+      </td>
+      <td>
+        <select>
+          <option value="0">--选择画种--</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td align="right">
+        <label>题材：</label>
+      </td>
+      <td>
+        <select>
+          <option value="0">--选择题材--</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td align="right">
+        <label>尺寸：</label>
+      </td>
+      <td>
+        <input type="text" id="txtImgWidth" style="width:45%" /> * <input type="text" style="width:45%" id="txtImgHeight" />
+      </td>
+    </tr>
+    <tr>
+      <td>
+
+      </td>
+      <td>
+        <label style="font-size:10px;color:gray;">宽 * 高（单位：cm）</label>
+      </td>
+    </tr>
+    <tr>
+      <td align="right">
+        <lable>底价：</lable>
+      </td>
+      <td>
+        <input type="text" id="txtImgPrice" pattern="[0-9]" style="width:100%" />
+      </td>
+    </tr>
+    <tr>
+      <td align="right">
+        <label>备注：</label>
+      </td>
+      <td>
+        <textarea id="txtDesc" style="width:100%"></textarea>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2" align="center">
+        <button id="btnSave">提交</button>
+      </td>
+    </tr>
+  </table>
+</div>
+{{#extend "scripts"}}
+  <script type="text/javascript" src="/swiper/dist/js/swiper.min.js"></script>
+  <script>
+    $(function() {
+      var swiper = new Swiper('.swiper-container', {
+        pagination: '.swiper-pagination',
+        paginationClickable: true,
+        spaceBetween: 30,
+      });
+    })
+    wx.ready(function() {
+      var localIds = [];
+      $("#btnSelectImg").click(function() {
+        wx.chooseImage({
+          count: 9,
+          success: function(res) {
+            localIds = res.localIds;
+          }
+        });
+      });
+      $("#btnSave").click(function() {
+        wx.uploadImage({
+          localId: localIds[0],
+          success: function(res) {
+            console.log(res);
+            var serverId = res.serverId;
+            //{name:$("#txtImgName").val(), author:"", width:0,height:0,comment:"",type:0,price:0,images:[0], catalog:0}
+            $.ajax({
+              url: '/sell/saveItem',
+              type: 'POST',
+              data: {
+                name: $("#txtImgName").val(),
+                author: "",
+                width: 0,
+                height: 0,
+                comment: "",
+                type: 0,
+                price: 0,
+                images: serverId,
+                catalog: 0
+              },
+              success: function(data) {
+
+              },
+              error: function(req, status, err) {
+
+              },
+              complete: function(res, status) {
+                console.log(res);
+              }
+            })
+          }
+        })
+      });
+    });
+  </script>
+{{/extend}}

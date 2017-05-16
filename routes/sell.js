@@ -10,7 +10,7 @@ router.use(Jssdk.jssdk);
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('saleDetail', {
+  res.render('sell', {
     title: "Express",
     jssdk: req.jssdk
   });

@@ -6,7 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 const db = require('./services/db.js');
 var index = require('./routes/index');
-var saleDetail = require('./routes/saleDetail');
+var sell = require('./routes/sell.js');
 const helmet = require('helmet');
 var hbs = require('hbs');
 var app = express();
@@ -44,7 +44,7 @@ hbs.registerHelper('block', function(name) {
 });
 
 app.use('/', index);
-app.use('/saleDetail', saleDetail);
+app.use('/sell', sell);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
