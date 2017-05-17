@@ -12,7 +12,7 @@ var ItemSvc = function() {
 
 }
 
-ItemSvc.prototype.getItemById = function() {
+ItemSvc.prototype.getItemById = function(id) {
   return new Promise((resolve, reject) => {
     Item.findById(id).then(data => {
       return resolve(data);
@@ -74,6 +74,10 @@ ItemSvc.prototype.canBid = function(id, openId) {
         return reject(false);
       }
       // 1. 不能连续出价
+      //获取最后一个出价人的openid
+      _.orderBy(data.bids, x => {
+
+      });
       return resolve(true);
     }).catch(err => {
       return reject(false);
