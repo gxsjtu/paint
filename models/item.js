@@ -19,7 +19,10 @@ var ItemSchema = new Schema({
   likes: [String],
   comment: String,
   bids: [{
+    _id: false,
     openId: String,
+    nick: String,
+    avatar: String,
     price: Number,
     create_at: {
       type: String,
