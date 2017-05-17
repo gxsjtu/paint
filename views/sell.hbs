@@ -35,16 +35,16 @@
     }
   </style>
 {{/extend}}
-<div class="swiper-container"  style="position:relative">
+<div class="swiper-container" style="position:relative">
   <div class="swiper-wrapper">
   </div>
   <!-- Add Pagination -->
   <div class="swiper-pagination"></div>
   <div style="position:absolute;left:2%;bottom:2%;z-index:99999;font-size:3rem;opacity:0.6;">
-    <button id="btnAddImg" type="button" class="btn btn-info btn-lg"><span class="glyphicon glyphicon-plus-sign"></span></button>
+    <button id="btnRemoveImg" type="button" class="btn btn-danger btn-circle btn-lg"><i class="fa fa-times" aria-hidden="true"></i></button>
   </div>
   <div style="position:absolute;right:2%;bottom:2%;z-index:99999;font-size:3rem;opacity:0.6;">
-    <button id="btnRemoveImg" type="button" class="btn btn-danger btn-lg"><span class="glyphicon glyphicon-minus-sign"></span></button>
+    <button id="btnAddImg" type="button" class="btn btn-info btn-circle btn-lg"><i class="fa fa-plus" aria-hidden="true"></i></button>
   </div>
 </div>
 <!-- <button id="btnSelectImg">选择图片</button> -->
@@ -136,8 +136,8 @@
 {{#extend "scripts"}}
   <script type="text/javascript" src="/swiper/dist/js/swiper.min.js"></script>
   <script>
-  var swiperDiv;
-  var imgHeight;
+    var swiperDiv;
+    var imgHeight;
     $(function() {
       swiperDiv = new Swiper('.swiper-container', {
         pagination: '.swiper-pagination',
@@ -156,16 +156,16 @@
         $("#catalogTitle").text($(this).text());
       })
     });
-    var getSwiperHeight = function(){
-        var winWidth;
-        if(window.innerWidth){
-          winWidth = window.innerWidth;
-        }else if((document.body) && (document.body.clientWidth)){
-          winWidth = document.body.clientWidth;
-        }
-        imgHeight = (winWidth / 2);
-        $(".swiper-container").height(imgHeight);
+    var getSwiperHeight = function() {
+      var winWidth;
+      if (window.innerWidth) {
+        winWidth = window.innerWidth;
+      } else if ((document.body) && (document.body.clientWidth)) {
+        winWidth = document.body.clientWidth;
       }
+      imgHeight = (winWidth / 2);
+      $(".swiper-container").height(imgHeight);
+    }
     wx.ready(function() {
       var localIds = [];
       var serverIds = [];
@@ -193,35 +193,35 @@
         syncUpload(localIds);
       });
 
-      $("#btnRemoveImg").click(function(){
+      $("#btnRemoveImg").click(function() {
         var imgDiv = $(".swiper-slide-active img");
         var removeDiv = $(".swiper-slide-active");
-          if(imgDiv != null && imgDiv != undefined && imgDiv.length > 0) {
-            removeDiv.remove();
-            var src = imgDiv[0].src;
-            var index = localIds.indexOf(src);
-            var isLastIndex = false;
-            if((index + 1) == localIds.length){
-              //说明删除的是最后一张
-              isLastIndex = true;
-            }
-
-            if(swiperDiv != null && swiperDiv != undefined){
-              swiperDiv.destroy(true, true);
-            }
-            swiperDiv = new Swiper('.swiper-container', {
-              pagination: '.swiper-pagination',
-              paginationClickable: true,
-              spaceBetween: 30,
-            });
-            getSwiperHeight();
-            if(isLastIndex){
-              swiperDiv.slideTo(localIds.length - 1, 0);
-            }else{
-              swiperDiv.slideTo(index, 0);
-            }
-
+        if (imgDiv != null && imgDiv != undefined && imgDiv.length > 0) {
+          removeDiv.remove();
+          var src = imgDiv[0].src;
+          var index = localIds.indexOf(src);
+          var isLastIndex = false;
+          if ((index + 1) == localIds.length) {
+            //说明删除的是最后一张
+            isLastIndex = true;
           }
+
+          if (swiperDiv != null && swiperDiv != undefined) {
+            swiperDiv.destroy(true, true);
+          }
+          swiperDiv = new Swiper('.swiper-container', {
+            pagination: '.swiper-pagination',
+            paginationClickable: true,
+            spaceBetween: 30,
+          });
+          getSwiperHeight();
+          if (isLastIndex) {
+            swiperDiv.slideTo(localIds.length - 1, 0);
+          } else {
+            swiperDiv.slideTo(index, 0);
+          }
+
+        }
       })
 
       var syncUpload = function(localIds) {
