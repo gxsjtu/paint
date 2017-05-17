@@ -46,8 +46,9 @@
             <span class="caret"></span>
           </button>
           <ul class="dropdown-menu col-xs-12" id="ulType" aria-labelledby="dropdownMenu1" style="min-width:auto;">
-            <li><a href="#">山水画</a></li>
-            <li><a href="#">人物画</a></li>
+            {{#each type}}
+            <li><a href="#">{{this}}</a></li>
+            {{/each}}
           </ul>
         </div>
       </div>
@@ -61,8 +62,9 @@
             <span class="caret"></span>
           </button>
           <ul class="dropdown-menu col-xs-12" id="ulCatalog" aria-labelledby="dropdownMenu2" style="min-width:auto;">
-            <li><a href="#">题材1</a></li>
-            <li><a href="#">题材2</a></li>
+            {{#each catalog}}
+            <li><a href="#">{{this}}</a></li>
+            {{/each}}
           </ul>
         </div>
       </div>
