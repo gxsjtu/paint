@@ -237,6 +237,8 @@
               $.ajax({
                 url: '/sell/saveItem',
                 type: 'POST',
+                traditional:true,
+                dataType:"json",
                 data: {
                   name: $("#txtImgName").val(),
                   author: $("#txtAuthorName").val(),
