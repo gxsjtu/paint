@@ -16,6 +16,7 @@
     }
 
     .swiper-slide {
+      width:100%;
       text-align: center;
       font-size: 18px;
       background: #fff;
@@ -177,7 +178,7 @@
             localIds.push(Ids);
             var d = $(".swiper-wrapper");
             for (var i = 0; i < Ids.length; i++) {
-              d.append('<div class="swiper-slide"><img src="' + Ids[i] + '" style="width:' + winWidth + '"/></div>');
+              d.append('<div class="swiper-slide"><img src="' + Ids[i] + '" style="width:100%;"/></div>');
             }
             swiperDiv = new Swiper('.swiper-container', {
               pagination: '.swiper-pagination',
