@@ -1,5 +1,5 @@
 body {
-  background: #eee;
+  background: #fff;
   font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
   font-size: 14px;
   color: #000;
@@ -41,7 +41,7 @@ body {
 }
 
 .containerDiv{
-  background:#fff;margin-top:10px;height:100%;
+  background:#fff;height:100%;
 }
 
 .rowDiv{
@@ -50,4 +50,9 @@ body {
 
 .subBtn{
   display:flex;flex-direction:row;align-items:center;justify-content:center;
+}
+
+.split{
+  background:#eee;
+  height:10px;
 }
