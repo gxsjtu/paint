@@ -15,7 +15,7 @@ var ItemSvc = function() {
 ItemSvc.prototype.getItemById = function() {
   return new Promise((resolve, reject) => {
     Item.findById(id).then(data => {
-      return (data);
+      return resolve(data);
     }).catch(err => {
       return reject(err);
     });
@@ -74,7 +74,6 @@ ItemSvc.prototype.canBid = function(id, openId) {
         return reject(false);
       }
       // 1. 不能连续出价
-      _.
       return resolve(true);
     }).catch(err => {
       return reject(false);
