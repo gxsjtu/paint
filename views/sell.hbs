@@ -138,6 +138,7 @@
   <script>
     var swiperDiv;
     var imgHeight;
+    var winWidth;
     $(function() {
       swiperDiv = new Swiper('.swiper-container', {
         pagination: '.swiper-pagination',
@@ -157,7 +158,6 @@
       })
     });
     var getSwiperHeight = function() {
-      var winWidth;
       if (window.innerWidth) {
         winWidth = window.innerWidth;
       } else if ((document.body) && (document.body.clientWidth)) {
@@ -177,7 +177,7 @@
             localIds.push(Ids);
             var d = $(".swiper-wrapper");
             for (var i = 0; i < Ids.length; i++) {
-              d.append('<div class="swiper-slide"><img src="' + Ids[i] + '" /></div>');
+              d.append('<div class="swiper-slide"><img src="' + Ids[i] + '" style="width:' + winWidth + '"/></div>');
             }
             swiperDiv = new Swiper('.swiper-container', {
               pagination: '.swiper-pagination',
