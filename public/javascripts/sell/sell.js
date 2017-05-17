@@ -47,9 +47,9 @@ wx.ready(function() {
         swiperDiv = new Swiper('.swiper-container', {
           pagination: '.swiper-pagination',
           paginationClickable: true,
-          autoplay : 2000,
-          autoplayDisableOnInteraction:false,
-          loop:true
+          autoplay: 2000,
+          autoplayDisableOnInteraction: false,
+          loop: true
         });
         getSwiperHeight();
         checkImgBtnStatus();
@@ -58,55 +58,85 @@ wx.ready(function() {
     });
   });
   $("#btnSave").click(function() {
-    if(localIds.length < 0) {
-        notie.alert({type:3,text:"请至少选择一张图片！"});
-        return;
+    if (localIds.length < 0) {
+      notie.alert({
+        type: 3,
+        text: "请至少选择一张图片！"
+      });
+      return;
     }
-    if($("#txtAuthorName").val().trim() == ""){
-      notie.alert({type:3,text:"请输入作者名称！"});
-      return ;
+    if ($("#txtAuthorName").val().trim() == "") {
+      notie.alert({
+        type: 3,
+        text: "请输入作者名称！"
+      });
+      return;
     }
-    if($("#txtImgName").val().trim() == ""){
-      notie.alert({type:3,text:"请输入画名！"});
-      return ;
-    }
-
-    if($("#typeTitle").text().trim() == "" || $("#typeTitle").text() == "选择画种"){
-      notie.alert({type:3,text:"请选择画种！"});
-      return ;
-    }
-
-    if($("#catalogTitle").text().trim() == "" || $("#catalogTitle").text() == "选择题材"){
-      notie.alert({type:3,text:"请选择题材！"});
-      return ;
-    }
-
-    if($("#txtImgWidth").val().trim() == ""){
-      notie.alert({type:3,text:"请输入尺寸！"});
-      return ;
-    }
-
-    if($("#txtImgHeight").val().trim() == ""){
-      notie.alert({type:3,text:"请输入尺寸！"});
-      return ;
-    }
-
-    if($("#txtImgPrice").val().trim() == ""){
-      notie.alert({type:3,text:"请输入底价！"});
-      return ;
-    }
-
-    if($("#datetimepicker1").val().trim() == ""){
-      notie.alert({type:3,text:"请输入拍卖开始时间！"});
+    if ($("#txtImgName").val().trim() == "") {
+      notie.alert({
+        type: 3,
+        text: "请输入画名！"
+      });
       return;
     }
 
-    if($("#datetimepicker2").val().trim() == ""){
-      notie.alert({type:3,text:"请输入拍卖结束时间！"});
+    if ($("#typeTitle").text().trim() == "" || $("#typeTitle").text() == "选择画种") {
+      notie.alert({
+        type: 3,
+        text: "请选择画种！"
+      });
       return;
     }
 
-      syncUpload(localIds);
+    if ($("#catalogTitle").text().trim() == "" || $("#catalogTitle").text() == "选择题材") {
+      notie.alert({
+        type: 3,
+        text: "请选择题材！"
+      });
+      return;
+    }
+
+    if ($("#txtImgWidth").val().trim() == "") {
+      notie.alert({
+        type: 3,
+        text: "请输入尺寸！"
+      });
+      return;
+    }
+
+    if ($("#txtImgHeight").val().trim() == "") {
+      notie.alert({
+        type: 3,
+        text: "请输入尺寸！"
+      });
+      return;
+    }
+
+    if ($("#txtImgPrice").val().trim() == "") {
+      notie.alert({
+        type: 3,
+        text: "请输入底价！"
+      });
+      return;
+    }
+
+    if ($("#datetimepicker1").val().trim() == "") {
+      notie.alert({
+        type: 3,
+        text: "请输入拍卖开始时间！"
+      });
+      return;
+    }
+
+    if ($("#datetimepicker2").val().trim() == "") {
+      notie.alert({
+        type: 3,
+        text: "请输入拍卖结束时间！"
+      });
+      return;
+    }
+
+    syncUpload(localIds);
   });
 
   $("#btnRemoveImg").click(function() {
@@ -121,16 +151,16 @@ wx.ready(function() {
         //说明删除的是最后一张
         isLastIndex = true;
       }
-      localIds.splice(index,1);
+      localIds.splice(index, 1);
       if (swiperDiv != null && swiperDiv != undefined) {
         swiperDiv.destroy(true, true);
       }
       swiperDiv = new Swiper('.swiper-container', {
         pagination: '.swiper-pagination',
         paginationClickable: true,
-        autoplay : 2000,
-        autoplayDisableOnInteraction:false,
-        loop:true,
+        autoplay: 2000,
+        autoplayDisableOnInteraction: false,
+        loop: true,
       });
       getSwiperHeight();
       checkImgBtnStatus();
@@ -183,20 +213,20 @@ wx.ready(function() {
   }
 });
 
-var checkImgBtnStatus = function(){
-  if(localIds.length > 0){
+var checkImgBtnStatus = function() {
+  if (localIds.length > 0) {
     $("#btnRemoveImg").show();
     $("#pDiv").show();
     $("#defaultImgDiv").hide();
-  }else{
+  } else {
     $("#btnRemoveImg").hide();
     $("#pDiv").hide();
     $("#defaultImgDiv").show();
   }
 
-  if(localIds.length >= 9){
+  if (localIds.length >= 9) {
     $("#btnAddImg").hide();
-  }else{
+  } else {
     $("#btnAddImg").show();
   }
 }
