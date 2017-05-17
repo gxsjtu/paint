@@ -3,16 +3,67 @@
   <link rel="stylesheet" href="/stylesheets/sell.css" />
   <link rel="stylesheet" href="/bootstrap-datetime-picker/css/bootstrap-datetimepicker.min.css" />
   <style>
-    .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-xs-1, .col-xs-10, .col-xs-11, .col-xs-12, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9{
-      padding-left:5px;
-      padding-right:5px;
+    .col-lg-1,
+    .col-lg-10,
+    .col-lg-11,
+    .col-lg-12,
+    .col-lg-2,
+    .col-lg-3,
+    .col-lg-4,
+    .col-lg-5,
+    .col-lg-6,
+    .col-lg-7,
+    .col-lg-8,
+    .col-lg-9,
+    .col-md-1,
+    .col-md-10,
+    .col-md-11,
+    .col-md-12,
+    .col-md-2,
+    .col-md-3,
+    .col-md-4,
+    .col-md-5,
+    .col-md-6,
+    .col-md-7,
+    .col-md-8,
+    .col-md-9,
+    .col-sm-1,
+    .col-sm-10,
+    .col-sm-11,
+    .col-sm-12,
+    .col-sm-2,
+    .col-sm-3,
+    .col-sm-4,
+    .col-sm-5,
+    .col-sm-6,
+    .col-sm-7,
+    .col-sm-8,
+    .col-sm-9,
+    .col-xs-1,
+    .col-xs-10,
+    .col-xs-11,
+    .col-xs-12,
+    .col-xs-2,
+    .col-xs-3,
+    .col-xs-4,
+    .col-xs-5,
+    .col-xs-6,
+    .col-xs-7,
+    .col-xs-8,
+    .col-xs-9 {
+      padding-left: 5px;
+      padding-right: 5px;
+    }
+    .input-group-addon{
+      padding-left: 6px;
+      padding-right: 6px;
     }
   </style>
 {{/extend}}
 <div class="swiper-container" style="position:relative">
   <div class="swiper-wrapper">
     <div id="defaultImgDiv" style="width:100%;height:100%;">
-        <img src="/images/addImg.png" style="width:100%;"/>
+      <img src="/images/addImg.png" style="width:100%;" />
     </div>
   </div>
   <!-- Add Pagination -->
@@ -31,7 +82,7 @@
   <div class="row rowDiv">
     <div class="col-xs-12">
       <div class="input-group">
-        <span class="input-group-addon">　作者　</span>
+        <span class="input-group-addon" style="background-color:#337ab7; color:white">　作者　</span>
         <input placeholder="请输入作者名称" class="form-control" type="text" id="txtAuthorName" />
       </div>
     </div>
@@ -39,7 +90,7 @@
   <div class="row rowDiv">
     <div class="col-xs-12">
       <div class="input-group">
-        <span class="input-group-addon">　画名　</span>
+        <span class="input-group-addon" style="background-color:#337ab7; color:white">　画名　</span>
         <input placeholder="请输入画名" class="form-control" type="text" id="txtImgName" />
       </div>
     </div>
@@ -47,7 +98,7 @@
   <div class="row rowDiv">
     <div class="col-xs-12">
       <div class="input-group">
-        <span class="input-group-addon">　画种　</span>
+        <span class="input-group-addon" style="background-color:#337ab7; color:white">　画种　</span>
         <!-- Split button -->
         <div class="dropdown">
           <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="border-radius:0;width:100%;text-align:right;">
@@ -56,7 +107,7 @@
           </button>
           <ul class="dropdown-menu col-xs-12" id="ulType" aria-labelledby="dropdownMenu1" style="min-width:auto;">
             {{#each type}}
-            <li><a href="#">{{this}}</a></li>
+              <li><a href="#">{{this}}</a></li>
             {{/each}}
           </ul>
         </div>
@@ -66,7 +117,7 @@
   <div class="row rowDiv">
     <div class="col-xs-12">
       <div class="input-group">
-        <span class="input-group-addon">　题材　</span>
+        <span class="input-group-addon" style="background-color:#337ab7; color:white">　题材　</span>
         <div class="dropdown">
           <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="border-radius:0;width:100%;text-align:right;">
             <span id="catalogTitle">选择题材</span>
@@ -74,7 +125,7 @@
           </button>
           <ul class="dropdown-menu col-xs-12" id="ulCatalog" aria-labelledby="dropdownMenu2" style="min-width:auto;">
             {{#each catalog}}
-            <li><a href="#">{{this}}</a></li>
+              <li><a href="#">{{this}}</a></li>
             {{/each}}
           </ul>
         </div>
@@ -84,7 +135,7 @@
   <div class="row rowDiv">
     <div class="col-xs-12">
       <div class="input-group">
-        <span class="input-group-addon">　尺寸　</span>
+        <span class="input-group-addon" style="background-color:#337ab7; color:white">　尺寸　</span>
         <input placeholder="宽" class="form-control" type="number" id="txtImgWidth" style="width:35%;float:none;text-align:center;" /> x <input placeholder="高" style="text-align:center;width:35%;border-radius:0;float:none;" class="form-control" type="number"
           id="txtImgHeight" />
         <span style="font-size:0.8em;color:gray;"> (单位:cm)</span>
@@ -94,7 +145,7 @@
   <div class="row" style="margin-top:5px;">
     <div class="col-xs-12">
       <div class="input-group">
-        <span class="input-group-addon">　底价　</span>
+        <span class="input-group-addon" style="background-color:#337ab7; color:white">起拍价格</span>
         <input placeholder="请输入底价" class="form-control" type="number" id="txtImgPrice" />
       </div>
     </div>
@@ -107,24 +158,22 @@
         至<input class="span2 col-xs-4 form-control" id="datetimepicker2" size="16" type="text" placeholder="起始时间" />
       </div> -->
       <div class="input-group">
-        <span class="input-group-addon">拍卖时间</span>
-        <input class="form-control" id="datetimepicker1" type="text" placeholder="起始时间" style="width:47.5%;float:none;text-align:center;padding-left:2px;padding-right:2px;" readonly="readonly" />
-        -
-        <input class="form-control" id="datetimepicker2" type="text" placeholder="结束时间"  style="text-align:center;width:47.5%;border-radius:0;float:none;padding-left:2px;padding-right:2px;" readonly="readonly" />
+        <span class="input-group-addon" style="background-color:#337ab7; color:white">拍卖时间</span>
+        <input class="form-control" id="datetimepicker1" type="text" placeholder="起始时间" style="width:47%;float:none;text-align:center;padding-left:2px;padding-right:2px;" readonly="readonly" /> --<input class="form-control" id="datetimepicker2" type="text" placeholder="结束时间" style="float:right;text-align:center;width:47%;border-radius:0;padding-left:2px;padding-right:2px;" readonly="readonly" />
       </div>
     </div>
   </div>
   <div class="row rowDiv">
     <div class="col-xs-12">
       <div class="input-group">
-        <span class="input-group-addon">　备注　</span>
+        <span class="input-group-addon" style="background-color:#337ab7; color:white">　备注　</span>
         <textarea class="form-control" rows="3"></textarea>
       </div>
     </div>
   </div>
   <div class="row rowDiv">
     <div class="col-xs-12 subBtn">
-      <button id="btnSave" type="button" class="btn btn-primary btn-block btn-lg">提 交</button>
+      <button id="btnSave" type="button" class="btn btn-danger btn-block btn-lg">提 交</button>
     </div>
   </div>
 </div>
@@ -134,8 +183,14 @@
   <script type="text/javascript" src="/bootstrap-datetime-picker/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
   <script type="text/javascript" src="/javascripts/sell/sell.js"></script>
   <script type="text/javascript">
-    $(function(){
-      $("#datetimepicker1,#datetimepicker2").datetimepicker({format: 'yyyy-mm-dd hh:00',autoclose:true,minView:1,todayHighlight:true,language:'zh-CN'});
+    $(function() {
+      $("#datetimepicker1,#datetimepicker2").datetimepicker({
+        format: 'yyyy-mm-dd hh:00',
+        autoclose: true,
+        minView: 1,
+        todayHighlight: true,
+        language: 'zh-CN'
+      });
     })
   </script>
 {{/extend}}

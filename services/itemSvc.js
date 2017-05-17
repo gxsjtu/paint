@@ -50,6 +50,28 @@ ItemSvc.prototype.getBids = function(id) {
   });
 };
 
+ItemSvc.prototype.canBid = function(id, openId) {
+  // 1. 不能连续出价
+  // 2. 出价必须在拍卖时间内
+  return new Promise((resolve, reject) => {
+    Item.findById(id).then(data => {
+      if (!data) {
+        return reject(false);
+      }
+      // 2. 出价必须在拍卖时间内
+      var current = moment();
+      if (current > data.valid.to || current < data.valid.from) {
+        return reject(false);
+      }
+      // 1. 不能连续出价
+      
+      return resolve(true);
+    }).catch(err => {
+      return reject(false);
+    });
+  });
+};
+
 ItemSvc.prototype.save = function(name, author, width, height, comment, type, catalog, price, images) {
   var item = new Item();
   item.images = images;
