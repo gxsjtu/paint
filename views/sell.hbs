@@ -22,7 +22,7 @@
   <div class="row rowDiv">
     <div class="col-xs-12">
       <div class="input-group">
-        <span class="input-group-addon">作者</span>
+        <span class="input-group-addon">　作者　</span>
         <input placeholder="请输入作者名称" class="form-control" type="text" id="txtAuthorName" />
       </div>
     </div>
@@ -30,15 +30,15 @@
   <div class="row rowDiv">
     <div class="col-xs-12">
       <div class="input-group">
-        <span class="input-group-addon">画名</span>
+        <span class="input-group-addon">　画名　</span>
         <input placeholder="请输入画名" class="form-control" type="text" id="txtImgName" />
       </div>
     </div>
   </div>
   <div class="row rowDiv">
-    <div class="col-xs-6">
+    <div class="col-xs-12">
       <div class="input-group">
-        <span class="input-group-addon">画种</span>
+        <span class="input-group-addon">　画种　</span>
         <!-- Split button -->
         <div class="dropdown">
           <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="border-radius:0;width:100%;text-align:right;">
@@ -53,9 +53,11 @@
         </div>
       </div>
     </div>
-    <div class="col-xs-6">
+  </div>
+  <div class="row rowDiv">
+    <div class="col-xs-12">
       <div class="input-group">
-        <span class="input-group-addon">题材</span>
+        <span class="input-group-addon">　题材　</span>
         <div class="dropdown">
           <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="border-radius:0;width:100%;text-align:right;">
             <span id="catalogTitle">选择题材</span>
@@ -73,7 +75,7 @@
   <div class="row rowDiv">
     <div class="col-xs-12">
       <div class="input-group">
-        <span class="input-group-addon">尺寸</span>
+        <span class="input-group-addon">　尺寸　</span>
         <input placeholder="宽" class="form-control" type="number" id="txtImgWidth" style="width:35%;float:none;text-align:center;" /> x <input placeholder="高" style="text-align:center;width:35%;border-radius:0;float:none;" class="form-control" type="number"
           id="txtImgHeight" />
         <span style="font-size:0.8em;color:gray;"> (单位:cm)</span>
@@ -83,15 +85,23 @@
   <div class="row" style="margin-top:5px;">
     <div class="col-xs-12">
       <div class="input-group">
-        <span class="input-group-addon">底价</span>
+        <span class="input-group-addon">　底价　</span>
         <input placeholder="请输入底价" class="form-control" type="number" id="txtImgPrice" />
+      </div>
+    </div>
+  </div>
+  <div class="row" style="margin-top:5px;">
+    <div class="col-xs-12">
+      <div class="input-group">
+        <span class="input-group-addon">拍卖时间</span>
+        <input class="span2 col-xs-12 form-control" id="datetimepicker" size="16" type="text" placeholder="请输入拍卖时间">
       </div>
     </div>
   </div>
   <div class="row rowDiv">
     <div class="col-xs-12">
       <div class="input-group">
-        <span class="input-group-addon">备注</span>
+        <span class="input-group-addon">　备注　</span>
         <!-- <input placeholder="请输入备注" class="form-control" type="text" id="txtDesc" /> -->
         <textarea class="form-control" rows="3"></textarea>
       </div>
@@ -99,12 +109,18 @@
   </div>
   <div class="row rowDiv">
     <div class="col-xs-12 subBtn">
-      <button id="btnSave" type="button" class="btn btn-primary btn-block">提 交</button>
+      <button id="btnSave" type="button" class="btn btn-primary btn-block btn-lg">提 交</button>
     </div>
   </div>
 </div>
 {{#extend "scripts"}}
   <script type="text/javascript" src="/swiper/dist/js/swiper.min.js"></script>
-  <script type="text/javascript" src="/javascripts/sell/sell.js"></script>
   <script type="text/javascript" src="/bootstrap-datetime-picker/js/bootstrap-datetimepicker.min.js"></script>
+  <script type="text/javascript" src="/bootstrap-datetime-picker/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+  <script type="text/javascript" src="/javascripts/sell/sell.js"></script>
+  <script type="text/javascript">
+    $(function(){
+      $("#datetimepicker").datetimepicker({format: 'yyyy-mm-dd hh:00',autoclose:true,minView:1,todayHighlight:true,language:'zh-CN'});
+    })
+  </script>
 {{/extend}}
