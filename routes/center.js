@@ -13,7 +13,7 @@ router.use(Jssdk.jssdk);
 router.get('/', oAuth.oAuth, function(req, res, next) {
   var usrSvc = new UserSvc();
   usrSvc.getProfile(req.session.openId).then(data => {
-    res.render({
+    res.render("center",{
       info: data
     });
   }).catch(err => {
