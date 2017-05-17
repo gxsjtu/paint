@@ -12,15 +12,41 @@ var ItemSvc = function() {
 
 }
 
-ItemSvc.prototype.getType = function () {
+ItemSvc.prototype.getType = function() {
   return new Promise((resolve, reject) => {
     return resolve(["油画", "国画", "水彩", "彩铅"]);
   });
 };
 
-ItemSvc.prototype.getCatalog = function () {
+ItemSvc.prototype.getCatalog = function() {
   return new Promise((resolve, reject) => {
     return resolve(["人物", "山水", "花鸟", "风景", "动物", "历史"]);
+  });
+};
+
+ItemSvc.prototype.getLikes = function(id) {
+  return new Promise((resolve, reject) => {
+    Item.findById(id).then(data => {
+      if (!data || !(data.likes)) {
+        return resolve(0);
+      }
+      return resolve(data.likes.length);
+    }).catch(err => {
+      return reject(err);
+    });
+  });
+};
+
+ItemSvc.prototype.getBids = function(id) {
+  return new Promise((resolve, reject) => {
+    Item.findById(id).then(data => {
+      if (!data || !(data.likes)) {
+        return resolve([]);
+      }
+      return resolve(data.bids);
+    }).catch(err => {
+      return reject(err);
+    });
   });
 };
 
