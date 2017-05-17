@@ -11,6 +11,7 @@ router.use(Jssdk.jssdk);
 
 /* GET home page. */
 router.get('/', oAuth.oAuth, function(req, res, next) {
+//router.get('/',function(req, res, next) {
   var usrSvc = new UserSvc();
   usrSvc.getProfile(req.session.openId).then(data => {
     res.render("center",{
@@ -19,6 +20,7 @@ router.get('/', oAuth.oAuth, function(req, res, next) {
   }).catch(err => {
     res.json(err);
   });
+  //res.render("center");
 });
 
 module.exports = router;

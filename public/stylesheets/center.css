@@ -1,0 +1,45 @@
+.header{
+  position: relative;
+}
+.header img{
+  width: 100%;
+}
+
+.avatar{
+  position: absolute;
+  top: 20%;
+  left: 40%;
+  width: 20%;
+  height: 40%;
+  background: white;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.avatar img{
+  width: 100%;
+}
+.nick{
+  position:absolute;
+  top: 65%;
+  width: 100%;
+  text-align: center;
+  color: white;
+}
+
+.menu{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content:space-around;
+  margin-top: 20px;
+}
+.item{
+  width: 15%;
+}
+.item img{
+  width: 100%;
+}
+.menu-name{
+  margin-top: 5px;
+  text-align: center;
+}

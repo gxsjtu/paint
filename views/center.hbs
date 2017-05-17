@@ -1,15 +1,43 @@
 {{#extend "stylesheets"}}
-<style>
-  .header{
-    background: green;
-    height: 300px;
-  }
-</style>
+<link rel='stylesheet' href="/stylesheets/center.css" />
 {{/extend}}
 <div class="content">
   <div class="header">
-    
+    <img src="/images/center/center-header.png" alt="背景" />
+    <div class="avatar">
+      <img src="{{info.headimgurl}}" alt="头像">
+    </div>
+    <div class="nick">
+      {{info.nickname}}
+    </div>
   </div>
+  <div class="menu">
+    <div class="item">
+      <img src="/images/center/f_01.png" alt="" />
+      <div class="menu-name">
+        我的订单
+      </div>
+    </div>
+    <div class="item">
+      <img src="/images/center/f_02.png" alt="" />
+      <div class="menu-name">
+        我的出价
+      </div>
+    </div>
+    <div class="item">
+      <img src="/images/center/f_03.png" alt="" />
+      <div class="menu-name">
+        我的画廊
+      </div>
+    </div>
+    <div class="item">
+      <img src="/images/center/f_04.png" alt="" />
+      <div class="menu-name">
+        我的资料
+      </div>
+    </div>
+  </div>
+
 </div>
 {{#extend "scripts"}}
 
