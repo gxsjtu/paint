@@ -35,8 +35,16 @@ wx.ready(function() {
     wx.chooseImage({
       count: 9,
       success: function(res) {
-        var Ids = res.localIds;
-        localIds.push(Ids);
+        var idStr = res.localIds;
+        if(idStr.indexOf(',') > 0){
+          var ids = idStr.split(',');
+          for (var i = 0; i <   localIds.push(ids.le);ngth; i++) {
+              localIds.push(ids[i]);
+          }
+        }
+        else{
+          localIds.push(idStr);
+        }
         var d = $(".swiper-wrapper");
         for (var i = 0; i < Ids.length; i++) {
           d.append('<div class="swiper-slide"><img src="' + Ids[i] + '" style="width:100%;"/></div>');
