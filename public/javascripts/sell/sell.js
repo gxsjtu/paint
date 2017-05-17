@@ -4,12 +4,12 @@ var winWidth;
 var localIds = [];
 var serverIds = [];
 $(function() {
-  swiperDiv = new Swiper('.swiper-container', {
-    pagination: '.swiper-pagination',
-    paginationClickable: true,
-    autoplay : 2000,
-    autoplayDisableOnInteraction:false
-  });
+  // swiperDiv = new Swiper('.swiper-container', {
+  //   pagination: '.swiper-pagination',
+  //   paginationClickable: true,
+  //   autoplay : 2000,
+  //   autoplayDisableOnInteraction:false
+  // });
   getSwiperHeight();
   checkImgBtnStatus();
   $("#ulType li").on('click', function() {
@@ -54,7 +54,8 @@ wx.ready(function() {
           pagination: '.swiper-pagination',
           paginationClickable: true,
           autoplay : 2000,
-          autoplayDisableOnInteraction:false
+          autoplayDisableOnInteraction:false,
+          loop:true
         });
         getSwiperHeight();
         checkImgBtnStatus();
@@ -86,7 +87,8 @@ wx.ready(function() {
         pagination: '.swiper-pagination',
         paginationClickable: true,
         autoplay : 2000,
-        autoplayDisableOnInteraction:false
+        autoplayDisableOnInteraction:false,
+        loop:true,
       });
       getSwiperHeight();
       checkImgBtnStatus();
