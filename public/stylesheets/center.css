@@ -14,9 +14,10 @@
   background: white;
   border-radius: 50%;
   overflow: hidden;
+  text-align: center;
 }
 .avatar img{
-  width: 100%;
+  width: 50%;
 }
 .nick{
   position:absolute;
