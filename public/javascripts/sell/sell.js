@@ -4,12 +4,6 @@ var winWidth;
 var localIds = [];
 var serverIds = [];
 $(function() {
-  // swiperDiv = new Swiper('.swiper-container', {
-  //   pagination: '.swiper-pagination',
-  //   paginationClickable: true,
-  //   autoplay : 2000,
-  //   autoplayDisableOnInteraction:false
-  // });
   getSwiperHeight();
   checkImgBtnStatus();
   $("#ulType li").on('click', function() {
@@ -64,7 +58,60 @@ wx.ready(function() {
     });
   });
   $("#btnSave").click(function() {
-    syncUpload(localIds);
+    if(localIds.length < 0) {
+        alert("请至少选择一张图片！");
+        return;
+    }
+    if($("#txtAuthorName").val().trim() == ""){
+      alert("请输入作者名称！");
+      return ;
+    }
+    if($("#txtImgName").val().trim() == ""){
+      alert("请输入画名！");
+      return ;
+    }
+
+    if($("#typeTitle").text().trim() == "" || $("#typeTitle").text() == "选择画种"){
+      alert("请选择画种！");
+      return ;
+    }
+
+    if($("#catalogTitle").text().trim() == "" || $("#catalogTitle").text() == "选择题材"){
+      alert("请选择题材！");
+      return ;
+    }
+
+    if($("#txtImgWidth").val().trim() == ""){
+      alert("请输入尺寸！");
+      return ;
+    }
+
+    if($("#txtImgHeight").val().trim() == ""){
+      alert("请输入尺寸！");
+      return ;
+    }
+
+    if($("#txtImgPrice").val().trim() == ""){
+      alert("请输入底价！");
+      return ;
+    }
+
+    if($("#txtImgHeight").val().trim() == ""){
+      alert("请输入尺寸！");
+      return ;
+    }
+
+    if($("#datetimepicker1").val().trim() == ""){
+      alert("请输入拍卖开始时间！");
+      return;
+    }
+
+    if($("#datetimepicker2").val().trim() == ""){
+      alert("请输入拍卖结束时间！");
+      return;
+    }
+
+      syncUpload(localIds);
   });
 
   $("#btnRemoveImg").click(function() {
@@ -120,12 +167,14 @@ wx.ready(function() {
               name: $("#txtImgName").val(),
               author: $("#txtAuthorName").val(),
               width: $("#txtImgWidth").val(),
-              height: $("#txtImgWidth").val(),
+              height: $("#txtImgHeight").val(),
               comment: $("#txtDesc").val(),
               type: $("#typeTitle").text(),
               price: $("#txtImgPrice").val(),
               images: serverIds,
-              catalog: $("#catalogTitle").text()
+              catalog: $("#catalogTitle").text(),
+              auctionStartDate: $("#datetimepicker1").val(),
+              auctionEndDate: $("#datetimepicker2").val()
             },
             success: function(data) {},
             error: function(req, status, err) {},
