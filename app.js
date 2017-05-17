@@ -8,6 +8,7 @@ const db = require('./services/db.js');
 var index = require('./routes/index');
 var sell = require('./routes/sell.js');
 var center = require('./routes/center.js');
+var item = require('./routes/item.js');
 const helmet = require('helmet');
 var hbs = require('hbs');
 const session = require('express-session')
@@ -58,6 +59,7 @@ hbs.registerHelper('block', function(name) {
 app.use('/', index);
 app.use('/sell', sell);
 app.use('/center', center);
+app.use('/item', item);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
