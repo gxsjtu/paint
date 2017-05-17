@@ -39,10 +39,11 @@
 
 .item {
   width: 15%;
+  text-align: center;
 }
 
 .item img {
-  width: 100%;
+  width: 50%;
 }
 
 .menu-name {
