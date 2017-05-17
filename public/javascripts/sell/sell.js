@@ -140,8 +140,12 @@ wx.ready(function() {
 var checkImgBtnStatus = function(){
   if(localIds.length > 0){
     $("#btnRemoveImg").show();
+    $("#pDiv").show();
+    $("#defaultImgDiv").hide();
   }else{
     $("#btnRemoveImg").hide();
+    $("#pDiv").hide();
+    $("#defaultImgDiv").show();
   }
 
   if(localIds.length >= 9){
