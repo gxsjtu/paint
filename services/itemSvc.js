@@ -88,7 +88,7 @@ ItemSvc.prototype.canBid = function(id, openId) {
   });
 };
 
-ItemSvc.prototype.save = function(name, author, width, height, comment, type, catalog, price, images) {
+ItemSvc.prototype.save = function(name, author, width, height, comment, type, catalog, price, images, from, to) {
   var item = new Item();
   item.images = images;
   item.name = name;
@@ -101,6 +101,10 @@ ItemSvc.prototype.save = function(name, author, width, height, comment, type, ca
     height: height,
     width: width
   };
+  item.valid = {
+    from: from,
+    to: to
+  }
   return new Promise((resolve, reject) => {
     item.save(err => {
       if (err) {

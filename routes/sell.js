@@ -31,8 +31,10 @@ router.post('/saveItem', function(req, res, next) {
   var price = req.body.price;
   var width = req.body.width;
   var height = req.body.height;
+  var from = req.body.auctionStartDate;
+  var to = req.body.auctionEndDate;
 
-  itemSvc.save(name, author, width, height, comment, type, catalog, price, images).then(data => {
+  itemSvc.save(name, author, width, height, comment, type, catalog, price, images, from, to).then(data => {
     res.json(new Result(Errors.Success));
   }).catch(err => {
     res.json(new Result(Errors.SaveItemFailed, err));
