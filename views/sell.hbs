@@ -231,7 +231,7 @@
           localId: localId.toString(),
           success: function(res) {
             var serverId = res.serverId;
-            serverIds.push(serverId);
+            serverIds.push(serverId.toString());
             if (localIds.length > 0) {
               syncUpload(localIds);
             } else {
