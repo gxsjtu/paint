@@ -10,7 +10,7 @@ const oAuth = require('../services/oAuth.js');
 router.use(Jssdk.jssdk);
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', oAuth.oAuth, function(req, res, next) {
   res.render('sell', {
     title: "Express",
     jssdk: req.jssdk
