@@ -8,13 +8,17 @@ const Errors = require('../services/error.js');
 const oAuth = require('../services/oAuth.js');
 
 router.use(Jssdk.jssdk);
+var itemSvc = new ItemSvc();
 
 /* GET home page. */
 router.get('/', oAuth.oAuth, function(req, res, next) {
-  res.render('sell', {
-    title: "Express",
-    jssdk: req.jssdk
-  });
+  Promise.all([itemSvc.getType(), itemSvc.getCatalog()]).then(data => {
+    res.render("sell", {
+      jssdk: req.jssdk,
+      type: data[0],
+      catalog: data[1],
+    });
+  }).catch(err => console.log(err));
 });
 
 router.post('/saveItem', function(req, res, next) {
@@ -27,7 +31,7 @@ router.post('/saveItem', function(req, res, next) {
   var price = req.body.price;
   var width = req.body.width;
   var height = req.body.height;
-  var itemSvc = new ItemSvc();
+
   itemSvc.save(name, author, width, height, comment, type, catalog, price, images).then(data => {
     res.json(new Result(Errors.Success));
   }).catch(err => {

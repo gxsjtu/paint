@@ -12,6 +12,18 @@ var ItemSvc = function() {
 
 }
 
+ItemSvc.prototype.getType = function () {
+  return new Promise((resolve, reject) => {
+    return resolve(["油画", "国画", "水彩", "彩铅"]);
+  });
+};
+
+ItemSvc.prototype.getCatalog = function () {
+  return new Promise((resolve, reject) => {
+    return resolve(["人物", "山水", "花鸟", "风景", "动物", "历史"]);
+  });
+};
+
 ItemSvc.prototype.save = function(name, author, width, height, comment, type, catalog, price, images) {
   var item = new Item();
   item.images = images;
