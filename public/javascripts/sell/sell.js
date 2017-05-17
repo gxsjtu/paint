@@ -78,7 +78,7 @@ wx.ready(function() {
         //说明删除的是最后一张
         isLastIndex = true;
       }
-
+      localIds.splice(index,1);
       if (swiperDiv != null && swiperDiv != undefined) {
         swiperDiv.destroy(true, true);
       }
