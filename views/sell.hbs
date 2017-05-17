@@ -227,7 +227,7 @@
       var syncUpload = function(localIds) {
         var localId = localIds.pop();
         wx.uploadImage({
-          localId: localId,
+          localId: localId.toString(),
           success: function(res) {
             var serverId = res.serverId;
             serverIds.push(serverId);
@@ -235,7 +235,7 @@
               syncUpload(localIds);
             } else {
               $.ajax({
-                url: '/saleDetail/saveItem',
+                url: '/sell/saveItem',
                 type: 'POST',
                 data: {
                   name: $("#txtImgName").val(),
