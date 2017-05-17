@@ -59,50 +59,50 @@ wx.ready(function() {
   });
   $("#btnSave").click(function() {
     if(localIds.length < 0) {
-        notie.alert(3,"请至少选择一张图片！",2);
+        notie.alert({type:3,text:"请至少选择一张图片！"});
         return;
     }
     if($("#txtAuthorName").val().trim() == ""){
-      notie.alert(3,"请输入作者名称！",2);
+      notie.alert({type:3,text:"请输入作者名称！"});
       return ;
     }
     if($("#txtImgName").val().trim() == ""){
-      notie.alert(3,"请输入画名！",2);
+      notie.alert({type:3,text:"请输入画名！"});
       return ;
     }
 
     if($("#typeTitle").text().trim() == "" || $("#typeTitle").text() == "选择画种"){
-      notie.alert(3,"请选择画种！",2);
+      notie.alert({type:3,text:"请选择画种！"});
       return ;
     }
 
     if($("#catalogTitle").text().trim() == "" || $("#catalogTitle").text() == "选择题材"){
-      notie.alert(3,"请选择题材！",2);
+      notie.alert({type:3,text:"请选择题材！"});
       return ;
     }
 
     if($("#txtImgWidth").val().trim() == ""){
-      notie.alert(3,"请输入尺寸！",2);
+      notie.alert({type:3,text:"请输入尺寸！"});
       return ;
     }
 
     if($("#txtImgHeight").val().trim() == ""){
-      notie.alert(3,"请输入尺寸！",2);
+      notie.alert({type:3,text:"请输入尺寸！"});
       return ;
     }
 
     if($("#txtImgPrice").val().trim() == ""){
-      notie.alert(3,"请输入底价！",2);
+      notie.alert({type:3,text:"请输入底价！"});
       return ;
     }
 
     if($("#datetimepicker1").val().trim() == ""){
-      notie.alert(3,"请输入拍卖开始时间！",2);
+      notie.alert({type:3,text:"请输入拍卖开始时间！"});
       return;
     }
 
     if($("#datetimepicker2").val().trim() == ""){
-      notie.alert(3,"请输入拍卖结束时间！",2);
+      notie.alert({type:3,text:"请输入拍卖结束时间！"});
       return;
     }
 
