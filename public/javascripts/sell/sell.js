@@ -5,7 +5,8 @@ $(function() {
   swiperDiv = new Swiper('.swiper-container', {
     pagination: '.swiper-pagination',
     paginationClickable: true,
-    spaceBetween: 30,
+    autoplay : 2000,
+    autoplayDisableOnInteraction:false
   });
   getSwiperHeight();
 
@@ -51,7 +52,8 @@ wx.ready(function() {
         swiperDiv = new Swiper('.swiper-container', {
           pagination: '.swiper-pagination',
           paginationClickable: true,
-          spaceBetween: 30,
+          autoplay : 2000,
+          autoplayDisableOnInteraction:false
         });
         getSwiperHeight();
         swiperDiv.slideTo(localIds.length - 1);
@@ -81,7 +83,8 @@ wx.ready(function() {
       swiperDiv = new Swiper('.swiper-container', {
         pagination: '.swiper-pagination',
         paginationClickable: true,
-        spaceBetween: 30,
+        autoplay : 2000,
+        autoplayDisableOnInteraction:false
       });
       getSwiperHeight();
       if (isLastIndex) {
