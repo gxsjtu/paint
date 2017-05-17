@@ -3,22 +3,47 @@ var Result = require('./result.js');
 const Promise = require('promise');
 var Item = require('../models/item.js');
 const _ = require('lodash');
+const Global = require('../global.js');
+var WechatAPI = require('wechat-api');
+var api = new WechatAPI(Global.appId, Global.appSecret);
+const fs = require('fs');
 
-
-var ItemSvc = function(){
+var ItemSvc = function() {
 
 }
 
-ItemSvc.prototype.save = function (name, author, width, height, comment, type, catalog, price, images) {
+ItemSvc.prototype.save = function(name, author, width, height, comment, type, catalog, price, images) {
   var item = new Item();
   item.images = images;
+  item.name = name;
+  item.author = author;
+  item.catalog = catalog;
+  item.comment = comment;
+  item.type = type;
+  item.price = price;
+  item.dimension = {
+    height: height,
+    width: width
+  };
   return new Promise((resolve, reject) => {
-      item.save(err => {
-        if(err){
-          return reject(err);
-        }
-        return resolve();
+    item.save(err => {
+      if (err) {
+        return reject(err);
+      }
+      //从微信服务器下载图片
+      _.forEach(item.images, x => {
+        api.getMedia(x, (err, data) => {
+          if (!err) {
+            fs.writeFile(__dirname + "/.." + "/public/images/upload/" + x, data, 'binary', function(err) {
+              if (err) {
+                console.log(err);
+              }
+            });
+          }
+        });
       });
+      return resolve();
+    });
   });
 };
 

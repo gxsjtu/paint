@@ -27,8 +27,8 @@ router.post('/saveItem', function(req, res, next) {
   var price = req.body.price;
   var width = req.body.width;
   var height = req.body.height;
-  var itemSvc = new ItemSvc(name, author, width, height, comment, type, catalog, price, images);
-  itemSvc.save().then(data => {
+  var itemSvc = new ItemSvc();
+  itemSvc.save(name, author, width, height, comment, type, catalog, price, images).then(data => {
     res.json(new Result(Errors.Success));
   }).catch(err => {
     res.json(new Result(Errors.SaveItemFailed, err));
