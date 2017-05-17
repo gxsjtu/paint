@@ -36,15 +36,14 @@ wx.ready(function() {
       count: 9,
       success: function(res) {
         var d = $(".swiper-wrapper");
-        var idStr = res.localIds;
-        if(idStr.indexOf(',') > 0){
+        var idStr = res.localIds.toString();
+        if (idStr.indexOf(',') > 0) {
           var ids = idStr.split(',');
           for (var i = 0; i < ids.length; i++) {
-              localIds.push(ids[i]);
-              d.append('<div class="swiper-slide"><img src="' + ids[i] + '" style="width:100%;"/></div>');
+            localIds.push(ids[i]);
+            d.append('<div class="swiper-slide"><img src="' + ids[i] + '" style="width:100%;"/></div>');
           }
-        }
-        else{
+        } else {
           localIds.push(idStr);
           d.append('<div class="swiper-slide"><img src="' + idStr + '" style="width:100%;"/></div>');
         }
@@ -107,8 +106,8 @@ wx.ready(function() {
           $.ajax({
             url: '/sell/saveItem',
             type: 'POST',
-            traditional:true,
-            dataType:"json",
+            traditional: true,
+            dataType: "json",
             data: {
               name: $("#txtImgName").val(),
               author: $("#txtAuthorName").val(),
