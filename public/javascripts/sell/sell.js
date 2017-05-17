@@ -35,20 +35,20 @@ wx.ready(function() {
     wx.chooseImage({
       count: 9,
       success: function(res) {
+        var d = $(".swiper-wrapper");
         var idStr = res.localIds;
         if(idStr.indexOf(',') > 0){
           var ids = idStr.split(',');
-          for (var i = 0; i < localIds.length; i++) {
+          for (var i = 0; i < ids.length; i++) {
               localIds.push(ids[i]);
+              d.append('<div class="swiper-slide"><img src="' + ids[i] + '" style="width:100%;"/></div>');
           }
         }
         else{
           localIds.push(idStr);
+          d.append('<div class="swiper-slide"><img src="' + idStr + '" style="width:100%;"/></div>');
         }
-        var d = $(".swiper-wrapper");
-        for (var i = 0; i < Ids.length; i++) {
-          d.append('<div class="swiper-slide"><img src="' + Ids[i] + '" style="width:100%;"/></div>');
-        }
+
         swiperDiv = new Swiper('.swiper-container', {
           pagination: '.swiper-pagination',
           paginationClickable: true,
