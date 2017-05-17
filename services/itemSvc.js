@@ -75,9 +75,12 @@ ItemSvc.prototype.canBid = function(id, openId) {
       }
       // 1. 不能连续出价
       //获取最后一个出价人的openid
-      _.orderBy(data.bids, x => {
-
-      });
+      var tmp = _.orderBy(data.bids, ["created_at"], ['desc']);
+      console.log(tmp);
+      console.log(_.head(tmp).openId);
+      if (_.head(tmp).openId === openId) {
+        return resolve(false);
+      }
       return resolve(true);
     }).catch(err => {
       return reject(false);
