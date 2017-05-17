@@ -14,10 +14,9 @@
   background: white;
   border-radius: 50%;
   overflow: hidden;
-  text-align: center;
 }
 .avatar img{
-  width: 50%;
+  width: 100%;
 }
 .nick{
   position:absolute;
@@ -36,9 +35,10 @@
 }
 .item{
   width: 15%;
+  text-align: center;
 }
 .item img{
-  width: 100%;
+  width: 50%;
 }
 .menu-name{
   margin-top: 5px;
