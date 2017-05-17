@@ -38,7 +38,7 @@ wx.ready(function() {
         var idStr = res.localIds;
         if(idStr.indexOf(',') > 0){
           var ids = idStr.split(',');
-          for (var i = 0; i <   localIds.push(ids.le);ngth; i++) {
+          for (var i = 0; i < localIds.length; i++) {
               localIds.push(ids[i]);
           }
         }
