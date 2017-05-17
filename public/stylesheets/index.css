@@ -41,9 +41,9 @@ body {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content:space-between;
-  padding-left: 20px;
-  padding-right: 20px;
+  justify-content:space-around;
+  /*padding-left: 20px;
+  padding-right: 20px;*/
 }
 .menu .item{
   width: 24%;
