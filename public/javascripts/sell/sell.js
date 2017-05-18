@@ -6,6 +6,13 @@ var serverIds = [];
 $(function() {
   getSwiperHeight();
   checkImgBtnStatus();
+  $("#datetimepicker1,#datetimepicker2").datetimepicker({
+    format: 'yyyy-mm-dd hh:00',
+    autoclose: true,
+    minView: 1,
+    todayHighlight: true,
+    language: 'zh-CN'
+  });
   $("#ulType li").on('click', function() {
     // alert($("#typeTitle").text());
     $("#typeTitle").text($(this).text());
@@ -15,6 +22,42 @@ $(function() {
     // alert($("#typeTitle").text());
     $("#catalogTitle").text($(this).text());
   })
+
+  $(".select").on("click",function(){
+    // debugger;
+    var items = $(this).find(".box-items");
+    if(items.hasClass("type"))
+    {
+      if(items.is(":hidden")){
+        $(".box-items").hide();
+        items.show();
+      }
+      else{
+        items.hide();
+      }
+    }
+    else if(items.hasClass("catalog")){
+      if(items.is(":hidden")){
+        $(".box-items").hide();
+        items.show();
+      }
+      else{
+        items.hide();
+      }
+    }
+
+    return false;
+  });
+
+  $(".box-items li").on("click",function(){
+    var v = $(this).text();
+    $(this).parent().parent().find(".my-select-name").text(v);
+  });
+
+  $("body").on("click",function(){
+    $(".box-items").hide();
+  });
+
 });
 var getSwiperHeight = function() {
   if (window.innerWidth) {
@@ -58,6 +101,7 @@ wx.ready(function() {
     });
   });
   $("#btnSave").click(function() {
+    debugger;
     if (localIds.length < 0) {
       notie.alert({
         type: 3,
@@ -135,7 +179,7 @@ wx.ready(function() {
       });
       return;
     }
-
+    $(this).attr("disabled","disabled");
     syncUpload(localIds);
   });
 
@@ -169,7 +213,6 @@ wx.ready(function() {
       } else {
         swiperDiv.slideTo(index, 0);
       }
-
     }
   })
 
@@ -204,6 +247,7 @@ wx.ready(function() {
             success: function(data) {},
             error: function(req, status, err) {},
             complete: function(res, status) {
+              $("#btnSave").removeAttr("disabled");
               console.log(res);
             }
           })

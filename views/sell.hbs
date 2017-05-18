@@ -2,12 +2,7 @@
   <link rel='stylesheet' href="/swiper/dist/css/swiper.min.css" />
   <link rel="stylesheet" href="/stylesheets/sell.css" />
   <link rel="stylesheet" href="/bootstrap-datetime-picker/css/bootstrap-datetimepicker.min.css" />
-  <style>
-    .input-group-addon {
-      padding-left: 6px;
-      padding-right: 6px;
-    }
-  </style>
+
 {{/extend}}
 <div class="swiper-container" style="position:relative">
   <div class="swiper-wrapper">
@@ -24,124 +19,131 @@
     <button id="btnAddImg" type="button" class="btn btn-info btn-circle btn-lg"><i class="fa fa-plus" aria-hidden="true"></i></button>
   </div>
 </div>
-<!-- <button id="btnSelectImg">选择图片</button> -->
-<!-- <div style="background:#fff;margin-top:2em;"> -->
 <div class="split"></div>
-<div class="container-fluid containerDiv">
-  <div class="row rowDiv">
-    <div class="col-xs-12">
-      <div class="input-group">
-        <span class="input-group-addon" style="background-color:#337ab7; color:white">　作者　</span>
-        <input placeholder="请输入作者名称" class="form-control" type="text" id="txtAuthorName" />
-      </div>
-    </div>
+<div class="my-box">
+  <div class="box-name">
+    作者
   </div>
-  <div class="row rowDiv">
-    <div class="col-xs-12">
-      <div class="input-group">
-        <span class="input-group-addon" style="background-color:#337ab7; color:white">　画名　</span>
-        <input placeholder="请输入画名" class="form-control" type="text" id="txtImgName" />
-      </div>
-    </div>
-  </div>
-  <div class="row rowDiv">
-    <div class="col-xs-12">
-      <div class="input-group">
-        <span class="input-group-addon" style="background-color:#337ab7; color:white">　画种　</span>
-        <!-- Split button -->
-        <div class="dropdown">
-          <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="border-radius:0;width:100%;text-align:right;">
-            <span id="typeTitle">选择画种</span>
-            <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu col-xs-12" id="ulType" aria-labelledby="dropdownMenu1" style="min-width:auto;">
-            {{#each type}}
-              <li><a href="#">{{this}}</a></li>
-            {{/each}}
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="row rowDiv">
-    <div class="col-xs-12">
-      <div class="input-group">
-        <span class="input-group-addon" style="background-color:#337ab7; color:white">　题材　</span>
-        <div class="dropdown">
-          <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="border-radius:0;width:100%;text-align:right;">
-            <span id="catalogTitle">选择题材</span>
-            <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu col-xs-12" id="ulCatalog" aria-labelledby="dropdownMenu2" style="min-width:auto;">
-            {{#each catalog}}
-              <li><a href="#">{{this}}</a></li>
-            {{/each}}
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="row rowDiv">
-    <div class="col-xs-12">
-      <div class="input-group">
-        <span class="input-group-addon" style="background-color:#337ab7; color:white">　尺寸　</span>
-        <input placeholder="宽" class="form-control" type="number" id="txtImgWidth" style="width:35%;float:none;text-align:center;" /> x <input placeholder="高" style="text-align:center;width:35%;border-radius:0;float:none;" class="form-control" type="number"
-          id="txtImgHeight" />
-        <span style="font-size:0.8em;color:gray;"> (单位:cm)</span>
-      </div>
-    </div>
-  </div>
-  <div class="row rowDiv">
-    <div class="col-xs-12">
-      <div class="input-group">
-        <span class="input-group-addon" style="background-color:#337ab7; color:white">起拍价格</span>
-        <input placeholder="请输入底价" class="form-control" type="number" id="txtImgPrice" style="width:80%;float:none;" />
-        <span style="font-size:0.8em;color:gray;"> (单位:元)</span>
-      </div>
-    </div>
-  </div>
-  <div class="row" style="margin-top:5px;">
-    <div class="col-xs-12">
-      <!-- <div class="input-group">
-        <span class="input-group-addon">拍卖时间</span>
-        <input class="span2 col-xs-4 form-control" id="datetimepicker1" size="16" type="text" placeholder="起始时间" />
-        至<input class="span2 col-xs-4 form-control" id="datetimepicker2" size="16" type="text" placeholder="起始时间" />
-      </div> -->
-      <div class="input-group">
-        <span class="input-group-addon" style="background-color:#337ab7; color:white">拍卖时间</span>
-        <input class="form-control" id="datetimepicker1" type="text" placeholder="起始时间" style="width:47%;float:none;text-align:center;padding-left:2px;padding-right:2px;" readonly="readonly" /> --<input class="form-control" id="datetimepicker2" type="text"
-          placeholder="结束时间" style="float:right;text-align:center;width:47%;border-radius:0;padding-left:2px;padding-right:2px;" readonly="readonly" />
-      </div>
-    </div>
-  </div>
-  <div class="row rowDiv">
-    <div class="col-xs-12">
-      <div class="input-group">
-        <span class="input-group-addon" style="background-color:#337ab7; color:white">　备注　</span>
-        <textarea class="form-control" rows="3"></textarea>
-      </div>
-    </div>
-  </div>
-  <div class="row rowDiv">
-    <div class="col-xs-12 subBtn">
-      <button id="btnSave" type="button" class="btn btn-danger btn-block btn-lg">提 交</button>
-    </div>
+  <div class="box-split"></div>
+  <div class="box-element">
+    <input type="text" value="" placeholder="请输入作者名称" id="txtAuthorName" />
   </div>
 </div>
+
+<div class="my-box">
+  <div class="box-name">
+    作品
+  </div>
+  <div class="box-split"></div>
+  <div class="box-element">
+    <input type="text" value="" placeholder="请输入作品名称" id="txtImgName" />
+  </div>
+</div>
+
+<div class="my-box select">
+  <div class="box-name">
+    画种
+  </div>
+  <div class="box-split"></div>
+  <div class="box-element">
+    <div class="my-select-container">
+      <div class="my-select-name" id="typeTitle">
+        请选择
+      </div>
+      <div class="my-select-arrow">
+        <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+      </div>
+    </div>
+  </div>
+  <ul class="box-items type">
+    {{#each type}}
+      <li>{{this}}</li>
+    {{/each}}
+  </ul>
+</div>
+
+<div class="my-box select">
+  <div class="box-name">
+    题材
+  </div>
+  <div class="box-split"></div>
+  <div class="box-element">
+    <div class="my-select-container">
+      <div class="my-select-name" id="catalogTitle">
+        请选择
+      </div>
+      <div class="my-select-arrow">
+        <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+      </div>
+    </div>
+  </div>
+  <ul class="box-items catalog">
+    {{#each catalog}}
+      <li>{{this}}</li>
+    {{/each}}
+  </ul>
+</div>
+
+<div style="display:flex;width:90%;height:40px;margin:10px auto 0;">
+  <div class="small-box">
+    <div class="box-name" style="width:29%;">
+      尺寸
+    </div>
+    <div class="box-split" style="width:calc((29%-2em)/4);"></div>
+    <div class="box-element" style="width:60%;">
+      <input type="text" value="" placeholder="宽 ( 单位 : cm )" id="txtImgWidth"/>
+    </div>
+  </div>
+  <div style="height:40px;line-height:40px;width:5%;text-align:center;color:#a5a5a5;">
+    X
+  </div>
+  <div class="small-box" style="width:40%;">
+    <input type="text" value="" placeholder="高 ( 单位 : cm )" style="width:100%;outline:none;margin-left:calc((38%-2em)/4);" id="txtImgHeight"/>
+  </div>
+</div>
+<div class="my-box">
+  <div class="box-name" style="font-size:smaller">
+    起拍价格
+  </div>
+  <div class="box-split"></div>
+  <div class="box-element">
+    <input type="text" value="" placeholder="请输入底价 ( 元 )" id="txtImgPrice" />
+  </div>
+</div>
+<div style="display:flex;width:90%;height:40px;margin:10px auto 0;">
+  <div class="small-box">
+    <div class="box-name" style="width:29%;font-size:smaller">
+      拍卖时间
+    </div>
+    <div class="box-split" style="width:calc((29%-2em)/4);"></div>
+    <div class="box-element" style="width:60%;">
+      <input id="datetimepicker1" type="text" placeholder="起始时间" readonly="readonly" style="font-size:smaller;"/>
+    </div>
+  </div>
+  <div style="height:40px;line-height:40px;width:5%;text-align:center;color:#a5a5a5;">
+    -
+  </div>
+  <div class="small-box" style="width:40%;">
+    <input id="datetimepicker2" type="text" placeholder="结束时间" readonly="readonly" style="font-size:smaller;outline:none;margin-left:calc((38%-2em)/4);width:100%;"/>
+  </div>
+</div>
+
+<div class="my-box" style="height:60px;">
+  <div class="box-name">
+    备注
+  </div>
+  <div class="box-split" style="height:40px;"></div>
+  <div class="box-element">
+    <textarea placeholder="说点什么吧"  style="width:100%;outline:none;"></textarea>
+  </div>
+</div>
+<div style="width:90%;margin:10px auto 0;">
+  <button id="btnSave" type="button" class="btn btn-block" style="background-color:#f9f9f9;border-color: #a5a5a5;outline:none;">提 交</button>
+</div>
+
 {{#extend "scripts"}}
   <script type="text/javascript" src="/swiper/dist/js/swiper.min.js"></script>
   <script type="text/javascript" src="/bootstrap-datetime-picker/js/bootstrap-datetimepicker.min.js"></script>
   <script type="text/javascript" src="/bootstrap-datetime-picker/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
   <script type="text/javascript" src="/javascripts/sell/sell.js"></script>
-  <script type="text/javascript">
-    $(function() {
-      $("#datetimepicker1,#datetimepicker2").datetimepicker({
-        format: 'yyyy-mm-dd hh:00',
-        autoclose: true,
-        minView: 1,
-        todayHighlight: true,
-        language: 'zh-CN'
-      });
-    })
-  </script>
 {{/extend}}
