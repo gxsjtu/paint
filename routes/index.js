@@ -27,6 +27,10 @@ router.get('/openId', function(req, res, next) {
   var code = req.query.code;
   var state = req.query.state;
   oAuth.client.getAccessToken(code, function(err, result) {
+    if (err) {
+      console.log(err);
+      oAuth.oAuth(req, res, next);
+    }
     req.session.openId = result.data.openid;
     res.redirect(state);
   });

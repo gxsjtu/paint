@@ -34,10 +34,10 @@ IndexSvc.prototype.getSwipers = function() {
 IndexSvc.prototype.getTodayItems = function() {
   return new Promise((resolve, reject) => {
     Item.where({
-      create_at: {
-        $gt: moment().format('YYYY-MM-DD'),
-        $lt: moment().add(1, "days").format('YYYY-MM-DD')
-      }
+      // create_at: {
+      //   $gt: moment().format('YYYY-MM-DD'),
+      //   $lt: moment().add(1, "days").format('YYYY-MM-DD')
+      // }
     }).sort({
       create_at: -1
     }).limit(6).exec((err, data) => {
