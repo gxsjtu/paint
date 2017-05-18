@@ -61,13 +61,13 @@ $(function() {
 
 });
 var getSwiperHeight = function() {
-  if (window.innerWidth) {
-    winWidth = window.innerWidth;
-  } else if ((document.body) && (document.body.clientWidth)) {
-    winWidth = document.body.clientWidth;
-  }
-  imgHeight = (winWidth / 2);
-  $(".swiper-container").height(imgHeight);
+  // if (window.innerWidth) {
+  //   winWidth = window.innerWidth;
+  // } else if ((document.body) && (document.body.clientWidth)) {
+  //   winWidth = document.body.clientWidth;
+  // }
+  // imgHeight = (winWidth / 2);
+  // $(".swiper-container").height(imgHeight);
 }
 wx.ready(function() {
 
