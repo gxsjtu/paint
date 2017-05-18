@@ -48,7 +48,7 @@ var getSwiperHeight = function() {
   // $(".swiper-container").height(imgHeight);
 }
 wx.ready(function() {
-
+  alert('ready');
   $("#btnAddImg").click(function() {
     wx.chooseImage({
       count: 9,
