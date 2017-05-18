@@ -1,0 +1,49 @@
+{{#extend "stylesheets"}}
+  <link rel='stylesheet' href="/swiper/dist/css/swiper.min.css" />
+  <style>
+  .swiper-container {
+   width: 100%;
+   height: 50vw;
+ }
+  </style>
+{{/extend}}
+
+<div class="swiper-container">
+  <div class="swiper-wrapper">
+    {{#each item.images}}
+      <div class="swiper-slide">
+        <img src="/images/upload/{{this}}" alt="" style="width:100%;"/>
+      </div>
+    {{/each}}
+  </div>
+  <div class="swiper-pagination"></div>
+</div>
+{{#extend "scripts"}}
+  <script type="text/javascript" src="/swiper/dist/js/swiper.min.js"></script>
+  <script type="text/javascript">
+  var images = [];
+      {{#each item.images}}
+      images.push("http://painting.shtx.com.cn/images/upload/{{this}}");
+      {{/each}}
+    $(function(){
+      var swiper = new Swiper('.swiper-container', {
+         autoplay : 2000,
+         autoplayDisableOnInteraction:false,
+         loop:true,
+         pagination: '.swiper-pagination',
+         paginationClickable: true
+      });
+
+      $(".swiper-container img").on("click",function(){
+        if(wx.previewImage){
+          var curr = "http://painting.shtx.com.cn"+$(this).attr("src");
+          wx.previewImage({
+              current: curr, // 当前显示图片的http链接
+              urls: images // 需要预览的图片http链接列表
+          });
+        }
+      });
+    })
+
+  </script>
+{{/extend}}
