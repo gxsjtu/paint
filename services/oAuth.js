@@ -18,9 +18,9 @@ var client = new OAuth(Global.appId, Global.appSecret, function(openid, callback
 
 module.exports.oAuth = function(req, res, next) {
   if (!req.session.openId) {
-    var u = client.getAuthorizeURL("http://painting.shtx.com.cn/openId", req.originalUrl, 'snsapi_base');
+    var u = client.getAuthorizeURL(Global.server + "/openId", req.originalUrl, 'snsapi_base');
     res.redirect(u);
-  }else{
+  } else {
     next();
   }
 }

@@ -6,8 +6,7 @@
 
 var app = require('../app');
 var debug = require('debug')('paint:server');
-// var https = require('https');
-var http = require('http');
+var https = require('https');
 const fs = require('fs');
 
 /**
@@ -21,12 +20,10 @@ app.set('port', port);
  * Create HTTP server.
  */
 
-// var server = https.createServer({
-//     key: fs.readFileSync('key.pem'),
-//     cert: fs.readFileSync('cert.crt')
-// }, app);
-
-var server = http.createServer(app);
+var server = https.createServer({
+    key: fs.readFileSync('key.pem'),
+    cert: fs.readFileSync('cert.crt')
+}, app);
 
 /**
  * Listen on provided port, on all network interfaces.
