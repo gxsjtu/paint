@@ -17,7 +17,7 @@ IndexSvc.prototype.getSwipers = function() {
     var path = __dirname + '/..' + '/public/images/swiper/index';
     fs.readdir(path, (err, files) => {
       if (err) {
-        reject(err);
+        return reject(err);
       } else {
         var res = [];
         _.forEach(files.filter(junk.not), x => {
@@ -25,7 +25,7 @@ IndexSvc.prototype.getSwipers = function() {
             Global.server + '/images/swiper/index/' + x
           );
         })
-        resolve(res);
+        return resolve(res);
       }
     })
   });
