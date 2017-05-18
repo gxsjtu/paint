@@ -3,17 +3,34 @@ var imgHeight;
 var winWidth;
 var localIds = [];
 var serverIds = [];
+
+
+function checkImgBtnStatus() {
+  alert(1);
+  if (localIds.length > 0) {
+    alert(2);
+    $("#btnRemoveImg").show();
+    $("#pDiv").show();
+    $("#defaultImgDiv").hide();
+  } else {
+    alert(3);
+    $("#btnRemoveImg").hide();
+    $("#pDiv").hide();
+    $("#defaultImgDiv").show();
+  }
+
+  if (localIds.length >= 9) {
+    $("#btnAddImg").hide();
+  } else {
+    $("#btnAddImg").show();
+  }
+}
+
 $(function() {
   getSwiperHeight();
   alert('f');
   checkImgBtnStatus();
-  $("#datetimepicker1,#datetimepicker2").datetimepicker({
-    format: 'yyyy-mm-dd hh:00',
-    autoclose: true,
-    minView: 1,
-    todayHighlight: true,
-    language: 'zh-CN'
-  });
+
   $("#ulType li").on('click', function() {
     // alert($("#typeTitle").text());
     $("#typeTitle").text($(this).text());
@@ -23,41 +40,6 @@ $(function() {
     // alert($("#typeTitle").text());
     $("#catalogTitle").text($(this).text());
   })
-
-  $(".select").on("click",function(){
-    // debugger;
-    var items = $(this).find(".box-items");
-    if(items.hasClass("type"))
-    {
-      if(items.is(":hidden")){
-        $(".box-items").hide();
-        items.show();
-      }
-      else{
-        items.hide();
-      }
-    }
-    else if(items.hasClass("catalog")){
-      if(items.is(":hidden")){
-        $(".box-items").hide();
-        items.show();
-      }
-      else{
-        items.hide();
-      }
-    }
-
-    return false;
-  });
-
-  $(".box-items li").on("click",function(){
-    var v = $(this).text();
-    $(this).parent().parent().find(".my-select-name").text(v);
-  });
-
-  $("body").on("click",function(){
-    $(".box-items").hide();
-  });
 
 });
 var getSwiperHeight = function() {
@@ -256,24 +238,3 @@ wx.ready(function() {
     })
   }
 });
-
-var checkImgBtnStatus = function() {
-  alert(1);
-  if (localIds.length > 0) {
-    alert(2);
-    $("#btnRemoveImg").show();
-    $("#pDiv").show();
-    $("#defaultImgDiv").hide();
-  } else {
-    alert(3);
-    $("#btnRemoveImg").hide();
-    $("#pDiv").hide();
-    $("#defaultImgDiv").show();
-  }
-
-  if (localIds.length >= 9) {
-    $("#btnAddImg").hide();
-  } else {
-    $("#btnAddImg").show();
-  }
-}
