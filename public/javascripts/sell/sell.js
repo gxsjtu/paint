@@ -101,7 +101,6 @@ wx.ready(function() {
     });
   });
   $("#btnSave").click(function() {
-    debugger;
     if (localIds.length < 0) {
       notie.alert({
         type: 3,
@@ -258,11 +257,14 @@ wx.ready(function() {
 });
 
 var checkImgBtnStatus = function() {
+  alert(1);
   if (localIds.length > 0) {
+    alert(2);
     $("#btnRemoveImg").show();
     $("#pDiv").show();
     $("#defaultImgDiv").hide();
   } else {
+    alert(3);
     $("#btnRemoveImg").hide();
     $("#pDiv").hide();
     $("#defaultImgDiv").show();
