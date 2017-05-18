@@ -4,8 +4,8 @@ var winWidth;
 var localIds = [];
 var serverIds = [];
 $(function() {
-  alert('f');
   getSwiperHeight();
+  alert('f');
   checkImgBtnStatus();
   $("#datetimepicker1,#datetimepicker2").datetimepicker({
     format: 'yyyy-mm-dd hh:00',
