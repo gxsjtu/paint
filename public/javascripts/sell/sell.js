@@ -6,14 +6,11 @@ var serverIds = [];
 
 
 function checkImgBtnStatus() {
-  alert(1);
   if (localIds.length > 0) {
-    alert(2);
     $("#btnRemoveImg").show();
     $("#pDiv").show();
     $("#defaultImgDiv").hide();
   } else {
-    alert(3);
     $("#btnRemoveImg").hide();
     $("#pDiv").hide();
     $("#defaultImgDiv").show();
@@ -28,7 +25,6 @@ function checkImgBtnStatus() {
 
 $(function() {
   getSwiperHeight();
-  alert('f');
   checkImgBtnStatus();
 
   $("#ulType li").on('click', function() {

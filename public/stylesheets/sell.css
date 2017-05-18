@@ -102,6 +102,7 @@ body {
   display: none;
   position: absolute;
   top: 40px;
+  left: 0px;
   border: 1px solid #a5a5a5;
   width: 100%;
   z-index: 10;
