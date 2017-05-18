@@ -158,7 +158,6 @@
       });
 
         $(".select").on("click",function(){
-          // debugger;
           var items = $(this).find(".box-items");
           if(items.hasClass("type"))
           {
@@ -182,6 +181,14 @@
 
           return false;
         });
+
+        $('.box-items').hover(
+          function(){
+              $('body').css('overflow', 'hidden');
+          },
+          function(){
+              $('body').css('overflow', 'auto');
+        })
 
         $(".box-items li").on("click",function(){
           var v = $(this).text();
