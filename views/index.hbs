@@ -59,15 +59,28 @@
     <ul class="list-group" style="margin-top:10px;border-top:1px solid #ddd;background:#f2f2f2;">
       {{#each today}}
       <li class="list-group-item" style="border-top:0px;border-left:0px;border-right:0px;border-bottom:0px;margin-bottom:0px;padding-bottom:0px;">
-        <div class="row" style="margin-left:0px;margin-right:0px;">
-          <div class="row" style="margin-bottom:10px;font-size:13px;">
-              <div class="col-xs-4" style="padding-right: 0px;padding-left:4px;">
+        <div class="row">
+            <div class="col-xs-3">
+              <img src="{{this.avatar}}" style="width:60px;border-radius:60px;"/>
+            </div>
+            <div class="col-xs-9">
+              <div class="row">
+                <span style="color:#2ad0cc">{{this.nick}}</span>
+              </div>
+              <div class="row" style="margin-top:5px;">
+                <span style="color:#d1d1d1">{{this.create_at}}</span>
+              </div>
+            </div>
+        </div>
+        <div class="row" style="margin-left:0px;margin-right:0px;margin-top:10px;">
+          <div class="row" style="margin-bottom:10px;font-size:14px;">
+              <div class="col-xs-4" style="padding-right: 0px;padding-left:4px;color:#535353;">
                   作者：{{this.author}}
               </div>
           </div>
         <div class="row">
           {{#each this.images}}
-          <div style="background:url(https://painting.shtx.com.cn/images/upload/{{this}});height:100px;width:32%;float:left;background-size:cover;padding-left:0;padding-right:0;margin-top:2px;margin-left:4px;">
+          <div style="background:url(https://painting.shtx.com.cn/images/upload/{{this}});height:100px;width:32%;float:left;background-size:cover;padding-left:0;padding-right:0;margin-top:3px;margin-left:3px;">
             <!-- <img src="https://painting.shtx.com.cn/images/upload/{{this.images.[0]}}" style="width:100%;height:100%;"/> -->
           </div>
           {{/each}}
