@@ -5,6 +5,8 @@ const moment = require('moment');
 var ItemSchema = new Schema({
   images: [String],
   openId: String,
+  nick: String,
+  avatar: String,
   name: String,
   author: String,
   price: String,
@@ -12,7 +14,7 @@ var ItemSchema = new Schema({
     height: Number,
     width: Number
   },
-  valid:{
+  valid: {
     from: String,
     to: String
   },
