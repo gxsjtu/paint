@@ -22,4 +22,12 @@ router.get('/:itemId', oAuth.oAuth, function(req, res, next) {
   });
 });
 
+router.get('/like/:itemId', oAuth.oAuth, function(req, res, next) {
+  var itemId = req.params.itemId;
+  var openId = req.params.openId;
+  itemSvc.like(itemId, openId).then(data => {
+    res.json(new Result(Errors.Success, data))
+  }).catch(res.json(new Result(Errors.Success, 0)));
+});
+
 module.exports = router;

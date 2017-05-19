@@ -34,6 +34,22 @@ ItemSvc.prototype.getCatalog = function() {
   });
 };
 
+ItemSvc.prototype.like = function(id, openId) {
+  return new Promise((resolve, reject) => {
+    Item.findOneAndUpdate({
+      _id: id
+    }, {
+      $push: {
+        likes: openId
+      }
+    }).then(data => {
+      return resolve(data.likes.length);
+    }).catch(err => {
+      return reject(0);
+    });
+  });
+};
+
 ItemSvc.prototype.getLikes = function(id, openId) {
   return new Promise((resolve, reject) => {
     Item.findById(id).then(data => {
