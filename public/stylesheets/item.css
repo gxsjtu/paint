@@ -47,3 +47,23 @@
 .info{
   width: 70%;
 }
+.avatar{
+  width: 20%;
+}
+.avatar img{
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+.nick{
+  color: black;
+  width: 20%;
+}
+.price{
+  color: #ab4255;
+  width: 30%;
+}
+.time{
+  color: #c4c4c4;
+  width: 30%;
+}
