@@ -14,7 +14,7 @@ body {
 }
 
 .swiper-slide {
-  width:100%;
+  width: 100%;
   text-align: center;
   font-size: 18px;
   background: #fff;
@@ -33,20 +33,30 @@ body {
   align-items: center;
 }
 
-.removeBtn{
-  position:absolute;left:2%;bottom:2%;z-index:99999;font-size:3rem;opacity:0.6;
+.removeBtn {
+  position: absolute;
+  left: 2%;
+  bottom: 2%;
+  z-index: 99999;
+  font-size: 3rem;
+  opacity: 0.6;
 }
 
-.addBtn{
-  position:absolute;right:2%;bottom:2%;z-index:99999;font-size:3rem;opacity:0.6;
+.addBtn {
+  position: absolute;
+  right: 2%;
+  bottom: 2%;
+  z-index: 99999;
+  font-size: 3rem;
+  opacity: 0.6;
 }
 
-.split{
-  background:#eee;
-  height:10px;
+.split {
+  background: #eee;
+  height: 10px;
 }
 
-.my-box{
+.my-box {
   margin-top: 10px;
   display: flex;
   border: 1px solid #a5a5a5;
@@ -56,49 +66,58 @@ body {
   margin-left: auto;
   margin-right: auto;
   border-radius: 5px;
-  color: #a5a5a5;
+  color: black;
   position: relative;
 }
-.small-box{
+
+.small-box {
   display: flex;
   border: 1px solid #a5a5a5;
   width: 55%;
   height: 40px;
   align-items: center;
   border-radius: 5px;
-  color: #a5a5a5;
+  color: black;
 }
-.box-name{
+
+.box-name {
   width: 16%;
   text-align: center;
 }
-.box-split{
+
+.box-split {
   width: calc((16%-2em)/4);
   height: 20px;
   border-left: 1px solid #a5a5a5;
 }
-.box-element{
+
+.box-element {
   width: 75%;
 }
-.box-element input{
+
+.box-element input {
   width: 100%;
-  border:0px;
+  border: 0px;
   outline: none;
 }
-.my-select-container{
+
+.my-select-container {
   height: 100%;
   display: flex;
 }
-.my-select-name{
+
+.my-select-name {
   height: 38px;
   line-height: 38px;
   width: 96%;
 }
-.my-select-arrow{
+
+.my-select-arrow {
   height: 38px;
   line-height: 38px;
 }
-.box-items{
+
+.box-items {
   display: none;
   position: absolute;
   top: 40px;
@@ -108,17 +127,27 @@ body {
   z-index: 10;
   list-style: none;
   text-align: center;
-  color:black;
-  background:white;
+  color: black;
+  background: white;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
   max-height: 210px;
   overflow-y: scroll;
 }
-.box-items li{
+
+.box-items li {
   height: 40px;
   line-height: 40px;
 }
-::-moz-placeholder { color: #a5a5a5; }
-::-webkit-input-placeholder { color: #a5a5a5; }
-:-ms-input-placeholder { color: #a5a5a5; }
+
+::-moz-placeholder {
+  color: #a5a5a5;
+}
+
+::-webkit-input-placeholder {
+  color: #a5a5a5;
+}
+
+:-ms-input-placeholder {
+  color: #a5a5a5;
+}
