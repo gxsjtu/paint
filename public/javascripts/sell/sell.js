@@ -227,8 +227,8 @@ wx.ready(function() {
               auctionEndDate: $("#datetimepicker2").val()
             },
             success: function(data) {
-              window.location = '/item/'+data.data._id;
-              //alert(data.data._id);
+              //window.location = '/item/'+data.data._id;
+              window.location.replace('/item/'+data.data._id);
             },
             error: function(req, status, err) {},
             complete: function(res, status) {
