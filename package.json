@@ -6,7 +6,6 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
-    "Promise": "^1.0.5",
     "axios": "^0.16.1",
     "body-parser": "~1.17.1",
     "bootstrap": "^3.3.7",
