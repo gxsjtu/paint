@@ -23,7 +23,7 @@
   <script type="text/javascript">
   var images = [];
       {{#each item.images}}
-      images.push("https://painting.shtx.com.cn/images/upload/{{this}}");
+      images.push("http://painting.shtx.com.cn/images/upload/{{this}}");
       {{/each}}
     $(function(){
       var swiper = new Swiper('.swiper-container', {
@@ -36,7 +36,7 @@
 
       $(".swiper-container img").on("click",function(){
         if(wx.previewImage){
-          var curr = "https://painting.shtx.com.cn"+$(this).attr("src");
+          var curr = "http://painting.shtx.com.cn"+$(this).attr("src");
           wx.previewImage({
               current: curr, // 当前显示图片的http链接
               urls: images // 需要预览的图片http链接列表

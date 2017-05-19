@@ -2,6 +2,7 @@ var swiperDiv;
 var imgHeight;
 var winWidth;
 var localIds = [];
+var images = [];
 var serverIds = [];
 
 
@@ -58,11 +59,31 @@ wx.ready(function() {
           var ids = idStr.split(',');
           for (var i = 0; i < ids.length; i++) {
             localIds.push(ids[i]);
-            d.append('<div class="swiper-slide"><img src="' + ids[i] + '" style="width:100%;"/></div>');
+            wx.getLocalImgData({
+                localId: ids[i], // 图片的localID
+                success: function (res) {
+                    var localData = res.localData.replace('jgp', 'jpeg').replace('data:image/jpeg;base64,',''); // localData是图片的base64数据，可以用img标签显示
+                    localData = 'data:image/jpeg;base64,'+localData;
+                    images.push(localData);
+                    console.log(localData);
+                    d.append('<div class="swiper-slide"><img src="' + localData + '" style="width:100%;"/></div>');
+                }
+            });
+
           }
         } else {
           localIds.push(idStr);
-          d.append('<div class="swiper-slide"><img src="' + idStr + '" style="width:100%;"/></div>');
+          wx.getLocalImgData({
+              localId: idStr, // 图片的localID
+              success: function (res) {
+                  var localData = res.localData.replace('jgp', 'jpeg').replace('data:image/jpeg;base64,',''); // localData是图片的base64数据，可以用img标签显示
+                  localData = 'data:image/jpeg;base64,'+localData;
+                  images.push(localData);
+                  console.log(localData);
+                  d.append('<div class="swiper-slide"><img src="' + localData + '" style="width:100%;"/></div>');
+              }
+          });
+          //d.append('<div class="swiper-slide"><img src="' + idStr + '" style="width:100%;"/></div>');
         }
 
         swiperDiv = new Swiper('.swiper-container', {
@@ -166,13 +187,15 @@ wx.ready(function() {
     if (imgDiv != null && imgDiv != undefined && imgDiv.length > 0) {
       removeDiv.remove();
       var src = imgDiv[0].src;
-      var index = localIds.indexOf(src);
+      // var index = localIds.indexOf(src);
+      var index = images.indexOf(src);
       var isLastIndex = false;
       if ((index + 1) == localIds.length) {
         //说明删除的是最后一张
         isLastIndex = true;
       }
       localIds.splice(index, 1);
+      images.splice(index, 1);
       if (swiperDiv != null && swiperDiv != undefined) {
         swiperDiv.destroy(true, true);
       }
