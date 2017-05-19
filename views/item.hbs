@@ -127,9 +127,96 @@
         11小时前
       </div>
     </div>
+    <div class="line">
+      <div class="avatar">
+        <img src="/images/center/魔都.png" alt="头像" />
+      </div>
+      <div class="nick">
+        昵称
+      </div>
+      <div class="price">
+        ￥100
+      </div>
+      <div class="time">
+        11小时前
+      </div>
+    </div>
+    <div class="line">
+      <div class="avatar">
+        <img src="/images/center/魔都.png" alt="头像" />
+      </div>
+      <div class="nick">
+        昵称
+      </div>
+      <div class="price">
+        ￥100
+      </div>
+      <div class="time">
+        11小时前
+      </div>
+    </div>
+    <div class="line">
+      <div class="avatar">
+        <img src="/images/center/魔都.png" alt="头像" />
+      </div>
+      <div class="nick">
+        昵称
+      </div>
+      <div class="price">
+        ￥100
+      </div>
+      <div class="time">
+        11小时前
+      </div>
+    </div>
+    <div class="line">
+      <div class="avatar">
+        <img src="/images/center/魔都.png" alt="头像" />
+      </div>
+      <div class="nick">
+        昵称
+      </div>
+      <div class="price">
+        ￥100
+      </div>
+      <div class="time">
+        11小时前
+      </div>
+    </div>
+    <div class="line">
+      <div class="avatar">
+        <img src="/images/center/魔都.png" alt="头像" />
+      </div>
+      <div class="nick">
+        昵称
+      </div>
+      <div class="price">
+        ￥100
+      </div>
+      <div class="time">
+        11小时前
+      </div>
+    </div>
   </div>
 </div>
-
+<div class="footer">
+  <div class="bid">
+    出价
+  </div>
+  <div class="good">
+    <div class="goodContainer" {{#if like.canLike}} onClick="goodClick('{{item._id}}')" {{/if}}>
+      {{#if like.canLike}}
+      <img id="good" src="/images/good.png" alt="赞" />
+      {{/if}}
+      {{#unless like.canLike}}
+      <img id="good" src="/images/good_grey.png" alt="赞" />
+      {{/unless}}
+      <div class="goodCount">
+        {{like.likes}}
+      </div>
+    </div>
+  </div>
+</div>
 
 {{#extend "scripts"}}
   <script type="text/javascript" src="/swiper/dist/js/swiper.min.js"></script>
@@ -138,6 +225,13 @@
       {{#each item.images}}
       images.push("https://painting.shtx.com.cn/images/upload/{{this}}");
       {{/each}}
+
+    function goodClick(id){
+      $("#good").attr("src","/images/good_grey.png").parent().removeAttr("onClick");
+      $.get('/item/like/'+id,function(data){
+          
+      });
+    }
     $(function(){
       var swiper = new Swiper('.swiper-container', {
          autoplay : 2000,

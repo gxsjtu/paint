@@ -24,6 +24,8 @@
 .segmentContainer{
   width: 80%;
   margin: 0 auto;
+  height: calc(100vh - 50vw - 12px - 50px - 50px);
+  overflow-y: scroll;
 }
 
 .segmentView{
@@ -66,4 +68,36 @@
 .time{
   color: #c4c4c4;
   width: 30%;
+}
+
+.footer{
+  height: 49px;
+  width: 100%;
+  display: flex;
+  border-top: 1px solid #c4c4c4;
+}
+.bid{
+  width: 25vw;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  background: #e60232;
+  color: white;
+}
+.good{
+  height: 100%;
+  width: 75vw;
+}
+
+.good img{
+  width: 28px;
+}
+
+.goodContainer{
+  margin-left: 30vw;
+  width: 45vw;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
