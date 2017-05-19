@@ -227,9 +227,11 @@
       {{/each}}
 
     function goodClick(id){
+      var count = {{like.likes}};
       $("#good").attr("src","/images/good_grey.png").parent().removeAttr("onClick");
+      $("#goodCount").text(parseInt(count+1));
       $.get('/item/like/'+id,function(data){
-          
+
       });
     }
     $(function(){
