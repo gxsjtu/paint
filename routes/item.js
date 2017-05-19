@@ -11,7 +11,7 @@ router.use(Jssdk.jssdk);
 
 router.get('/:itemId', oAuth.oAuth, function(req, res, next) {
   var itemId = req.params.itemId;
-  var openId = req.params.openId;
+  var openId = req.session.openId;
   Promise.all([itemSvc.getItemById(itemId), itemSvc.getLikes(itemId, openId)]).then(data => {
     res.render("item", {
       item: data[0],
@@ -24,7 +24,7 @@ router.get('/:itemId', oAuth.oAuth, function(req, res, next) {
 
 router.get('/like/:itemId', oAuth.oAuth, function(req, res, next) {
   var itemId = req.params.itemId;
-  var openId = req.params.openId;
+  var openId = req.session.openId;
   itemSvc.like(itemId, openId).then(data => {
     res.json(new Result(Errors.Success, data))
   }).catch(res.json(new Result(Errors.Success, 0)));

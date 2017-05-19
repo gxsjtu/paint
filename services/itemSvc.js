@@ -42,6 +42,8 @@ ItemSvc.prototype.like = function(id, openId) {
       $push: {
         likes: openId
       }
+    }, {
+      new: true
     }).then(data => {
       return resolve(data.likes.length);
     }).catch(err => {
