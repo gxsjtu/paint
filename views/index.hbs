@@ -58,7 +58,7 @@
     <img src="/images/今日最新.png" alt="今日最新" style="width:16%;margin-left:15px;margin-top:10px;" /><div style="float:right;margin-right:15px;margin-top:10px;color:#919191;font-size:12px;">更多<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></div>
     <ul class="list-group" style="margin-top:10px;border-top:1px solid #ddd;background:#f2f2f2;">
       {{#each today}}
-      <li class="list-group-item" style="border-top:0px;border-left:0px;border-right:0px;border-bottom:0px;margin-bottom:0px;padding-bottom:0px;">
+      <li class="list-group-item" style="border-top:0px;border-left:0px;border-right:0px;border-bottom:0px;margin-bottom:0px;padding-bottom:0px;"onClick="gotoItem('{{this._id}}')" >
         <div class="row">
             <div class="col-xs-3">
               <img src="{{this.avatar}}" style="width:60px;border-radius:60px;"/>
@@ -117,6 +117,10 @@ var loadToday = function(){
     }
   });
 };
+
+function gotoItem(id){
+  window.location.href = '/item/'+id;
+}
 
 $(function(){
   var swiper = new Swiper('.swiper-container', {
