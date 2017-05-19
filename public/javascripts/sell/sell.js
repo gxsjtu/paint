@@ -69,8 +69,7 @@ wx.ready(function() {
           pagination: '.swiper-pagination',
           paginationClickable: true,
           autoplay: 2000,
-          autoplayDisableOnInteraction: false,
-          loop: true
+          autoplayDisableOnInteraction: false
         });
         getSwiperHeight();
         checkImgBtnStatus();
@@ -187,8 +186,7 @@ wx.ready(function() {
         pagination: '.swiper-pagination',
         paginationClickable: true,
         autoplay: 2000,
-        autoplayDisableOnInteraction: false,
-        loop: true,
+        autoplayDisableOnInteraction: false
       });
       getSwiperHeight();
       checkImgBtnStatus();
