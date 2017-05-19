@@ -11,9 +11,11 @@ router.use(Jssdk.jssdk);
 
 router.get('/:itemId', oAuth.oAuth, function(req, res, next) {
   var itemId = req.params.itemId;
-  Promise.all([itemSvc.getItemById(itemId)]).then(data => {
+  var openId = req.params.openId;
+  Promise.all([itemSvc.getItemById(itemId), itemSvc.getLikes(itemId, openId)]).then(data => {
     res.render("item", {
-      item: data[0]
+      item: data[0],
+      like: data[1]
     });
   }).catch(err => {
     res.json(err);

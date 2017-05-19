@@ -34,13 +34,23 @@ ItemSvc.prototype.getCatalog = function() {
   });
 };
 
-ItemSvc.prototype.getLikes = function(id) {
+ItemSvc.prototype.getLikes = function(id, openId) {
   return new Promise((resolve, reject) => {
     Item.findById(id).then(data => {
       if (!data || !(data.likes)) {
-        return resolve(0);
+        return resolve({
+          likes: 0,
+          canLike: true
+        });
       }
-      return resolve(data.likes.length);
+      var canLike = _.find(data.likes, x => {
+        return x.openId == openId;
+      })
+
+      return resolve({
+        likes: data.likes.length,
+        canLike: (canLike ? false : true)
+      });
     }).catch(err => {
       return reject(err);
     });
