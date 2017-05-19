@@ -96,7 +96,7 @@ wx.ready(function() {
     if ($("#txtImgName").val().trim() == "") {
       notie.alert({
         type: 3,
-        text: "请输入画名！"
+        text: "请输入作品名称！"
       });
       return;
     }
