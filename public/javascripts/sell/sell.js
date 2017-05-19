@@ -156,7 +156,7 @@ wx.ready(function() {
       });
       return;
     }
-    $(this).attr("disabled","disabled");
+    $(this).attr("disabled", "disabled");
     syncUpload(localIds);
   });
 
