@@ -229,7 +229,7 @@ wx.ready(function() {
               auctionEndDate: $("#datetimepicker2").val()
             },
             success: function(data) {
-              alert(data.data);
+              alert(data.data._id);
             },
             error: function(req, status, err) {},
             complete: function(res, status) {
