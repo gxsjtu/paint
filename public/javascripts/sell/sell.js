@@ -228,7 +228,9 @@ wx.ready(function() {
               auctionStartDate: $("#datetimepicker1").val(),
               auctionEndDate: $("#datetimepicker2").val()
             },
-            success: function(data) {},
+            success: function(data) {
+              alert(data.data);
+            },
             error: function(req, status, err) {},
             complete: function(res, status) {
               $("#btnSave").removeAttr("disabled");

@@ -11,7 +11,7 @@ router.use(Jssdk.jssdk);
 var itemSvc = new ItemSvc();
 
 /* GET home page. */
-router.get('/', oAuth.oAuth, function(req, res, next) {
+router.get('/', oAuth.oAuth,function(req, res, next) {
   Promise.all([itemSvc.getType(), itemSvc.getCatalog()]).then(data => {
     res.render("sell", {
       jssdk: req.jssdk,
@@ -35,7 +35,7 @@ router.post('/saveItem', function(req, res, next) {
   var to = req.body.auctionEndDate;
 
   itemSvc.save(name, author, width, height, comment, type, catalog, price, images, from, to).then(data => {
-    res.json(new Result(Errors.Success));
+    res.json(new Result(Errors.Success,data));
   }).catch(err => {
     res.json(new Result(Errors.SaveItemFailed, err));
   });

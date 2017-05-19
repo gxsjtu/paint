@@ -122,7 +122,7 @@ ItemSvc.prototype.save = function(name, author, width, height, comment, type, ca
           }
         });
       });
-      return resolve();
+      return resolve(item);
     });
   });
 };
