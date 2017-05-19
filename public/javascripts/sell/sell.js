@@ -156,6 +156,13 @@ wx.ready(function() {
       });
       return;
     }
+    if ($("#datetimepicker2").val().trim() <= $("#datetimepicker1").val().trim()) {
+      notie.alert({
+        type: 3,
+        text: "拍卖结束事件必须晚于开始时间！"
+      });
+      return;
+    }
     $(this).attr("disabled", "disabled");
     syncUpload(localIds);
   });
