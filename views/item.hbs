@@ -1,364 +1,372 @@
 {{#extend "stylesheets"}}
-    <link rel='stylesheet' href="/swiper/dist/css/swiper.min.css" />
-    <link rel="stylesheet" href="/javascripts/web-pull-to-refresh-master/lib/genericons/genericons.css">
-    <link rel='stylesheet' href="/javascripts/web-pull-to-refresh-master/base.css" />
-    <link rel='stylesheet' href="/stylesheets/item.css" />
+  <link rel='stylesheet' href="/swiper/dist/css/swiper.min.css" />
+  <link rel="stylesheet" href="/javascripts/web-pull-to-refresh-master/lib/genericons/genericons.css">
+  <link rel='stylesheet' href="/javascripts/web-pull-to-refresh-master/base.css" />
+  <link rel='stylesheet' href="/stylesheets/item.css" />
 {{/extend}}
 
 <div id="ptr">
-    <span class="genericon genericon-next"></span>
-    <div class="loading">
-        <span id="l1"></span>
-        <span id="l2"></span>
-        <span id="l3"></span>
-    </div>
+  <span class="genericon genericon-next"></span>
+  <div class="loading">
+    <span id="l1"></span>
+    <span id="l2"></span>
+    <span id="l3"></span>
+  </div>
 </div>
 <div id="content" style="position:relative;">
-    <div class="swiper-container" style="width:100%;height:50vw;">
-        <div class="swiper-wrapper">
-            {{#each item.images}}
-                <div class="swiper-slide">
-                    <img src="/images/upload/{{this}}" alt="" style="width:100%;" />
-                </div>
-            {{/each}}
+  <div class="swiper-container" style="width:100%;height:50vw;">
+    <div class="swiper-wrapper">
+      {{#each item.images}}
+        <div class="swiper-slide">
+          <img src="/images/upload/{{this}}" alt="" style="width:100%;" />
         </div>
-        <div class="swiper-pagination"></div>
+      {{/each}}
     </div>
+    <div class="swiper-pagination"></div>
+  </div>
 
-    <div style="width: 100%;height: 12px;background: #f2f2f2;"></div>
+  <div style="width: 100%;height: 12px;background: #f2f2f2;"></div>
 
-    <div class="mySegment">
-        <div class="segmentItem active">
-            详情介绍
-        </div>
-        <div class="segmentSplit">
-
-        </div>
-        <div class="segmentItem">
-            竞拍价格
-        </div>
+  <div class="mySegment">
+    <div class="segmentItem active">
+      详情介绍
     </div>
-    <div class="segmentContainer">
-        <div class="segmentView">
-            <div class="line">
-                <div class="name">
-                    作品名称
-                </div>
-                <div class="info">
-                    {{item.name}}
-                </div>
-            </div>
-            <div class="line">
-                <div class="name">
-                    作者
-                </div>
-                <div class="info">
-                    {{item.author}}
-                </div>
-            </div>
-            <div class="line">
-                <div class="name">
-                    价格
-                </div>
-                <div class="info">
-                    {{item.price}}
-                </div>
-            </div>
-            <div class="line">
-                <div class="name">
-                    尺寸
-                </div>
-                <div class="info">
-                    长 {{item.dimension.width}}cm, 宽 {{item.dimension.height}}cm
-                </div>
-            </div>
-            <div class="line">
-                <div class="name">
-                    拍卖日期
-                </div>
-                <div class="info">
-                    -
-                </div>
-            </div>
-        </div>
-        <div class="segmentView" id="priceInfo" style="display:none;">
-            <div class="line">
-                <div class="avatar">
-                    <img src="/images/center/魔都.png" alt="头像" />
-                </div>
-                <div class="nick">
-                    昵称
-                </div>
-                <div class="price">
-                    ￥100
-                </div>
-                <div class="time">
-                    11小时前
-                </div>
-            </div>
-            <div class="line">
-                <div class="avatar">
-                    <img src="/images/center/魔都.png" alt="头像" />
-                </div>
-                <div class="nick">
-                    昵称
-                </div>
-                <div class="price">
-                    ￥100
-                </div>
-                <div class="time">
-                    11小时前
-                </div>
-            </div>
-            <div class="line">
-                <div class="avatar">
-                    <img src="/images/center/魔都.png" alt="头像" />
-                </div>
-                <div class="nick">
-                    昵称
-                </div>
-                <div class="price">
-                    ￥100
-                </div>
-                <div class="time">
-                    11小时前
-                </div>
-            </div>
-            <div class="line">
-                <div class="avatar">
-                    <img src="/images/center/魔都.png" alt="头像" />
-                </div>
-                <div class="nick">
-                    昵称
-                </div>
-                <div class="price">
-                    ￥100
-                </div>
-                <div class="time">
-                    11小时前
-                </div>
-            </div>
-            <div class="line">
-                <div class="avatar">
-                    <img src="/images/center/魔都.png" alt="头像" />
-                </div>
-                <div class="nick">
-                    昵称
-                </div>
-                <div class="price">
-                    ￥100
-                </div>
-                <div class="time">
-                    11小时前
-                </div>
-            </div>
-            <div class="line">
-                <div class="avatar">
-                    <img src="/images/center/魔都.png" alt="头像" />
-                </div>
-                <div class="nick">
-                    昵称
-                </div>
-                <div class="price">
-                    ￥100
-                </div>
-                <div class="time">
-                    11小时前
-                </div>
-            </div>
-            <div class="line">
-                <div class="avatar">
-                    <img src="/images/center/魔都.png" alt="头像" />
-                </div>
-                <div class="nick">
-                    昵称
-                </div>
-                <div class="price">
-                    ￥100
-                </div>
-                <div class="time">
-                    11小时前
-                </div>
-            </div>
-            <div class="line">
-                <div class="avatar">
-                    <img src="/images/center/魔都.png" alt="头像" />
-                </div>
-                <div class="nick">
-                    昵称
-                </div>
-                <div class="price">
-                    ￥100
-                </div>
-                <div class="time">
-                    11小时前
-                </div>
-            </div>
-            <div class="line">
-                <div class="avatar">
-                    <img src="/images/center/魔都.png" alt="头像" />
-                </div>
-                <div class="nick">
-                    昵称
-                </div>
-                <div class="price">
-                    ￥100
-                </div>
-                <div class="time">
-                    11小时前
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="footer">
-        <div class="bid" id="bid">
-            出价
-        </div>
-        <div class="good">
-            <div class="goodContainer" {{#if like.canLike}} onClick="goodClick('{{item._id}}')" {{/if}}>
-                {{#if like.canLike}}
-                    <img id="good" src="/images/good.png" alt="赞" />
-                {{/if}}
-                {{#unless like.canLike}}
-                    <img id="good" src="/images/good_grey.png" alt="赞" />
-                {{/unless}}
-                <div class="goodCount">
-                    {{#if like.likes}} {{like.likes}} {{/if}}
-                    {{#unless like.likes}} 0 {{/unless}}
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="mask">
+    <div class="segmentSplit">
 
     </div>
-    <div class="bidContainer">
-      <div class="bid-header">
-        出价
+    <div class="segmentItem">
+      竞拍价格
+    </div>
+  </div>
+  <div class="segmentContainer">
+    <div class="segmentView">
+      <div class="line">
+        <div class="name">
+          作品名称
+        </div>
+        <div class="info">
+          {{item.name}}
+        </div>
       </div>
-      <div class="bid-content">
-        <div>
-          当前出价：0
+      <div class="line">
+        <div class="name">
+          作者
         </div>
-        <div>
-          <input type="button" value="确定出价" id="btnSubmit"/>
+        <div class="info">
+          {{item.author}}
+        </div>
+      </div>
+      <div class="line">
+        <div class="name">
+          价格
+        </div>
+        <div class="info">
+          {{item.price}}
+        </div>
+      </div>
+      <div class="line">
+        <div class="name">
+          尺寸
+        </div>
+        <div class="info">
+          长 {{item.dimension.width}}cm, 宽 {{item.dimension.height}}cm
+        </div>
+      </div>
+      <div class="line">
+        <div class="name">
+          拍卖日期
+        </div>
+        <div class="info">
+          -
         </div>
       </div>
     </div>
+    <div class="segmentView" id="priceInfo" style="display:none;">
+      <div class="line">
+        <div class="avatar">
+          <img src="/images/center/魔都.png" alt="头像" />
+        </div>
+        <div class="nick">
+          昵称
+        </div>
+        <div class="price">
+          ￥100
+        </div>
+        <div class="time">
+          11小时前
+        </div>
+      </div>
+      <div class="line">
+        <div class="avatar">
+          <img src="/images/center/魔都.png" alt="头像" />
+        </div>
+        <div class="nick">
+          昵称
+        </div>
+        <div class="price">
+          ￥100
+        </div>
+        <div class="time">
+          11小时前
+        </div>
+      </div>
+      <div class="line">
+        <div class="avatar">
+          <img src="/images/center/魔都.png" alt="头像" />
+        </div>
+        <div class="nick">
+          昵称
+        </div>
+        <div class="price">
+          ￥100
+        </div>
+        <div class="time">
+          11小时前
+        </div>
+      </div>
+      <div class="line">
+        <div class="avatar">
+          <img src="/images/center/魔都.png" alt="头像" />
+        </div>
+        <div class="nick">
+          昵称
+        </div>
+        <div class="price">
+          ￥100
+        </div>
+        <div class="time">
+          11小时前
+        </div>
+      </div>
+      <div class="line">
+        <div class="avatar">
+          <img src="/images/center/魔都.png" alt="头像" />
+        </div>
+        <div class="nick">
+          昵称
+        </div>
+        <div class="price">
+          ￥100
+        </div>
+        <div class="time">
+          11小时前
+        </div>
+      </div>
+      <div class="line">
+        <div class="avatar">
+          <img src="/images/center/魔都.png" alt="头像" />
+        </div>
+        <div class="nick">
+          昵称
+        </div>
+        <div class="price">
+          ￥100
+        </div>
+        <div class="time">
+          11小时前
+        </div>
+      </div>
+      <div class="line">
+        <div class="avatar">
+          <img src="/images/center/魔都.png" alt="头像" />
+        </div>
+        <div class="nick">
+          昵称
+        </div>
+        <div class="price">
+          ￥100
+        </div>
+        <div class="time">
+          11小时前
+        </div>
+      </div>
+      <div class="line">
+        <div class="avatar">
+          <img src="/images/center/魔都.png" alt="头像" />
+        </div>
+        <div class="nick">
+          昵称
+        </div>
+        <div class="price">
+          ￥100
+        </div>
+        <div class="time">
+          11小时前
+        </div>
+      </div>
+      <div class="line">
+        <div class="avatar">
+          <img src="/images/center/魔都.png" alt="头像" />
+        </div>
+        <div class="nick">
+          昵称
+        </div>
+        <div class="price">
+          ￥100
+        </div>
+        <div class="time">
+          11小时前
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <div class="bid" id="bid">
+      出价
+    </div>
+    <div class="good">
+      <div class="goodContainer" {{#if like.canLike}} onClick="goodClick('{{item._id}}')" {{/if}}>
+        {{#if like.canLike}}
+          <img id="good" src="/images/good.png" alt="赞" />
+        {{/if}}
+        {{#unless like.canLike}}
+          <img id="good" src="/images/good_grey.png" alt="赞" />
+        {{/unless}}
+        <div class="goodCount">
+          {{#if like.likes}} {{like.likes}} {{/if}}
+          {{#unless like.likes}} 0 {{/unless}}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="mask">
+
+  </div>
+  <div class="bidContainer">
+    <div class="bid-header">
+      出价
+    </div>
+    <div class="bid-content">
+      <div>
+        当前出价：0
+      </div>
+      <div>
+        <input type="button" value="确定出价" id="btnSubmit" />
+      </div>
+    </div>
+  </div>
 </div>
 
 {{#extend "scripts"}}
-    <script type="text/javascript" src="/swiper/dist/js/swiper.min.js"></script>
-    <script src="/javascripts/web-pull-to-refresh-master/lib/hammer.2.0.4.js"></script>
-    <script src="/javascripts/web-pull-to-refresh-master/lib/wptr.1.1.js"></script>
-    <script type="text/javascript">
-        var images = [];
-        var itemId = '{{item._id}}';
-        {{#each item.images}}
-        images.push("https://painting.shtx.com.cn/images/upload/{{this}}");
-        {{/each}}
+  <script type="text/javascript" src="/swiper/dist/js/swiper.min.js"></script>
+  <script src="/javascripts/web-pull-to-refresh-master/lib/hammer.2.0.4.js"></script>
+  <script src="/javascripts/web-pull-to-refresh-master/lib/wptr.1.1.js"></script>
+  <script type="text/javascript">
+    var images = [];
+    var itemId = '{{item._id}}'; {
+      {#
+        each item.images
+      }
+    }
+    images.push("https://painting.shtx.com.cn/images/upload/{{this}}"); {
+      {
+        /each}}
 
-                function goodClick(id) {
-                    var count = {{like.likes}} || 0;
-                    $("#good").attr("src", "/images/good_grey.png").parent().removeAttr("onClick");
-                    var c = parseInt(count + 1);
-                    $(".goodCount").text(c);
-                    $.get('/item/like/' + id, function(data) {
+        function goodClick(id) {
+          var count = {
+            {
+              like.likes
+            }
+          } || 0;
+          $("#good").attr("src", "/images/good_grey.png").parent().removeAttr("onClick");
+          var c = parseInt(count + 1);
+          $(".goodCount").text(c);
+          $.get('/item/like/' + id, function(data) {
 
-                    });
-                }
+          });
+        }
 
-                function loadToday() {
-                    return new Promise(function(resolve, reject) {
-                        if (true) {
-                            resolve();
-                        } else {
-                            reject();
-                        }
-                    });
-                };
+        function loadToday() {
+          return new Promise(function(resolve, reject) {
+            if (true) {
+              resolve();
+            } else {
+              reject();
+            }
+          });
+        };
 
-                function createLine(data) {
-                    $("#priceInfo").empty();
-                    for (var i = 0; i < data.length; i++) {
-                        var p = data[i];
+        function createLine(data) {
+          $("#priceInfo").empty();
+          for (var i = 0; i < data.length; i++) {
+            var p = data[i];
 
-                        var line = $("<div class=\"line\"></div>");
-                        var avatar = $("<div class=\"avatar\"></div>");
-                        var img = $("<img src=\"" + p.img + "\" alt=\"头像\" />");
-                        avatar.append(img);
-                        line.append(avatar);
-                        var nick = $("<div class=\"nick\">" + p.nick + "</div>");
-                        line.append(nick);
-                        var price = $("<div class=\"price\">" + p.price + "</div>");
-                        line.append(price);
-                        var time = $("<div class=\"time\">" + p.time + "</div>");
-                        line.append(time);
+            var line = $("<div class=\"line\"></div>");
+            var avatar = $("<div class=\"avatar\"></div>");
+            var img = $("<img src=\"" + p.img + "\" alt=\"头像\" />");
+            avatar.append(img);
+            line.append(avatar);
+            var nick = $("<div class=\"nick\">" + p.nick + "</div>");
+            line.append(nick);
+            var price = $("<div class=\"price\">" + p.price + "</div>");
+            line.append(price);
+            var time = $("<div class=\"time\">" + p.time + "</div>");
+            line.append(time);
 
-                        $("#priceInfo").append(line);
-                    }
-                }
+            $("#priceInfo").append(line);
+          }
+        }
 
-                $(function() {
-                    var swiper = new Swiper('.swiper-container', {
-                        autoplay: 2000,
-                        autoplayDisableOnInteraction: false,
-                        loop: true,
-                        pagination: '.swiper-pagination',
-                        paginationClickable: true
-                    });
+        $(function() {
+          var swiper = new Swiper('.swiper-container', {
+            autoplay: 2000,
+            autoplayDisableOnInteraction: false,
+            loop: true,
+            pagination: '.swiper-pagination',
+            paginationClickable: true
+          });
 
-                    WebPullToRefresh.init({
-                        loadingFunction: loadToday
-                    });
+          WebPullToRefresh.init({
+            loadingFunction: loadToday
+          });
 
-                    $(".swiper-container img").on("click", function() {
-                        if (wx.previewImage) {
-                            var curr = "https://painting.shtx.com.cn" + $(this).attr("src");
-                            wx.previewImage({
-                                current: curr, // 当前显示图片的http链接
-                                urls: images // 需要预览的图片http链接列表
-                            });
-                        }
-                    });
+          $(".swiper-container img").on("click", function() {
+            if (wx.previewImage) {
+              var curr = "https://painting.shtx.com.cn" + $(this).attr("src");
+              wx.previewImage({
+                current: curr, // 当前显示图片的http链接
+                urls: images // 需要预览的图片http链接列表
+              });
+            }
+          });
 
-                    $(".segmentItem").on("click", function() {
-                        var all = $(".segmentItem");
-                        var allView = $(".segmentView");
-                        var left = allView.eq(0);
-                        var right = allView.eq(1);
+          $(".segmentItem").on("click", function() {
+            var all = $(".segmentItem");
+            var allView = $(".segmentView");
+            var left = allView.eq(0);
+            var right = allView.eq(1);
 
-                        all.removeClass("active");
-                        $(this).addClass("active");
-                        if (all.eq(0).hasClass("active")) {
-                            right.hide();
-                            left.show();
-                        } else {
-                            left.hide();
-                            right.show();
-                        }
-                    });
+            all.removeClass("active");
+            $(this).addClass("active");
+            if (all.eq(0).hasClass("active")) {
+              right.hide();
+              left.show();
+            } else {
+              left.hide();
+              right.show();
+            }
+          });
 
-                    $("#bid").on("click",function(){
-                      $(".mask,.bidContainer").show();
-                      $.get("/item/getBids/"+itemId,function(data){
-                        console.log(data);
-                      })
-                    });
+          $("#bid").on("click", function() {
+            $(".mask,.bidContainer").show();
+            $.get("/item/getBids/" + itemId, function(data) {
+              console.log(data);
+            })
+          });
 
-                    $(".bidContainer").on("click",function(){
-                      return false;
-                    });
-                    $(".mask").on("click",function(e){
-                      $(".mask,.bidContainer").hide();
-                      e.stopPropagation();
-                    });
+          $(".bidContainer").on("click", function() {
+            return false;
+          });
+          $(".mask").on("click", function(e) {
+            $(".mask,.bidContainer").hide();
+            e.stopPropagation();
+          });
 
-                    $("#btnSubmit").on("click",function(){
-                      $.get("/item/bid/"+itemId+"/"+300,function(result){
+          $("#btnSubmit").on("click", function() {
+            $.get("/item/bid/" + itemId + "/" + 300, function(result) {
 
-                      })
-                    });
-                })
-    </script>
+            })
+          });
+        })
+  </script>
 {{/extend}}
