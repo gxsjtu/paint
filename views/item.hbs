@@ -211,7 +211,7 @@
         </div>
     </div>
     <div class="footer">
-        <div class="bid">
+        <div class="bid" id="bid">
             出价
         </div>
         <div class="good">
@@ -337,6 +337,21 @@
                             left.hide();
                             right.show();
                         }
+                    });
+
+                    $("#bid").on("click",function(){
+                      $(".mask,.bidContainer").show();
+                      $.get("/item/getBids/"+itemId,function(data){
+                        console.log(data);
+                      })
+                    });
+
+                    $(".bidContainer").on("click",function(){
+                      return false;
+                    });
+                    $(".mask").on("click",function(e){
+                      $(".mask,.bidContainer").hide();
+                      e.stopPropagation();
                     });
 
                     $("#btnSubmit").on("click",function(){
