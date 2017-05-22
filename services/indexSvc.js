@@ -7,6 +7,7 @@ const junk = require('junk');
 const Global = require('../global.js');
 const Item = require('../models/item.js');
 const moment = require('moment');
+const async = require('async');
 
 var IndexSvc = function() {
 
@@ -31,7 +32,8 @@ IndexSvc.prototype.getSwipers = function() {
   });
 }
 
-IndexSvc.prototype.getTodayItems = function() {
+IndexSvc.prototype.getTodayItems = function(openId) {
+  var itemSvc = new ItemSvc();
   return new Promise((resolve, reject) => {
     Item.where({
       // create_at: {
@@ -44,7 +46,17 @@ IndexSvc.prototype.getTodayItems = function() {
       if (err) {
         return reject(err);
       }
-      return resolve(data);
+      //
+      async.each(data, (x, callback) => {
+        itemSvc.getLikes(x._id, openId).then(y => {
+          x.canLike = y.canLike;
+          x.likes = y.likes;
+        });
+        callback();
+        return resolve(data);
+      }, err => {
+        return resolve(data);
+      });
     });
   });
 };

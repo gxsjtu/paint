@@ -14,7 +14,8 @@ router.use(Jssdk.jssdk);
 router.get('/', oAuth.oAuth, function(req, res, next) {
   //获取index页面的走马灯图片
   var indexSvc = new IndexSvc();
-  Promise.all([indexSvc.getSwipers(), indexSvc.getTodayItems()]).then(data => {
+  var openId = req.session.openId;
+  Promise.all([indexSvc.getSwipers(), indexSvc.getTodayItems(openId)]).then(data => {
     res.render("index", {
       jssdk: req.jssdk,
       headers: data[0],
