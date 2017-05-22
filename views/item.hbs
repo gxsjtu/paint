@@ -237,11 +237,22 @@
       出价
     </div>
     <div class="bid-content">
-      <div>
-        当前出价：0
+      <div id="currentPrice">
+
+      </div>
+      <div class="bidPrice">
+        <input type="button" id="minus" value="-" class="btn" style="border-top-right-radius:0;border-bottom-right-radius:0;"/>
+        <!-- <input type="text" id="myPrice"> -->
+        <div id="myPrice">
+          10
+        </div>
+        <input type="button" id="add" value="+" class="btn" style="border-top-left-radius:0;border-bottom-left-radius:0;"/>
+      </div>
+      <div id="myCurrentPrice">
+
       </div>
       <div>
-        <input type="button" value="确定出价" id="btnSubmit" />
+        <input type="button" value="确定出价" id="btnSubmit" class="btn btn-primary btn-block" style="margin-left:10%;margin-right:10%;width:80%;"/>
       </div>
     </div>
   </div>
@@ -253,21 +264,14 @@
   <script src="/javascripts/web-pull-to-refresh-master/lib/wptr.1.1.js"></script>
   <script type="text/javascript">
     var images = [];
-    var itemId = '{{item._id}}'; {
-      {#
-        each item.images
-      }
-    }
-    images.push("https://painting.shtx.com.cn/images/upload/{{this}}"); {
-      {
-        /each}}
-
+    var itemId = '{{item._id}}';
+    {{#each item.images }}
+    images.push("https://painting.shtx.com.cn/images/upload/{{this}}");
+    {{/each}}
+    var lastPrice = 0;
+    var myCurrentPrice = 0;
         function goodClick(id) {
-          var count = {
-            {
-              like.likes
-            }
-          } || 0;
+          var count = {{like.likes}} || 0;
           $("#good").attr("src", "/images/good_grey.png").parent().removeAttr("onClick");
           var c = parseInt(count + 1);
           $(".goodCount").text(c);
@@ -330,6 +334,22 @@
             }
           });
 
+          $("#minus").on("click",function(){
+            var p = parseInt($("#myPrice").text()) - 10;
+            if(p>0){
+              $("#myPrice").text(p);
+              myCurrentPrice = p + lastPrice;
+              $("#myCurrentPrice").text("您的出价为:"+myCurrentPrice)
+            }
+          });
+          $("#add").on("click",function(){
+            var p = parseInt($("#myPrice").text()) + 10;
+
+            $("#myPrice").text(p);
+            myCurrentPrice = p + lastPrice;
+            $("#myCurrentPrice").text("您的出价为:"+myCurrentPrice)
+          });
+
           $(".segmentItem").on("click", function() {
             var all = $(".segmentItem");
             var allView = $(".segmentView");
@@ -350,7 +370,17 @@
           $("#bid").on("click", function() {
             $(".mask,.bidContainer").show();
             $.get("/item/getBids/" + itemId, function(data) {
-              console.log(data);
+              if(data.message == 'OK'){
+                var price = 0;
+                  if(data.data.length > 0){
+                    price = data.data[0].price;
+                  }
+                  $("#currentPrice").text("当前出价为:"+price);
+                  $("#myPrice").text("10");
+                  myCurrentPrice = price + parseInt($("#myPrice").text());
+                  $("#myCurrentPrice").text("您的出价为:"+myCurrentPrice);
+                  lastPrice = price;
+              }
             })
           });
 
@@ -363,7 +393,7 @@
           });
 
           $("#btnSubmit").on("click", function() {
-            $.get("/item/bid/" + itemId + "/" + 300, function(result) {
+            $.get("/item/bid/" + itemId + "/" + myCurrentPrice, function(result) {
 
             })
           });
