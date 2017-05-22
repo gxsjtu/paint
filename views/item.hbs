@@ -242,8 +242,11 @@
 
     function goodClick(id){
       var count = {{like.likes}};
+      alert(count);
       $("#good").attr("src","/images/good_grey.png").parent().removeAttr("onClick");
-      $("#goodCount").text(parseInt(count+1));
+      var c = parseInt(count+1);
+      alert(c);
+      $("#goodCount").text(c);
       $.get('/item/like/'+id,function(data){
 
       });
