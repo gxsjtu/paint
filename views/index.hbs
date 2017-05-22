@@ -59,15 +59,15 @@
     <ul class="list-group" style="margin-top:10px;border-top:1px solid #ddd;background:#f2f2f2;">
       {{#each today}}
       <li class="list-group-item" style="border-top:0px;border-left:0px;border-right:0px;border-bottom:0px;margin-bottom:0px;padding-bottom:0px;"onClick="gotoItem('{{this._id}}')" >
-        <div class="row">
+        <div class="row" style="margin-left:0px;margin-right:0px;">
             <div style="padding-left:5px;padding-right:0px;width:80px;float:left;">
               <img src="{{this.avatar}}" style="width:50px;border-radius:50px;"/>
             </div>
             <div style="padding-left:0px;height:50px;display:flex;flex-direction:column;justify-content:center;">
-              <div class="row">
+              <div class="row" style="margin-left:0px;margin-right:0px;">
                 <span style="color:#2ad0cc">{{this.nick}}</span>
               </div>
-              <div class="row" style="margin-top:5px;">
+              <div class="row" style="margin-top:5px;margin-left:0px;margin-right:0px;">
                 <span style="color:#d1d1d1">{{this.create_at}}</span>
               </div>
             </div>
