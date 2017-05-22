@@ -60,10 +60,10 @@
       {{#each today}}
       <li class="list-group-item" style="border-top:0px;border-left:0px;border-right:0px;border-bottom:0px;margin-bottom:0px;padding-bottom:0px;"onClick="gotoItem('{{this._id}}')" >
         <div class="row">
-            <div class="col-xs-3" style="padding-left:5px;padding-right:0px;">
+            <div style="padding-left:5px;padding-right:0px;width:80px;float:left;">
               <img src="{{this.avatar}}" style="width:50px;border-radius:50px;"/>
             </div>
-            <div class="col-xs-9" style="padding-left:0px;height:50px;display:flex;flex-direction:column;justify-content:center;">
+            <div style="padding-left:0px;height:50px;display:flex;flex-direction:column;justify-content:center;">
               <div class="row">
                 <span style="color:#2ad0cc">{{this.nick}}</span>
               </div>
@@ -73,11 +73,11 @@
             </div>
         </div>
         <div class="row" style="margin-left:0px;margin-right:0px;margin-top:10px;">
-          <div class="row" style="margin-bottom:10px;font-size:14px;">
+          <!-- <div class="row" style="margin-bottom:10px;font-size:14px;">
               <div class="col-xs-4" style="padding-right: 0px;padding-left:4px;color:#535353;">
                   作者：{{this.author}}
               </div>
-          </div>
+          </div> -->
         <div class="row">
           {{#each this.images}}
           <div style="background:url(https://painting.shtx.com.cn/images/upload/{{this}});height:100px;width:32%;float:left;background-size:cover;padding-left:0;padding-right:0;margin-top:3px;margin-left:3px;">
@@ -92,12 +92,12 @@
           </div>
         </div>
       </li>
-      <div class="row" style="border-top:1px solid #f2f2f2;background:#fff;">
-          <div class="col-xs-6" style="color:gray;margin-top:5px;margin-bottom:5px;border-right:1px solid #f2f2f2;display:flex;flex-direction:row;justify-content:center;align-items:center;">
+      <div class="row" style="border-top:1px solid #f2f2f2;background:#fff;margin-left:0px;margin-right:0px;">
+          <div class="col-xs-6" style="color:gray;margin-top:10px;margin-bottom:10px;border-right:1px solid #f2f2f2;display:flex;flex-direction:row;justify-content:center;align-items:center;">
               <span class="glyphicon glyphicon-heart-empty" style="font-size:15px;"></span>
               <span style="margin-left:10px;">66</span>
           </div>
-          <div class="col-xs-6" style="color:gray;margin-top:5px;display:flex;flex-direction:row;justify-content:center;align-items:center;">
+          <div class="col-xs-6" style="color:gray;margin-top:10px;margin-bottom:10px;display:flex;flex-direction:row;justify-content:center;align-items:center;">
               <span style="font-size:15px;" class="glyphicon glyphicon-retweet"></span>
               <span style="margin-left:10px;">88</span>
           </div>
