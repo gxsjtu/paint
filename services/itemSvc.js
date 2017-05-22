@@ -7,6 +7,8 @@ const Global = require('../global.js');
 var WechatAPI = require('wechat-api');
 var api = new WechatAPI(Global.appId, Global.appSecret);
 const fs = require('fs');
+const moment = require('moment');
+const UserSvc = require('../services/userSvc.js');
 
 var ItemSvc = function() {
 
@@ -78,7 +80,7 @@ ItemSvc.prototype.getLikes = function(id, openId) {
 ItemSvc.prototype.getBids = function(id) {
   return new Promise((resolve, reject) => {
     Item.findById(id).then(data => {
-      if (!data || !(data.likes)) {
+      if (!data || !(data.bids)) {
         return resolve([]);
       }
       return resolve(data.bids);
@@ -88,9 +90,47 @@ ItemSvc.prototype.getBids = function(id) {
   });
 };
 
-ItemSvc.prototype.canBid = function(id, openId) {
+ItemSvc.prototype.bid = function(itemId, openId, price) {
+  return new Promise((resolve, reject) => {
+    this.canBid(itemId, openId, price).then(data => {
+      if (data == true) {
+        var usrSvc = new UserSvc();
+        usrSvc.getProfile(openId).then(data => {
+          console.log(data);
+          Item.findOneAndUpdate({
+            _id: itemId
+          }, {
+            $push: {
+              bids: {
+                price: price,
+                openId: openId,
+                avatar: data.headimgurl,
+                nick: data.nickname
+              }
+            }
+          }, {
+            new: true
+          }).then(data => {
+            return resolve();
+          }).catch(err => {
+            console.log(err);
+            return reject(err);
+          });
+        }).catch(err => {
+          console.log(err);
+          return reject(err);
+        });
+      } else {
+        return reject(new Error("出价无效！"));
+      }
+    });
+  });
+}
+
+ItemSvc.prototype.canBid = function(id, openId, price) {
   // 1. 不能连续出价
   // 2. 出价必须在拍卖时间内
+  // 3. 出价必须在最新价格上+最小调价
   return new Promise((resolve, reject) => {
     Item.findById(id).then(data => {
       if (!data) {
@@ -104,9 +144,14 @@ ItemSvc.prototype.canBid = function(id, openId) {
       // 1. 不能连续出价
       //获取最后一个出价人的openid
       var tmp = _.orderBy(data.bids, ["created_at"], ['desc']);
-      console.log(tmp);
-      console.log(_.head(tmp).openId);
+      if (tmp.length == 0) {
+        return resolve(true);
+      }
       if (_.head(tmp).openId === openId) {
+        return resolve(false);
+      }
+      //3. 必须大于最后一个出价
+      if (_.head(tmp).price >= price) {
         return resolve(false);
       }
       return resolve(true);
