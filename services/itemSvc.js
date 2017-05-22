@@ -96,7 +96,6 @@ ItemSvc.prototype.bid = function(itemId, openId, price) {
       if (data == true) {
         var usrSvc = new UserSvc();
         usrSvc.getProfile(openId).then(data => {
-          console.log(data);
           Item.findOneAndUpdate({
             _id: itemId
           }, {
@@ -113,11 +112,9 @@ ItemSvc.prototype.bid = function(itemId, openId, price) {
           }).then(data => {
             return resolve();
           }).catch(err => {
-            console.log(err);
             return reject(err);
           });
         }).catch(err => {
-          console.log(err);
           return reject(err);
         });
       } else {
