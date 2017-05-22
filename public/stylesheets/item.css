@@ -1,3 +1,11 @@
+body {
+    background: #fff;
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    color:#000;
+    margin: 0;
+    padding: 0;
+}
 .mySegment{
   width: 100%;
   display: flex;
@@ -100,4 +108,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.goodCount{
+  height:50px;
+  line-height: 50px;
+}
+
+#content{
+  z-index: 20;
+  position: relative;
 }
