@@ -43,21 +43,20 @@ IndexSvc.prototype.getTodayItems = function(openId) {
       // }
     }).sort({
       create_at: -1
-    }).limit(6).exec((err, data) => {
+    }).limit(6).lean().exec((err, data) => {
       if (err) {
         return reject(err);
       }
-      //
-      async.each(data, (x, callback) => {
-        itemSvc.getLikes(x._id, openId).then(y => {
-          x.canLike = y.canLike;
-          x.likes = y.likes;
-        });
-        callback();
-        return resolve(data);
-      }, err => {
-        return resolve(data);
-      });
+      return resolve(data);
+      // async.each(data, (x, callback) => {
+      //   itemSvc.getLikes(x._id, openId).then(y => {
+      //     x.canLike = y.canLike;
+      //     x.likesCount = y.likes;
+      //   });
+      //   callback();
+      // }, err => {
+      //   return resolve(data);
+      // });
     });
   });
 };
