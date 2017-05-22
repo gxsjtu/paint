@@ -93,6 +93,7 @@ ItemSvc.prototype.getBids = function(id) {
 ItemSvc.prototype.bid = function(itemId, openId, price) {
   return new Promise((resolve, reject) => {
     this.canBid(itemId, openId, price).then(data => {
+      console.log(data);
       if (data == true) {
         var usrSvc = new UserSvc();
         usrSvc.getProfile(openId).then(data => {

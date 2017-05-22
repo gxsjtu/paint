@@ -8,6 +8,7 @@ const Global = require('../global.js');
 const Item = require('../models/item.js');
 const moment = require('moment');
 const async = require('async');
+const ItemSvc = require('../services/itemSvc.js');
 
 var IndexSvc = function() {
 
