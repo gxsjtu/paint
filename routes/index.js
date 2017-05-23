@@ -7,6 +7,7 @@ const ItemSvc = require('../services/itemSvc.js');
 const Result = require('../services/result.js');
 const Errors = require('../services/error.js');
 const oAuth = require('../services/oAuth.js');
+const _ = require('lodash');
 
 router.use(Jssdk.jssdk);
 
@@ -16,10 +17,21 @@ router.get('/', oAuth.oAuth, function(req, res, next) {
   var indexSvc = new IndexSvc();
   var openId = req.session.openId;
   Promise.all([indexSvc.getSwipers(), indexSvc.getTodayItems(openId)]).then(data => {
+    var todayDatas = data[1];
+    var result = [];
+    _.forEach(todayDatas,(t) => {
+        if(t.likes.indexOf(openId) < 0){
+          t.canLike = true;
+        }else{
+          t.canLike = false;
+        }
+        result.push(t);
+    });
+
     res.render("index", {
       jssdk: req.jssdk,
       headers: data[0],
-      today: data[1],
+      today: result
     });
   }).catch(err => console.log(err));
 });
@@ -35,6 +47,15 @@ router.get('/openId', function(req, res, next) {
     req.session.openId = result.data.openid;
     res.redirect(state);
   });
+});
+
+router.get('/like/:itemId', oAuth.oAuth, function(req, res, next) {
+  var itemSvc = new ItemSvc();
+  var itemId = req.params.itemId;
+  var openId = req.session.openId;
+  itemSvc.like(itemId, openId).then(data => {
+    res.json(new Result(Errors.Success, data))
+  }).catch(res.json(new Result(Errors.Success, 0)));
 });
 
 module.exports = router;

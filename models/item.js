@@ -3,6 +3,7 @@ var Schema = mongoose.Schema;
 const moment = require('moment');
 
 var ItemSchema = new Schema({
+  canLike: Boolean,
   images: [String],
   openId: String,
   nick: String,

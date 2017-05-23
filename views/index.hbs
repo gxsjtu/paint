@@ -93,13 +93,13 @@
         </div>
       </li>
       <div class="row" style="border-top:1px solid #f2f2f2;background:#fff;margin-left:0px;margin-right:0px;">
-          <div class="col-xs-6" style="color:gray;margin-top:10px;margin-bottom:10px;border-right:1px solid #f2f2f2;display:flex;flex-direction:row;justify-content:center;align-items:center;">
-              <span class="glyphicon glyphicon-heart-empty" style="font-size:15px;"></span>
-              <span style="margin-left:10px;">66</span>
+          <div class="col-xs-6" style="color:gray;margin-top:10px;margin-bottom:10px;border-right:1px solid #f2f2f2;display:flex;flex-direction:row;justify-content:center;align-items:center;"  {{#if this.canLike }} onclick="heartClick('{{this._id}}')" {{/if}}>
+              <span class="glyphicon glyphicon-heart-empty" {{#if this.canLike }} style="font-size:15px;color:red;" {{else}} style="font-size:15px;" {{/if}}></span>
+              <span style="margin-left:10px;" id="{{this._id}}">{{this.likes.length}}</span>
           </div>
           <div class="col-xs-6" style="color:gray;margin-top:10px;margin-bottom:10px;display:flex;flex-direction:row;justify-content:center;align-items:center;">
               <span style="font-size:15px;" class="glyphicon glyphicon-retweet"></span>
-              <span style="margin-left:10px;">88</span>
+              <span style="margin-left:10px;">{{this.bids.length}}</span>
           </div>
       </div>
       <div class="splitItem">
@@ -127,6 +127,22 @@ var loadToday = function(){
 
 function gotoItem(id){
   window.location.href = '/item/'+id;
+}
+
+function heartClick(id){
+  var ele = $("#" + id);
+  var pEle = ele.parent();
+  pEle.removeAttr("onClick");
+  var firstEle = pEle.children("span[class='glyphicon glyphicon-heart-empty']");
+  if(firstEle){
+    firstEle.attr("style", firstEle.attr("style").replace("color:red;", ''));
+  }
+  var like = ele.text();
+  var res = parseInt(like) + 1;
+  ele.text(res);
+  $.get('/item/like/' + id, function(data) {
+
+  });
 }
 
 $(function(){
