@@ -1,6 +1,5 @@
 var Errors = require('./error.js');
 var Result = require('./result.js');
-const ItemSvc = require('./itemSvc.js');
 const Promise = require('promise');
 const _ = require('lodash');
 const fs = require('fs');
