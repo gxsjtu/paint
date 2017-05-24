@@ -44,7 +44,7 @@ router.post('/saveItem', function(req, res, next) {
   }).catch(err => {
 
   }).finally(() => {
-    itemSvc.save(name, author, width, height, comment, type, catalog, price, images, from, to, avatar, nick).then(data => {
+    itemSvc.save(name, author, width, height, comment, type, catalog, price, images, from, to, avatar, nick, req.session.openId).then(data => {
       res.json(new Result(Errors.Success, data));
     }).catch(err => {
       res.json(new Result(Errors.SaveItemFailed, err));

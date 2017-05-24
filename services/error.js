@@ -18,3 +18,7 @@ module.exports.BidFailed = {
   status: 4,
   message: '出价无效！'
 };
+module.exports.GetItemsFailed = {
+  status: 5,
+  message: '获取用户作品失败！'
+};

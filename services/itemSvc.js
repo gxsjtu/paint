@@ -14,6 +14,21 @@ var ItemSvc = function() {
 
 }
 
+ItemSvc.prototype.getItemsByOpenId = function(openId) {
+  return new Promise((resolve, reject) => {
+    Item.find({
+      openId: openId
+    }).sort({
+      create_at: -1
+    }).exec((err, data) => {
+      if (err) {
+        return reject(err);
+      }
+      return resolve(data);
+    });
+  });
+};
+
 ItemSvc.prototype.getItemById = function(id) {
   return new Promise((resolve, reject) => {
     Item.findById(id).then(data => {
@@ -159,8 +174,9 @@ ItemSvc.prototype.canBid = function(id, openId, price) {
   });
 };
 
-ItemSvc.prototype.save = function(name, author, width, height, comment, type, catalog, price, images, from, to, avatar, nick) {
+ItemSvc.prototype.save = function(name, author, width, height, comment, type, catalog, price, images, from, to, avatar, nick, openId) {
   var item = new Item();
+  item.openId = openId;
   item.images = images;
   item.name = name;
   item.author = author;
