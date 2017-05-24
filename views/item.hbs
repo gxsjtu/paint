@@ -82,132 +82,7 @@
       </div>
     </div>
     <div class="segmentView" id="priceInfo" style="display:none;">
-      <div class="line">
-        <div class="avatar">
-          <img src="/images/center/魔都.png" alt="头像" />
-        </div>
-        <div class="nick">
-          昵称
-        </div>
-        <div class="price">
-          ￥100
-        </div>
-        <div class="time">
-          11小时前
-        </div>
-      </div>
-      <div class="line">
-        <div class="avatar">
-          <img src="/images/center/魔都.png" alt="头像" />
-        </div>
-        <div class="nick">
-          昵称
-        </div>
-        <div class="price">
-          ￥100
-        </div>
-        <div class="time">
-          11小时前
-        </div>
-      </div>
-      <div class="line">
-        <div class="avatar">
-          <img src="/images/center/魔都.png" alt="头像" />
-        </div>
-        <div class="nick">
-          昵称
-        </div>
-        <div class="price">
-          ￥100
-        </div>
-        <div class="time">
-          11小时前
-        </div>
-      </div>
-      <div class="line">
-        <div class="avatar">
-          <img src="/images/center/魔都.png" alt="头像" />
-        </div>
-        <div class="nick">
-          昵称
-        </div>
-        <div class="price">
-          ￥100
-        </div>
-        <div class="time">
-          11小时前
-        </div>
-      </div>
-      <div class="line">
-        <div class="avatar">
-          <img src="/images/center/魔都.png" alt="头像" />
-        </div>
-        <div class="nick">
-          昵称
-        </div>
-        <div class="price">
-          ￥100
-        </div>
-        <div class="time">
-          11小时前
-        </div>
-      </div>
-      <div class="line">
-        <div class="avatar">
-          <img src="/images/center/魔都.png" alt="头像" />
-        </div>
-        <div class="nick">
-          昵称
-        </div>
-        <div class="price">
-          ￥100
-        </div>
-        <div class="time">
-          11小时前
-        </div>
-      </div>
-      <div class="line">
-        <div class="avatar">
-          <img src="/images/center/魔都.png" alt="头像" />
-        </div>
-        <div class="nick">
-          昵称
-        </div>
-        <div class="price">
-          ￥100
-        </div>
-        <div class="time">
-          11小时前
-        </div>
-      </div>
-      <div class="line">
-        <div class="avatar">
-          <img src="/images/center/魔都.png" alt="头像" />
-        </div>
-        <div class="nick">
-          昵称
-        </div>
-        <div class="price">
-          ￥100
-        </div>
-        <div class="time">
-          11小时前
-        </div>
-      </div>
-      <div class="line">
-        <div class="avatar">
-          <img src="/images/center/魔都.png" alt="头像" />
-        </div>
-        <div class="nick">
-          昵称
-        </div>
-        <div class="price">
-          ￥100
-        </div>
-        <div class="time">
-          11小时前
-        </div>
-      </div>
+
     </div>
   </div>
   <div class="footer">
@@ -241,12 +116,15 @@
 
       </div>
       <div class="bidPrice">
-        <input type="button" id="minus" value="-" class="btn" style="border-top-right-radius:0;border-bottom-right-radius:0;"/>
-        <!-- <input type="text" id="myPrice"> -->
+        <div class="priceBtn" id="minus" style="color:grey;">
+          <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+        </div>
         <div id="myPrice">
           10
         </div>
-        <input type="button" id="add" value="+" class="btn" style="border-top-left-radius:0;border-bottom-left-radius:0;"/>
+        <div class="priceBtn" id="add">
+          <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        </div>
       </div>
       <div id="myCurrentPrice">
 
@@ -297,18 +175,27 @@
 
             var line = $("<div class=\"line\"></div>");
             var avatar = $("<div class=\"avatar\"></div>");
-            var img = $("<img src=\"" + p.img + "\" alt=\"头像\" />");
+            var img = $("<img src=\"" + p.avatar + "\" alt=\"头像\" />");
             avatar.append(img);
             line.append(avatar);
             var nick = $("<div class=\"nick\">" + p.nick + "</div>");
             line.append(nick);
             var price = $("<div class=\"price\">" + p.price + "</div>");
             line.append(price);
-            var time = $("<div class=\"time\">" + p.time + "</div>");
+            var time = $("<div class=\"time\">" + p.create_at.substr(0,16) + "</div>");
             line.append(time);
 
             $("#priceInfo").append(line);
           }
+        }
+
+        function getBidsInfo()
+        {
+          $.get("/item/getBids/" + itemId, function(data) {
+            if(data.status == 0){
+              createLine(data.data);
+            }
+          })
         }
 
         $(function() {
@@ -323,6 +210,7 @@
           WebPullToRefresh.init({
             loadingFunction: loadToday
           });
+          getBidsInfo();
 
           $(".swiper-container img").on("click", function() {
             if (wx.previewImage) {
@@ -341,8 +229,15 @@
               myCurrentPrice = p + lastPrice;
               $("#myCurrentPrice").text("您的出价为:"+myCurrentPrice)
             }
+            if(p <= 10){
+              $(this).css("color","grey");
+            }
+            else{
+              $(this).css("color","black");
+            }
           });
           $("#add").on("click",function(){
+            $("#minus").css("color","black");
             var p = parseInt($("#myPrice").text()) + 10;
 
             $("#myPrice").text(p);
@@ -393,12 +288,21 @@
           });
 
           $("#btnSubmit").on("click", function() {
+            $(this).attr("disabled","disabled");
             $.get("/item/bid/" + itemId + "/" + myCurrentPrice, function(result) {
-              alert(JSON.stringify(result));
-              // notie.alert({
-              //   type: 3,
-              //   text: result.data
-              // });
+              if(result.status == 0){
+                //出价成功
+                $(".mask,.bidContainer").hide();
+                getBidsInfo();
+              }
+              else{
+                notie.alert({
+                  type: 3,
+                  text: result.message
+                });
+              }
+            }).done(function(){
+              $("#btnSubmit").removeAttr("disabled");
             })
           });
         })

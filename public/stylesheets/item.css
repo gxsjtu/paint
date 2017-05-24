@@ -30,7 +30,7 @@ body {
 }
 
 .segmentContainer{
-  width: 80%;
+  width: 90%;
   margin: 0 auto;
   height: calc(100vh - 50vw - 12px - 50px - 50px);
   overflow-y: scroll;
@@ -71,11 +71,11 @@ body {
 }
 .price{
   color: #ab4255;
-  width: 30%;
+  width: 20%;
 }
 .time{
   color: #c4c4c4;
-  width: 30%;
+  width: 40%;
 }
 
 .footer{
@@ -134,12 +134,12 @@ body {
 .bidContainer{
   border-radius: 4px;
   width: 90vw;
-  height: 220px;
+  height: 300px;
   position: absolute;
   top: 50%;
   left: 50%;
   margin-left: -45vw;
-  margin-top: -110px;
+  margin-top: -150px;
   background: white;
   z-index: 11;
   display: none;
@@ -157,19 +157,38 @@ body {
 
 #currentPrice{
   width: 100%;
+  font-size: 18px;
   text-align: center;
-  margin-top: 20px;
+  margin-top: 30px;
 }
 
 .bidPrice{
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 10px;
+  margin-top: 20px;
+}
+
+.priceBtn{
+  width: 50px;
+  line-height:34px;
+  height: 34px;
+  border:1px solid #ddd;
+  text-align: center;
+}
+
+#minus{
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+#add{
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 
 #myPrice{
-  width: 40px;
+  width: 50px;
   line-height:34px;
   height: 34px;
   border:1px solid #ddd;
@@ -177,8 +196,9 @@ body {
 }
 
 #myCurrentPrice{
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-size: 18px;
   text-align: center;
   height: 30px;
   line-height: 30px;
