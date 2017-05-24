@@ -110,7 +110,6 @@ ItemSvc.prototype.bid = function(itemId, openId, price) {
           }, {
             new: true
           }).then(data => {
-            console.log(data);
             return resolve();
           }).catch(err => {
             console.log(err);
