@@ -2,7 +2,13 @@
   <link rel='stylesheet' href="/swiper/dist/css/swiper.min.css" />
   <link rel="stylesheet" href="/javascripts/web-pull-to-refresh-master/lib/genericons/genericons.css">
   <link rel='stylesheet' href="/javascripts/web-pull-to-refresh-master/base.css" />
+  <link rel='stylesheet' href="/flipclock/compiled/flipclock.css" />
   <link rel='stylesheet' href="/stylesheets/item.css" />
+  <style>
+    .flip-clock-label{
+      display: none;
+    }
+  </style>
 {{/extend}}
 
 <div id="ptr">
@@ -38,6 +44,14 @@
   </div>
   <div class="segmentContainer">
     <div class="segmentView" style="font-size:18px;">
+      <div class="line" style="justify-content:flex-start;height:40px;">
+        <div id="dateDesc" class="name">
+
+        </div>
+        <div style="transform:scale(0.35);margin-left:-60%;margin-right:-65%;">
+          <div class="clock" style="margin:0;"></div>
+        </div>
+      </div>
       <div class="line">
         <div class="name">
           作品名称
@@ -68,14 +82,6 @@
         </div>
         <div class="info">
           长 {{item.dimension.width}}cm, 宽 {{item.dimension.height}}cm
-        </div>
-      </div>
-      <div class="line">
-        <div class="name">
-          拍卖日期
-        </div>
-        <div class="info">
-          <!-- {{item.valid.from}}-{{item.valid.to}} -->
         </div>
       </div>
     </div>
@@ -138,6 +144,9 @@
   <script type="text/javascript" src="/swiper/dist/js/swiper.min.js"></script>
   <script src="/javascripts/web-pull-to-refresh-master/lib/hammer.2.0.4.js"></script>
   <script src="/javascripts/web-pull-to-refresh-master/lib/wptr.1.1.js"></script>
+  <script src="/flipclock/compiled/flipclock.min.js"></script>
+  <script src="/moment/moment.js"></script>
+  <!-- <script src="/flipclock/src/flipclock/js/lang/zh-cn.js"></script> -->
   <script type="text/javascript">
     var images = [];
     var itemId = '{{item._id}}';
@@ -146,6 +155,10 @@
     {{/each}}
     var lastPrice = 0;
     var myCurrentPrice = 0;
+    var from = '{{item.valid.from}}';
+    var to = '{{item.valid.to}}';
+    var flag = 0;
+    var second = 0;
         function goodClick(id) {
           var count = {{like.likes}} || 0;
           $("#good").attr("src", "/images/good_grey.png").parent().removeAttr("onClick");
@@ -208,6 +221,57 @@
           WebPullToRefresh.init({
             loadingFunction: loadToday
           });
+
+          if(moment(from).isBefore()){
+            //已经过了起拍时间
+            if(moment(to).isAfter()){
+              //还没过结束时间
+              flag = 1;
+              second = moment(to).diff(moment(),'seconds');
+              $("#dateDesc").text("距结束");
+            }
+            else{
+              //已过结束时间
+              flag = 2;
+              $("#dateDesc").text("竞拍已结束");
+              $(".clock").parent().remove();
+            }
+          }
+          else{
+            //还没到起拍时间
+            flag = 0;
+            second = moment().diff(from,'seconds');
+            $("#dateDesc").text("距开始");
+          }
+
+          if(flag < 2)
+          {
+            var clock = $('.clock').FlipClock({
+                  clockFace: 'DailyCounter',
+                  autoStart: false,
+                  // language:'Chinese',
+                  callbacks: {
+                    stop: function() {
+                      flag++;
+                      if(flag == 1){
+                        second = moment(to).diff(moment(),'seconds');
+                        $("#dateDesc").text("距离竞拍结束的时间");
+                        clock.setTime(second);
+                      }
+                      else if(flag == 2){
+                        $("#dateDesc").text("竞拍已结束");
+                        clock.stop();
+                        $(".clock").parent().remove();
+                      }
+                    }
+                  }
+              });
+
+              clock.setTime(second);
+              clock.setCountdown(true);
+              clock.start();
+          }
+
           getBidsInfo();
 
           $(".swiper-container img").on("click", function() {
