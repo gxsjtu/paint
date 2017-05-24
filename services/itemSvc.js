@@ -83,7 +83,7 @@ ItemSvc.prototype.getBids = function(id) {
       if (!data || !(data.bids)) {
         return resolve([]);
       }
-      return resolve(data.bids);
+      return resolve(_.orderBy(data.bids, ["create_at"], "desc"));
     }).catch(err => {
       return reject(err);
     });
@@ -110,8 +110,10 @@ ItemSvc.prototype.bid = function(itemId, openId, price) {
           }, {
             new: true
           }).then(data => {
+            console.log(data);
             return resolve();
           }).catch(err => {
+            console.log(err);
             return reject(err);
           });
         }).catch(err => {
@@ -140,7 +142,7 @@ ItemSvc.prototype.canBid = function(id, openId, price) {
       }
       // 1. 不能连续出价
       //获取最后一个出价人的openid
-      var tmp = _.orderBy(data.bids, ["created_at"], ['desc']);
+      var tmp = _.orderBy(data.bids, ["create_at"], 'desc');
       if (tmp.length == 0) {
         return resolve(true);
       }

@@ -14,3 +14,7 @@ module.exports.GetTodayFailed = {
   status: 3,
   message: '获取今日最新失败！'
 };
+module.exports.BidFailed = {
+  status: 4,
+  message: '出价无效！'
+};

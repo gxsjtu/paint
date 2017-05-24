@@ -43,7 +43,9 @@ router.get('/bid/:itemId/:price', oAuth.oAuth, function(req, res, next) {
   var openId = req.session.openId;
   itemSvc.bid(itemId, openId, price).then(data => {
     res.json(new Result(Errors.Success, data))
-  }).catch(err => res.json(new Result(Errors.Success, 0)));
+  }).catch(err => {
+    res.json(new Result(Errors.BidFailed, err))
+  });
 });
 
 
