@@ -394,7 +394,11 @@
 
           $("#btnSubmit").on("click", function() {
             $.get("/item/bid/" + itemId + "/" + myCurrentPrice, function(result) {
-
+              alert(JSON.stringify(result));
+              // notie.alert({
+              //   type: 3,
+              //   text: result.data
+              // });
             })
           });
         })
