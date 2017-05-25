@@ -9,6 +9,7 @@ var index = require('./routes/index');
 var sell = require('./routes/sell.js');
 var center = require('./routes/center.js');
 var item = require('./routes/item.js');
+var myGallery = require('./routes/myGallery.js');
 const helmet = require('helmet');
 var hbs = require('hbs');
 const session = require('express-session');
@@ -72,6 +73,7 @@ app.use('/', index);
 app.use('/sell', sell);
 app.use('/center', center);
 app.use('/item', item);
+app.use('/myGallery', myGallery);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
