@@ -2,7 +2,7 @@
   {{#each items}}
   <div style="border:1px #eee solid;margin-left:5px;margin-top:5px;" onClick="gotoItem('{{this._id}}')">
     <div>
-      <img src="https://painting.shtx.com.cn/images/upload/{{this.images.[0]}}" style="width:100%;"/>
+      <img src="https://painting.shtx.com.cn/images/upload/{{this.images.[0]}}" style="width:100%;" class="pic1"/>
     </div>
     <div class="row" style="margin-left:0px;margin-right:0px;border-top:1px #f2f2f2 solid;margin-top:1px;">
         <div class="col-xs-4" style="padding-left:0px;padding-right:0px;color:gray;margin-top:10px;margin-bottom:10px;border-right:1px solid #f2f2f2;display:flex;flex-direction:row;justify-content:center;align-items:center;">
@@ -23,12 +23,54 @@
 </div>
 {{#extend "scripts"}}
 <script>
+  // var imgDatas = [];
+  //   function loadImg(imgs){
+  //     // imgs.each(function(){
+  //     for (var i = 0; i < imgs.length; i++) {
+  //       if(img[i]){
+  //         imgs[i].load(function(){
+  //                         alert(i);
+  //           var ii = imgs.indexOf(imgs[i]);
+  //           // alert(imgs[i]);
+  //           if(ii > -1){
+  //             imgs.splice(ii, 1);
+  //           }
+  //         })
+  //       }
+  //     }
+  //     if(imgs.length > 0){
+  //       // loadImg(imgs);
+  //     }else{
+  //       alert("ii");
+  //       $(".content").waterfall({
+  //         colMinWidth:150,
+  //         defaultContainerWidth:500,
+  //         autoresize:true
+  //       });
+  //     }
+  //   }
+
   $(function(){
-    $(".content").waterfall({
-      colMinWidth:150,
-      defaultContainerWidth:500,
-      autoresize:true
-    });
+    $(".pic1").each(function(){
+      $(this).load(function(){
+        $(".content").waterfall({
+          colMinWidth:150,
+          defaultContainerWidth:500,
+          autoresize:true
+        });
+      })
+      // imgDatas.push($(this));
+    })
+    // var imgs = $(".pic1");
+    // alert(imgDatas);
+    // alert(imgDatas[0]);
+    // loadImg(imgDatas);
+
+    // $(".content").waterfall({
+    //   colMinWidth:150,
+    //   defaultContainerWidth:500,
+    //   autoresize:true
+    // });
   })
 
   function gotoItem(id){
