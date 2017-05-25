@@ -21,6 +21,9 @@ var compiler = lessCompiler({
   dest: cssPath // the directory where all your compiled CSS files go
 });
 
+// watch the parent directory of the src file
+compiler.watch();
+
 var app = express();
 app.use(session({
   secret: 'guoxuan',
