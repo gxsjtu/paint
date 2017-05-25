@@ -23,6 +23,7 @@
       z-index: 20;
     }
 
+
   </style>
 {{/extend}}
 
@@ -104,7 +105,7 @@
     </div>
   </div>
   <div class="footer">
-    <div class="bid" id="bid">
+    <div class="bid {{#if isMe}}unClick{{/if}}" id="bid">
       出价
     </div>
     <div class="good">
@@ -152,7 +153,6 @@
         <button class="btn btn-primary btn-block ladda-button" data-style="expand-left" id="btnSubmit" style="margin-left:10%;margin-right:10%;width:80%;margin-top:20px;">
           <span class="ladda-label">确定出价</span>
         </button>
-        <!-- <input type="button" value="确定出价" id="btnSubmit" class="btn btn-primary btn-block" style="margin-left:10%;margin-right:10%;width:80%;margin-top:20px;"/> -->
       </div>
     </div>
   </div>
@@ -350,10 +350,11 @@
           });
 
           $("#bid").on("click", function() {
+            {{#unless isMe}}
             $(".mask,.bidContainer").show();
             $.get("/item/getBids/" + itemId, function(data) {
               if(data.message == 'OK'){
-                var price = 0;
+                var price = {{item.price}};
                   if(data.data.length > 0){
                     price = data.data[0].price;
                   }
@@ -364,6 +365,8 @@
                   lastPrice = price;
               }
             })
+            {{/unless}}
+
           });
 
           $(".bidContainer").on("click", function() {

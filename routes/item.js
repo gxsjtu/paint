@@ -19,9 +19,11 @@ router.get('/:itemId', oAuth.oAuth, function(req, res, next) {
   var itemId = req.params.itemId;
   var openId = req.session.openId;
   Promise.all([itemSvc.getItemById(itemId), itemSvc.getLikes(itemId, openId)]).then(data => {
+    var isMe = (openId == data[0].openId ? true : false);
     res.render("item", {
       item: data[0],
-      like: data[1]
+      like: data[1] && isMe,
+      isMe:isMe
     });
   }).catch(err => {
     res.json(err);
