@@ -84,7 +84,7 @@ ItemSvc.prototype.getLikes = function(id, openId) {
 
       return resolve({
         likes: data.likes.length,
-        canLike: (canLike ? false : true)
+        canLike: (canLike ? true : false)
       });
     }).catch(err => {
       return reject(err);
