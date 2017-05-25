@@ -18,6 +18,10 @@
       height: 25px;
     }
 
+    .notie-container{
+      z-index: 20;
+    }
+
   </style>
 {{/extend}}
 
@@ -56,9 +60,7 @@
     <div class="segmentView" style="font-size:18px;">
       <div class="line" style="justify-content:flex-start;">
         <div id="dateDesc" class="name">
-
         </div>
-        <!-- <div style="transform:scale(0.35);margin-left:-60%;margin-right:-65%;"> -->
         <div>
           <div class="clock"></div>
         </div>
@@ -224,7 +226,7 @@
           var swiper = new Swiper('.swiper-container', {
             autoplay: 2000,
             autoplayDisableOnInteraction: false,
-            loop: true,
+            loop: images.length > 1 ? true : false,
             pagination: '.swiper-pagination',
             paginationClickable: true
           });
