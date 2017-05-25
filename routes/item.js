@@ -22,7 +22,7 @@ router.get('/:itemId', oAuth.oAuth, function(req, res, next) {
     var isMe = (openId == data[0].openId ? true : false);
     res.render("item", {
       item: data[0],
-      like: data[1] && isMe,
+      like: data[1],
       isMe:isMe
     });
   }).catch(err => {

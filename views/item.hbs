@@ -350,9 +350,8 @@
           });
 
           $("#bid").on("click", function() {
-            // {{#if isMe}}
-            //   return false;
-            // {{/if}}
+            {{#unless isMe}}
+
             $(".mask,.bidContainer").show();
             $.get("/item/getBids/" + itemId, function(data) {
               if(data.message == 'OK'){
@@ -367,7 +366,7 @@
                   lastPrice = price;
               }
             })
-
+            {{/unless}}
 
           });
 
