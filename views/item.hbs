@@ -52,14 +52,6 @@
     </div>
   </div>
   <div class="segmentContainer">
-    <div id="ptr">
-      <span class="genericon genericon-next"></span>
-      <div class="loading">
-        <span id="l1"></span>
-        <span id="l2"></span>
-        <span id="l3"></span>
-      </div>
-    </div>
     <div class="segmentView" style="font-size:18px;">
       <div class="line" style="justify-content:flex-start;">
         <div id="dateDesc" class="name">
@@ -101,7 +93,16 @@
         </div>
       </div>
     </div>
-    <div class="segmentView" id="content">
+
+    <div id="ptr">
+      <span class="genericon genericon-next"></span>
+      <div class="loading">
+        <span id="l1"></span>
+        <span id="l2"></span>
+        <span id="l3"></span>
+      </div>
+    </div>
+    <div class="segmentView" id="content" style="display:none;z-index:20;background:white;position:relative;">
 
     </div>
   </div>
@@ -139,15 +140,6 @@
         您的出价为 <span id="myCurrentPrice"></span>
       </div>
       <div class="bidPrice" style="font-weight:800;">
-        <!-- <div class="priceBtn" id="minus" style="color:grey;">
-          <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
-        </div>
-        <div id="myPrice">
-          10
-        </div>
-        <div class="priceBtn" id="add">
-          <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-        </div> -->
         <div class="add">
           <button class="btn btn-default" data-num="10">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>10
