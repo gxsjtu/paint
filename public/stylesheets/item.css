@@ -35,6 +35,7 @@ body {
   margin: 0 auto;
   height: calc(100vh - 50vw - 50px - 50px);
   overflow-y: scroll;
+  position: relative;
 }
 
 .segmentView{
@@ -115,11 +116,6 @@ body {
   height:50px;
   line-height: 50px;
   margin-left: 4px;
-}
-
-#content{
-  z-index: 20;
-  position: relative;
 }
 
 .mask{
@@ -233,4 +229,10 @@ body {
 }
 .minus .btn-default{
   color:green;
+}
+
+#content{
+  display:none;
+  z-index:11;
+  background:white;
 }
