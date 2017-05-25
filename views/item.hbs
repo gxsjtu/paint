@@ -137,7 +137,7 @@
       <div class="myCurrentPrice">
         您的出价为 <span id="myCurrentPrice"></span>
       </div>
-      <div class="bidPrice">
+      <div class="bidPrice" style="font-weight:800;">
         <!-- <div class="priceBtn" id="minus" style="color:grey;">
           <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
         </div>
@@ -147,31 +147,31 @@
         <div class="priceBtn" id="add">
           <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
         </div> -->
-        <div style="display:flex;justify-content:space-around;width:100%;">
-          <button class="btn btn-default">
+        <div class="add">
+          <button class="btn btn-default" data-num="10">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>10
           </button>
-          <button class="btn btn-default">
+          <button class="btn btn-default" data-num="20">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>20
           </button>
-          <button class="btn btn-default">
+          <button class="btn btn-default" data-num="50">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>50
           </button>
-          <button class="btn btn-default">
+          <button class="btn btn-default" data-num="100">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>100
           </button>
         </div>
-        <div style="display:flex;justify-content:space-around;width:100%;margin-top:20px;">
-          <button class="btn btn-default">
+        <div class="minus">
+          <button class="btn btn-default" data-num="10">
             <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>10
           </button>
-          <button class="btn btn-default">
+          <button class="btn btn-default" data-num="20">
             <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>20
           </button>
-          <button class="btn btn-default">
+          <button class="btn btn-default" data-num="50">
             <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>50
           </button>
-          <button class="btn btn-default">
+          <button class="btn btn-default" data-num="100">
             <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>100
           </button>
         </div>
@@ -179,7 +179,7 @@
       </div>
 
       <div>
-        <button class="btn btn-primary btn-block ladda-button" data-style="expand-left" id="btnSubmit" style="margin-left:10%;margin-right:10%;width:80%;margin-top:20px;">
+        <button class="btn btn-primary btn-block ladda-button" data-style="expand-left" id="btnSubmit" style="margin-left:5%;margin-right:5%;width:90%;margin-top:20px;">
           <span class="ladda-label">确定出价</span>
         </button>
       </div>
@@ -389,14 +389,28 @@
                     price = data.data[0].price;
                   }
                   $("#currentPrice").text("￥"+price);
-                  $("#myPrice").text("10");
-                  myCurrentPrice = price + parseInt($("#myPrice").text());
+                  myCurrentPrice = price;
                   $("#myCurrentPrice").text("￥"+myCurrentPrice);
                   lastPrice = price;
               }
             })
             {{/unless}}
 
+          });
+
+          $(".add button").on("click",function(){
+            var num = parseInt($(this).data("num"));
+            myCurrentPrice += num;
+            $("#myCurrentPrice").text("￥"+myCurrentPrice);
+          });
+
+          $(".minus button").on("click",function(){
+            var num = parseInt($(this).data("num"));
+            if(myCurrentPrice - num <lastPrice){
+              return false;
+            }
+            myCurrentPrice -= num;
+            $("#myCurrentPrice").text("￥"+myCurrentPrice);
           });
 
           $(".bidContainer").on("click", function() {

@@ -213,3 +213,24 @@ body {
 .unClick{
   background: #bdbdbd;
 }
+
+.add,.minus{
+  display:flex;
+  justify-content:space-around;
+  width:100%;
+}
+
+.minus{
+  margin-top: 20px;
+}
+
+.add .btn-default,.minus .btn-default{
+    width: 62px;
+    font-weight: 800;
+}
+.add .btn-default{
+  color:red;
+}
+.minus .btn-default{
+  color:green;
+}
