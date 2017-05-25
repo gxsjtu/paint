@@ -1,1 +1,131 @@
-<h2>搜索</h2>
+{{#extend "stylesheets"}}
+    <link rel='stylesheet' href="/javascripts/icheck/skins/line/blue.css" />
+    <style media="screen">
+        .label-container {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .label-container input {
+            display: none;
+        }
+
+        .container {
+          padding: 40px;
+        }
+
+        .search-box {
+          display: inline-block;
+          width: 100%;
+          border-radius: 3px;
+          padding: 4px 55px 4px 15px;
+          position: relative;
+          background: #fff;
+          border: 1px solid #ddd;
+          -webkit-transition: all 200ms ease-in-out;
+          -moz-transition: all 200ms ease-in-out;
+          transition: all 200ms ease-in-out;
+        }
+        .search-box.hovered, .search-box:hover, .search-box:active {
+          border: 1px solid #aaa;
+        }
+        .search-box input[type=text] {
+          border: none;
+          box-shadow: none;
+          display: inline-block;
+          padding: 0;
+          background: transparent;
+        }
+        .search-box input[type=text]:hover, .search-box input[type=text]:focus, .search-box input[type=text]:active {
+          box-shadow: none;
+        }
+        .search-box .search-btn {
+          position: absolute;
+          right: 2px;
+          top: 2px;
+          color: #aaa;
+          border-radius: 3px;
+          font-size: 21px;
+          padding: 5px 10px 1px;
+          -webkit-transition: all 200ms ease-in-out;
+          -moz-transition: all 200ms ease-in-out;
+          transition: all 200ms ease-in-out;
+        }
+        .search-box .search-btn:hover {
+          color: #fff;
+          background-color: #8FBE00;
+        }
+    </style>
+{{/extend}}
+<div class='container'>
+  <div class='row'>
+    <div class='col-xs-12'>
+      <div class='search-box'>
+        <form class='search-form'>
+          <input class='form-control' placeholder='请输入作者或作品.' type='text'>
+          <button class='btn btn-link search-btn'>
+            <i class='glyphicon glyphicon-search'></i>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="label-container">
+      <div class="label all">
+          <input type="checkbox"><label>全部</label>
+      </div>
+      <div class="label">
+          <input type="checkbox"><label>国画</label>
+      </div>
+      <div class="label">
+          <input type="checkbox"><label>油画</label>
+      </div>
+      <div class="label">
+          <input type="checkbox"><label>水粉画</label>
+      </div>
+      <div class="label">
+          <input type="checkbox"><label>版画</label>
+      </div>
+      <div class="label">
+          <input type="checkbox"><label>水彩画</label>
+      </div>
+      <div class="label">
+          <input type="checkbox"><label>人物画</label>
+      </div>
+      <div class="label">
+          <input type="checkbox"><label>风景画</label>
+      </div>
+      <div class="label">
+          <input type="checkbox"><label>山水画</label>
+      </div>
+  </div>
+</div>
+
+{{#extend "scripts"}}
+    <script src="/javascripts/icheck/icheck.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.label-container input').each(function() {
+                var self = $(this),
+                    label = self.next(),
+                    label_text = label.text();
+
+                label.remove();
+                self.iCheck({
+                    checkboxClass: 'icheckbox_line-blue',
+                    radioClass: 'iradio_line-blue',
+                    insert: '<div class="icheck_line-icon"></div>' + label_text
+                });
+                if (label_text == '全部') {
+                    $(this).on('ifChecked', function(event) {
+                        $('.label-container input').iCheck('check');
+                    }).on('ifUnchecked', function(event) {
+                        $('.label-container input').iCheck('uncheck');
+                    });
+                }
+            });
+        });
+    </script>
+{{/extend}}
