@@ -157,11 +157,12 @@ body {
   font-size: larger;
 }
 
-#currentPrice{
+.currentPrice{
   width: 100%;
   font-size: 18px;
   text-align: center;
   margin-top: 30px;
+  min-height: 25px;
 }
 
 .bidPrice{
@@ -196,10 +197,12 @@ body {
   border:1px solid #ddd;
   text-align: center;
 }
+#currentPrice,#myCurrentPrice{
+  color: red;
+}
 
-#myCurrentPrice{
+.myCurrentPrice{
   margin-top: 20px;
-  margin-bottom: 20px;
   font-size: 18px;
   text-align: center;
   height: 30px;

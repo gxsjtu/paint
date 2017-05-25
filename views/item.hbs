@@ -3,6 +3,7 @@
   <link rel="stylesheet" href="/javascripts/web-pull-to-refresh-master/lib/genericons/genericons.css">
   <link rel='stylesheet' href="/javascripts/web-pull-to-refresh-master/base.css" />
   <link rel='stylesheet' href="/flipclock/compiled/flipclock.css" />
+  <link rel='stylesheet' href="/javascripts/Ladda/dist/ladda-themeless.min.css" />
   <link rel='stylesheet' href="/stylesheets/item.css" />
   <link rel='stylesheet' href="/stylesheets/style_less.css" />
   <style>
@@ -129,8 +130,11 @@
       出价
     </div>
     <div class="bid-content">
-      <div id="currentPrice">
-
+      <div class="currentPrice">
+        当前出价为<span id="currentPrice"></span>
+      </div>
+      <div class="myCurrentPrice">
+        您的出价为<span id="myCurrentPrice"></span>
       </div>
       <div class="bidPrice">
         <div class="priceBtn" id="minus" style="color:grey;">
@@ -143,11 +147,12 @@
           <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
         </div>
       </div>
-      <div id="myCurrentPrice">
 
-      </div>
       <div>
-        <input type="button" value="确定出价" id="btnSubmit" class="btn btn-primary btn-block" style="margin-left:10%;margin-right:10%;width:80%;"/>
+        <button class="btn btn-primary btn-block ladda-button" data-style="expand-left" id="btnSubmit" style="margin-left:10%;margin-right:10%;width:80%;margin-top:20px;">
+          <span class="ladda-label">确定出价</span>
+        </button>
+        <!-- <input type="button" value="确定出价" id="btnSubmit" class="btn btn-primary btn-block" style="margin-left:10%;margin-right:10%;width:80%;margin-top:20px;"/> -->
       </div>
     </div>
   </div>
@@ -159,7 +164,9 @@
   <script src="/javascripts/web-pull-to-refresh-master/lib/wptr.1.1.js"></script>
   <script src="/flipclock/compiled/flipclock.min.js"></script>
   <script src="/moment/moment.js"></script>
-  <!-- <script src="/flipclock/src/flipclock/js/lang/zh-cn.js"></script> -->
+  <script src="/javascripts/Ladda/dist/spin.min.js"></script>
+  <script src="/javascripts/Ladda/dist/ladda.min.js"></script>
+
   <script type="text/javascript">
     var images = [];
     var itemId = '{{item._id}}';
@@ -224,13 +231,17 @@
         }
 
         $(function() {
-          var swiper = new Swiper('.swiper-container', {
-            autoplay: 2000,
-            autoplayDisableOnInteraction: false,
-            loop: images.length > 1 ? true : false,
-            pagination: '.swiper-pagination',
-            paginationClickable: true
-          });
+          let option = {};
+          if(images.length > 1){
+            option = {
+              autoplay: 2000,
+              autoplayDisableOnInteraction: false,
+              loop: images.length > 1 ? true : false,
+              pagination: '.swiper-pagination',
+              paginationClickable: true
+            }
+          }
+          var swiper = new Swiper('.swiper-container', option);
 
           WebPullToRefresh.init({
             loadingFunction: loadBidsInfo
@@ -303,7 +314,7 @@
             if(p>0){
               $("#myPrice").text(p);
               myCurrentPrice = p + lastPrice;
-              $("#myCurrentPrice").text("您的出价为:"+myCurrentPrice)
+              $("#myCurrentPrice").text(myCurrentPrice)
             }
             if(p <= 10){
               $(this).css("color","grey");
@@ -318,7 +329,7 @@
 
             $("#myPrice").text(p);
             myCurrentPrice = p + lastPrice;
-            $("#myCurrentPrice").text("您的出价为:"+myCurrentPrice)
+            $("#myCurrentPrice").text(myCurrentPrice)
           });
 
           $(".segmentItem").on("click", function() {
@@ -346,10 +357,10 @@
                   if(data.data.length > 0){
                     price = data.data[0].price;
                   }
-                  $("#currentPrice").text("当前出价为:"+price);
+                  $("#currentPrice").text(price);
                   $("#myPrice").text("10");
                   myCurrentPrice = price + parseInt($("#myPrice").text());
-                  $("#myCurrentPrice").text("您的出价为:"+myCurrentPrice);
+                  $("#myCurrentPrice").text(myCurrentPrice);
                   lastPrice = price;
               }
             })
@@ -364,7 +375,9 @@
           });
 
           $("#btnSubmit").on("click", function() {
-            $(this).attr("disabled","disabled");
+            // $(this).attr("disabled","disabled");
+            var l = Ladda.create( document.querySelector( '#btnSubmit' ) );
+            l.start();
             $.get("/item/bid/" + itemId + "/" + myCurrentPrice, function(result) {
               if(result.status == 0){
                 //出价成功
@@ -378,7 +391,8 @@
                 });
               }
             }).done(function(){
-              $("#btnSubmit").removeAttr("disabled");
+              // $("#btnSubmit").removeAttr("disabled");
+              l.stop();
             })
           });
         })
