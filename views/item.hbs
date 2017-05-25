@@ -182,9 +182,10 @@
           });
         }
 
-        function loadToday() {
+        function loadBidsInfo() {
           return new Promise(function(resolve, reject) {
             if (true) {
+              getBidsInfo();
               resolve();
             } else {
               reject();
@@ -232,7 +233,7 @@
           });
 
           WebPullToRefresh.init({
-            loadingFunction: loadToday
+            loadingFunction: loadBidsInfo
           });
 
           if(moment(from).isBefore()){
