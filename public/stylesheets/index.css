@@ -82,3 +82,71 @@ body {
   border-top-left-radius: 0px;
   border-top-right-radius: 0px;
 }
+
+.like{
+  color:gray;
+  margin-top:10px;
+  margin-bottom:10px;
+  border-right:1px solid #f2f2f2;
+  display:flex;
+  flex-direction:row;
+  justify-content:center;
+  align-items:center;
+}
+
+.bid{
+  color:gray;
+  margin-top:10px;
+  margin-bottom:10px;
+  display:flex;
+  flex-direction:row;
+  justify-content:center;
+  align-items:center;
+}
+
+.img-size{
+  width:23px;
+  height:23px;
+}
+
+.option{
+  border-top:1px solid #f2f2f2;
+  background:#fff;
+  margin-left:0px;
+  margin-right:0px;
+}
+
+.item{
+  border-top:0px;
+  border-left:0px;
+  border-right:0px;
+  border-bottom:0px;
+  margin-bottom:0px;
+  padding-bottom:0px;
+}
+
+.avatarStyle{
+  padding-left:5px;
+  padding-right:0px;
+  width:65px;
+  float:left;
+}
+
+.nickDiv{
+  padding-left:0px;
+  height:50px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+
+.imgStyle{
+  height:100px;
+  width:32%;
+  float:left;
+  background-size:cover;
+  padding-left:0;
+  padding-right:0;
+  margin-top:3px;
+  margin-left:3px;
+}

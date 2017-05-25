@@ -1,0 +1,78 @@
+{{#extend "stylesheets"}}
+<link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="/javascripts/web-pull-to-refresh-master/lib/genericons/genericons.css">
+<link rel='stylesheet' href="/javascripts/web-pull-to-refresh-master/base.css" />
+<link rel='stylesheet' href="/stylesheets/index.css" />
+{{/extend}}
+<div id="content">
+  <ul class="list-group" style="margin-top:10px;border-top:1px solid #ddd;background:#f2f2f2;">
+  </ul>
+</div>
+{{#extend "scripts"}}
+<script src="/javascripts/web-pull-to-refresh-master/lib/hammer.2.0.4.js"></script>
+<script src="/javascripts/web-pull-to-refresh-master/lib/wptr.1.1.js"></script>
+  <script>
+    $(function(){
+      $.get("/item/getTodayItems", function(data){
+          // alert(data.data);
+          var res = data.data;
+          // for (var i = 0; i < res.length; i++) {
+          //   res[i]
+          // }
+          appendData("get", res);
+      })
+    })
+
+    function getDatas(){
+
+    }
+
+    function appendData(op,datas){
+      if(op == "get" || op == "pullup"){
+        // for (var i = 0; i < datas.length; i++) {
+        //   var str ="<li class=\"list-group-item item\" onClick=\"gotoItem('" + datas[i]._id + "')\" ><div class=\"row\" style=\"margin-left:-15px;margin-right:0px;\"> <div class=\"avatarStyle\"><img src=\"" + datas[i].avatar + "\" style=\"width:50px;border-radius:50px;\"/></div> <div class=\"nickDiv\"> <div class=\"row\" style=\"margin-left:0px;margin-right:0px;\"> <span style=\"color:#2ad0cc\">" + datas[i].nick + "</span></div><div class=\"row\" style=\"margin-top:5px;margin-left:0px;margin-right:0px;\"><span style=\"color:#d1d1d1\">" + data[i].create_at + "</span></div></div></div><div class=\"row\" style=\"margin-left:0px;margin-right:0px;margin-top:10px;\"><div class=\"row\">";
+        //     alert(str);
+        //       for (var j = 0; j < datas[i].images.length; j++) {
+        //         // datas[i].images[j]
+        //           str += " <div class=\"imgStyle\" style=\"background:url(https://painting.shtx.com.cn/images/upload/" + datas[i].images[j] + ");\"></div>"
+        //       }
+          //     {{#each this.images}}
+          //     <div class=\"imgStyle\" style=\"background:url(https://painting.shtx.com.cn/images/upload/{{this}});\">
+          //
+          //     </div>
+          //     {{/each}}
+          //   </div>
+          //     <div class=\"row\" style=\"margin-bottom:10px;font-size:14px;margin-top:10px;\">
+          //       <div class=\"col-xs-12\" style=\"padding-right: 0px;padding-left: 3px;\">
+          //           《{{this.name}}》
+          //       </div>
+          //     </div>
+          //   </div>
+          // </li>
+          // <div class=\"row option\">
+          //     <div class=\"col-xs-6 like\" {{#if this.canLike }} onclick=\"heartClick('{{this._id}}')\" {{/if}}>
+          //         {{#if this.canLike}}
+          //           <img id=\"imgLike\" src=\"/images/aa_08.png\" alt=\"赞\" class=\"img-size\"/>
+          //         {{/if}}
+          //         {{#unless this.canLike}}
+          //           <img id=\"imgLike\" src=\"/images/BB_08.png\" alt=\"赞\" class=\"img-size\"/>
+          //         {{/unless}}
+          //         <span style=\"margin-left:10px;\" id=\"{{this._id}}\">{{this.likes.length}}</span>
+          //     </div>
+          //     <div class=\"col-xs-6 bid\">
+          //         <img src=\"/images/aa_07.png\" alt=\"出价次数\" class=\"img-size\"/>
+          //
+          //         <span style=\"margin-left:10px;\">{{this.bids.length}}</span>
+          //     </div>
+          // </div>
+          // <div class=\"splitItem\">
+          // </div>
+          // {{/each}}";
+        //}
+            $(".list-group").append(str);
+            }else if(op == "pulldown"){
+
+      }
+    }
+  </script>
+{{/extend}}
