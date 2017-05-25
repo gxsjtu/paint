@@ -159,6 +159,10 @@ $(function(){
   WebPullToRefresh.init( {
       loadingFunction: loadToday
   } );
+
+  $(".search").on("click",function(){
+    window.location.href="/search";
+  })
 });
 
 
