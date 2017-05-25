@@ -350,9 +350,9 @@
           });
 
           $("#bid").on("click", function() {
-            {{#if isMe}}
-              return false;
-            {{/if}}
+            // {{#if isMe}}
+            //   return false;
+            // {{/if}}
             $(".mask,.bidContainer").show();
             $.get("/item/getBids/" + itemId, function(data) {
               if(data.message == 'OK'){
