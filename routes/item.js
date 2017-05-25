@@ -6,11 +6,24 @@ const Result = require('../services/result.js');
 const Errors = require('../services/error.js');
 const oAuth = require('../services/oAuth.js');
 const ItemSvc = require('../services/itemSvc.js');
+const UserSvc = require('../services/userSvc.js');
+const IndexSvc = require('../services/indexSvc.js');
 var itemSvc = new ItemSvc();
+var userSvc = new UserSvc();
+var indexSvc = new IndexSvc();
 router.use(Jssdk.jssdk);
 
+router.get('/getMyBids', function(req, res, next) {
+  var openId = req.session.openId;
+  userSvc.getMyBids(openId).then(data => {
+    console.log(data);
+    res.json(new Result(Errors.Success, data))
+  }).catch(err => res.json(new Result(Errors.GetMyBidsFailed, err)));
+});
+
+
 router.get('/getTodayItems', function(req, res, next) {
-  itemSvc.getTodayItems(30).then(data => {
+  indexSvc.getTodayItems(30).then(data => {
     res.json(new Result(Errors.Success, data))
   }).catch(err => res.json(new Result(Errors.GetItemsFailed, err)));
 });
@@ -23,7 +36,7 @@ router.get('/:itemId', oAuth.oAuth, function(req, res, next) {
     res.render("item", {
       item: data[0],
       like: data[1],
-      isMe:isMe
+      isMe: isMe
     });
   }).catch(err => {
     res.json(err);

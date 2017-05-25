@@ -22,3 +22,7 @@ module.exports.GetItemsFailed = {
   status: 5,
   message: '获取用户作品失败！'
 };
+module.exports.GetMyBidsFailed = {
+  status: 6,
+  message: '获取我的出价失败！'
+};
