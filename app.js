@@ -11,7 +11,16 @@ var center = require('./routes/center.js');
 var item = require('./routes/item.js');
 const helmet = require('helmet');
 var hbs = require('hbs');
-const session = require('express-session')
+const session = require('express-session');
+var lessCompiler = require('less-compiler');
+var lessPath = __dirname + '/public/stylesheets';
+var cssPath = __dirname + '/public/stylesheets';
+
+var compiler = lessCompiler({
+  src: path.join(lessPath, 'style_less.less'), // the less file with all your imports
+  dest: cssPath // the directory where all your compiled CSS files go
+});
+
 var app = express();
 app.use(session({
   secret: 'guoxuan',

@@ -21,6 +21,8 @@
     "helmet": "^3.6.0",
     "jquery": "2.2.4",
     "junk": "^2.1.0",
+    "less": "^1.7.5",
+    "less-compiler": "git+https://github.com/alexkwolfe/node-less-compiler.git",
     "lodash": "^4.17.4",
     "moment": "^2.18.1",
     "mongoose": "^4.9.9",
