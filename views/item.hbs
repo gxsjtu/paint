@@ -131,10 +131,10 @@
     </div>
     <div class="bid-content">
       <div class="currentPrice">
-        当前出价为<span id="currentPrice"></span>
+        当前出价为 <span id="currentPrice"></span>
       </div>
       <div class="myCurrentPrice">
-        您的出价为<span id="myCurrentPrice"></span>
+        您的出价为 <span id="myCurrentPrice"></span>
       </div>
       <div class="bidPrice">
         <div class="priceBtn" id="minus" style="color:grey;">
@@ -314,7 +314,7 @@
             if(p>0){
               $("#myPrice").text(p);
               myCurrentPrice = p + lastPrice;
-              $("#myCurrentPrice").text(myCurrentPrice)
+              $("#myCurrentPrice").text("￥"+myCurrentPrice)
             }
             if(p <= 10){
               $(this).css("color","grey");
@@ -329,7 +329,7 @@
 
             $("#myPrice").text(p);
             myCurrentPrice = p + lastPrice;
-            $("#myCurrentPrice").text(myCurrentPrice)
+            $("#myCurrentPrice").text("￥"+myCurrentPrice)
           });
 
           $(".segmentItem").on("click", function() {
@@ -357,10 +357,10 @@
                   if(data.data.length > 0){
                     price = data.data[0].price;
                   }
-                  $("#currentPrice").text(price);
+                  $("#currentPrice").text("￥"+price);
                   $("#myPrice").text("10");
                   myCurrentPrice = price + parseInt($("#myPrice").text());
-                  $("#myCurrentPrice").text(myCurrentPrice);
+                  $("#myCurrentPrice").text("￥"+myCurrentPrice);
                   lastPrice = price;
               }
             })

@@ -199,6 +199,7 @@ body {
 }
 #currentPrice,#myCurrentPrice{
   color: red;
+  font-size: larger;
 }
 
 .myCurrentPrice{
