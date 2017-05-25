@@ -25,8 +25,8 @@ UserSvc.prototype.getProfile = function(openId) {
 UserSvc.prototype.getMyBids = function(openId) {
   return new Promise((resolve, reject) => {
     Item.find({
-      $elemMatch: {
-        bids: {
+      bids: {
+        $elemMatch: {
           openId: openId
         }
       }

@@ -11,7 +11,7 @@ var center = require('./routes/center.js');
 var item = require('./routes/item.js');
 var myGallery = require('./routes/myGallery.js');
 var todayMore = require('./routes/todayMore.js');
-var myOffer = require('myOffer.js');
+var myBids = require('./routes/myBids.js');
 const helmet = require('helmet');
 var hbs = require('hbs');
 const session = require('express-session');
@@ -77,7 +77,7 @@ app.use('/center', center);
 app.use('/item', item);
 app.use('/myGallery', myGallery);
 app.use('/todayMore', todayMore);
-app.use('/myOffer', myOffer);
+app.use('/myBids', myBids);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
