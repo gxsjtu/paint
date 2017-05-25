@@ -4,10 +4,20 @@
   <link rel='stylesheet' href="/javascripts/web-pull-to-refresh-master/base.css" />
   <link rel='stylesheet' href="/flipclock/compiled/flipclock.css" />
   <link rel='stylesheet' href="/stylesheets/item.css" />
+  <link rel='stylesheet' href="/stylesheets/style_less.css" />
   <style>
     .flip-clock-label{
       display: none;
     }
+
+    .flip-clock-wrapper{
+      /*width:70%;*/
+      margin:0;
+    }
+    .flip-clock-divider{
+      height: 25px;
+    }
+
   </style>
 {{/extend}}
 
@@ -44,12 +54,13 @@
   </div>
   <div class="segmentContainer">
     <div class="segmentView" style="font-size:18px;">
-      <div class="line" style="justify-content:flex-start;height:40px;">
+      <div class="line" style="justify-content:flex-start;">
         <div id="dateDesc" class="name">
 
         </div>
-        <div style="transform:scale(0.35);margin-left:-60%;margin-right:-65%;">
-          <div class="clock" style="margin:0;"></div>
+        <!-- <div style="transform:scale(0.35);margin-left:-60%;margin-right:-65%;"> -->
+        <div>
+          <div class="clock"></div>
         </div>
       </div>
       <div class="line">

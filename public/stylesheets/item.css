@@ -33,7 +33,7 @@ body {
 .segmentContainer{
   width: 90%;
   margin: 0 auto;
-  height: calc(100vh - 50vw - 12px - 50px - 50px);
+  height: calc(100vh - 50vw - 50px - 50px);
   overflow-y: scroll;
 }
 
