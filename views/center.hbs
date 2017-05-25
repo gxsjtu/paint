@@ -18,7 +18,7 @@
         我的订单
       </div>
     </div>
-    <div class="item">
+    <div class="item" onClick="gotoMyOffer()">
       <img src="/images/center/f_02.png" alt="" />
       <div class="menu-name">
         我的出价
@@ -30,12 +30,12 @@
         我的画廊
       </div>
     </div>
-    <div class="item">
+    <!-- <div class="item">
       <img src="/images/center/f_04.png" alt="" />
       <div class="menu-name">
         我的资料
       </div>
-    </div>
+    </div> -->
   </div>
 
 </div>
@@ -43,6 +43,9 @@
   <script>
   function gotoMyGallery(){
     window.location.href = '/myGallery';
+  }
+  function gotoMyOffer(){
+    window.location.href = '/myOffer';
   }
   </script>
 {{/extend}}

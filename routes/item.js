@@ -6,11 +6,13 @@ const Result = require('../services/result.js');
 const Errors = require('../services/error.js');
 const oAuth = require('../services/oAuth.js');
 const ItemSvc = require('../services/itemSvc.js');
+const IndexSvc = require('../services/indexSvc.js');
 var itemSvc = new ItemSvc();
+var indexSvc = new IndexSvc();
 router.use(Jssdk.jssdk);
 
 router.get('/getTodayItems', function(req, res, next) {
-  itemSvc.getTodayItems(30).then(data => {
+  indexSvc.getTodayItems(30).then(data => {
     res.json(new Result(Errors.Success, data))
   }).catch(err => res.json(new Result(Errors.GetItemsFailed, err)));
 });
