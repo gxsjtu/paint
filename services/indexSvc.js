@@ -33,7 +33,7 @@ IndexSvc.prototype.getSwipers = function() {
   });
 }
 
-IndexSvc.prototype.getTodayItems = function(openId) {
+IndexSvc.prototype.getTodayItems = function(num) {
   var itemSvc = new ItemSvc();
   return new Promise((resolve, reject) => {
     Item.where({
@@ -43,7 +43,7 @@ IndexSvc.prototype.getTodayItems = function(openId) {
       // }
     }).sort({
       create_at: -1
-    }).limit(6).lean().exec((err, data) => {
+    }).limit(num).lean().exec((err, data) => {
       if (err) {
         return reject(err);
       }

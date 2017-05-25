@@ -9,6 +9,12 @@ const ItemSvc = require('../services/itemSvc.js');
 var itemSvc = new ItemSvc();
 router.use(Jssdk.jssdk);
 
+router.get('/getTodayItems', function(req, res, next) {
+  itemSvc.getTodayItems(30).then(data => {
+    res.json(new Result(Errors.Success, data))
+  }).catch(err => res.json(new Result(Errors.GetItemsFailed, err)));
+});
+
 router.get('/:itemId', oAuth.oAuth, function(req, res, next) {
   var itemId = req.params.itemId;
   var openId = req.session.openId;
