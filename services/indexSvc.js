@@ -33,32 +33,58 @@ IndexSvc.prototype.getSwipers = function() {
   });
 }
 
-IndexSvc.prototype.getTodayItems = function(num) {
+IndexSvc.prototype.getTodayItems = function(num, upOrDown, create_at) {
   var itemSvc = new ItemSvc();
-  return new Promise((resolve, reject) => {
-    Item.where({
-      // create_at: {
-      //   $gt: moment().format('YYYY-MM-DD'),
-      //   $lt: moment().add(1, "days").format('YYYY-MM-DD')
-      // }
-    }).sort({
-      create_at: -1
-    }).limit(num).lean().exec((err, data) => {
-      if (err) {
-        return reject(err);
-      }
-      return resolve(data);
-      // async.each(data, (x, callback) => {
-      //   itemSvc.getLikes(x._id, openId).then(y => {
-      //     x.canLike = y.canLike;
-      //     x.likesCount = y.likes;
-      //   });
-      //   callback();
-      // }, err => {
-      //   return resolve(data);
-      // });
+  if (!upOrDown) {
+    return new Promise((resolve, reject) => {
+      Item.where({
+        // create_at: {
+        //   $gt: moment().format('YYYY-MM-DD'),
+        //   $lt: moment().add(1, "days").format('YYYY-MM-DD')
+        // }
+      }).sort({
+        create_at: -1
+      }).limit(num).lean().exec((err, data) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve(data);
+      });
     });
-  });
+  } else {
+    if (upOrDown === "up") {
+      // 加载更多 上拉
+      return new Promise((resolve, reject) => {
+        Item.where({
+          create_at: {
+            $lt: create_at
+          }
+        }).sort({
+          create_at: -1
+        }).limit(num).lean().exec((err, data) => {
+          if (err) {
+            return reject(err);
+          }
+          return resolve(data);
+        });
+      });
+    } else {
+      return new Promise((resolve, reject) => {
+        Item.where({
+          create_at: {
+            $gt: create_at
+          }
+        }).sort({
+          create_at: -1
+        }).limit(num).lean().exec((err, data) => {
+          if (err) {
+            return reject(err);
+          }
+          return resolve(data);
+        });
+      });
+    }
+  }
 };
 
 module.exports = IndexSvc;
