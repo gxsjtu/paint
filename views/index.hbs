@@ -64,11 +64,20 @@
               <img src="{{this.avatar}}" style="width:50px;border-radius:50px;"/>
             </div>
             <div class="nickDiv">
-              <div class="row" style="margin-left:0px;margin-right:0px;">
-                <span style="color:#2ad0cc">{{this.nick}}</span>
-              </div>
-              <div class="row" style="margin-top:5px;margin-left:0px;margin-right:0px;">
-                <span style="color:#919191">{{this.create_at}}</span>
+              <div class="row">
+                <div class="col-xs-7" style="padding-right:0px;">
+                  <div class="row" style="margin-left:0px;margin-right:0px;margin-top:5px;">
+                    <span style="color:#2ad0cc">{{this.nick}}</span>
+                  </div>
+                  <div class="row" style="margin-top:5px;margin-left:0px;margin-right:0px;">
+                    <span style="color:#919191">{{this.create_at}}</span>
+                  </div>
+                </div>
+                <div class="col-xs-5" style="padding-left:0px;padding-right:0px;">
+                  <div class="row" style="background:url('/images/label_01.jpg') no-repeat;height:55px;width:130px;background-size:130px 55px;margin-left:0px;margin-right:0px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;">
+                    <span style="margin-left:30px;">￥{{this.price}}</span>
+                  </div>
+                </div>
               </div>
             </div>
         </div>
