@@ -16,7 +16,6 @@ router.use(Jssdk.jssdk);
 router.get('/getMyBids', function(req, res, next) {
   var openId = req.session.openId;
   userSvc.getMyBids(openId).then(data => {
-    console.log(data);
     res.json(new Result(Errors.Success, data))
   }).catch(err => res.json(new Result(Errors.GetMyBidsFailed, err)));
 });
