@@ -16,16 +16,16 @@ router.get('/', oAuth.oAuth, function(req, res, next) {
   //获取index页面的走马灯图片
   var indexSvc = new IndexSvc();
   var openId = req.session.openId;
-  Promise.all([indexSvc.getSwipers(), indexSvc.getTodayItems(6,"","")]).then(data => {
+  Promise.all([indexSvc.getSwipers(), indexSvc.getTodayItems(6, "", "")]).then(data => {
     var todayDatas = data[1];
     var result = [];
-    _.forEach(todayDatas,(t) => {
-        if(t.likes.indexOf(openId) < 0){
-          t.canLike = true;
-        }else{
-          t.canLike = false;
-        }
-        result.push(t);
+    _.forEach(todayDatas, (t) => {
+      if (t.likes.indexOf(openId) < 0) {
+        t.canLike = true;
+      } else {
+        t.canLike = false;
+      }
+      result.push(t);
     });
 
     res.render("index", {
@@ -40,11 +40,15 @@ router.get('/openId', function(req, res, next) {
   var code = req.query.code;
   var state = req.query.state;
   oAuth.client.getAccessToken(code, function(err, result) {
-    if (err || !(result.data)) {
-      console.log(err);
-      oAuth.oAuth(req, res, next);
+    // if (err || !(result.data)) {
+    //   console.log(err);
+    //   oAuth.oAuth(req, res, next);
+    // }
+    // req.session.openId = result.data.openid;
+    // res.redirect(state);
+    if (result && result.data && result.data.openid) {
+      req.session.openId = result.data.openid;
     }
-    req.session.openId = result.data.openid;
     res.redirect(state);
   });
 });
