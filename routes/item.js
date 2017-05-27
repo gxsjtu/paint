@@ -22,8 +22,14 @@ router.get('/getMyBids', function(req, res, next) {
 });
 
 
-router.get('/getTodayItems', function(req, res, next) {
-  indexSvc.getTodayItems(30).then(data => {
+router.get('/getTodayItems/:upOrDown/:creatAt', function(req, res, next) {
+  var upOrDown = req.params.upOrDown;
+  var createAt = req.params.creatAt;
+  if(upOrDown == 0){
+    upOrDown = '';
+    creatAt = '';
+  }
+  indexSvc.getTodayItems(30,upOrDown,createAt).then(data => {
     res.json(new Result(Errors.Success, data))
   }).catch(err => res.json(new Result(Errors.GetItemsFailed, err)));
 });

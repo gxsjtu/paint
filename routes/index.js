@@ -16,7 +16,7 @@ router.get('/', oAuth.oAuth, function(req, res, next) {
   //获取index页面的走马灯图片
   var indexSvc = new IndexSvc();
   var openId = req.session.openId;
-  Promise.all([indexSvc.getSwipers(), indexSvc.getTodayItems(6)]).then(data => {
+  Promise.all([indexSvc.getSwipers(), indexSvc.getTodayItems(6,"","")]).then(data => {
     var todayDatas = data[1];
     var result = [];
     _.forEach(todayDatas,(t) => {

@@ -3,76 +3,202 @@
 <link rel="stylesheet" href="/javascripts/web-pull-to-refresh-master/lib/genericons/genericons.css">
 <link rel='stylesheet' href="/javascripts/web-pull-to-refresh-master/base.css" />
 <link rel='stylesheet' href="/stylesheets/index.css" />
+<link rel="stylesheet" href="/stylesheets/todayMore.css" />
 {{/extend}}
-<div id="content">
-  <ul class="list-group" style="margin-top:10px;border-top:1px solid #ddd;background:#f2f2f2;">
-  </ul>
+<div id="wrapper">
+  <div id="scroller">
+    <div id="pullDown">
+			<span class="pullDownIcon"></span><span class="pullDownLabel">下拉刷新数据...</span>
+		</div>
+    <ul id="thelist" class="list-group" style="margin-bottom:0px;">
+    </ul>
+    <div id="pullUp">
+			<span class="pullUpIcon"></span><span class="pullUpLabel">上拉加载更多...</span>
+		</div>
+  </div>
 </div>
+<div id="footer"></div>
 {{#extend "scripts"}}
 <script src="/javascripts/web-pull-to-refresh-master/lib/hammer.2.0.4.js"></script>
 <script src="/javascripts/web-pull-to-refresh-master/lib/wptr.1.1.js"></script>
+<script src="/javascripts/jscroll/iscroll.js"></script>
+<!-- <script src="/javascripts/jscroll/jquery.jscroll.min.js"></script>
+<script src="/javascripts/jscroll/jquery.infinitescroll.min.js"></script> -->
   <script>
+    var startTime;
+    var endTime;
+
     $(function(){
-      $.get("/item/getTodayItems", function(data){
-          // alert(data.data);
-          var res = data.data;
-          // for (var i = 0; i < res.length; i++) {
-          //   res[i]
-          // }
-          appendData("get", res);
-      })
+      getDatas();
     })
 
-    function getDatas(){
+    function getMoreDatas(){
+    }
 
+    function getDatas(){
+      // var a = '';
+      $.get("/item/getTodayItems/0/0", function(data){
+          var res = data.data;
+          if(res.length>0){
+            startTime = res[0].create_at.toString();
+            endTime = res[res.length - 1].create_at.toString();
+          }
+          appendData("get", res);
+      })
+    }
+
+    function gotoItem(id){
+      window.location.href = '/item/'+id;
+    }
+
+    function heartClick(id){
+      var ele = $("#" + id);
+      var pEle = ele.parent();
+      pEle.removeAttr("onClick");
+      var firstEle = pEle.children("img[id='imgLike']");
+      if(firstEle){
+        firstEle.attr("src", "/images/BB_08.png");
+      }
+      var like = ele.text();
+      var res = parseInt(like) + 1;
+      ele.text(res);
+      $.get('/item/like/' + id, function(data) {
+
+      });
     }
 
     function appendData(op,datas){
       if(op == "get" || op == "pullup"){
-        // for (var i = 0; i < datas.length; i++) {
-        //   var str ="<li class=\"list-group-item item\" onClick=\"gotoItem('" + datas[i]._id + "')\" ><div class=\"row\" style=\"margin-left:-15px;margin-right:0px;\"> <div class=\"avatarStyle\"><img src=\"" + datas[i].avatar + "\" style=\"width:50px;border-radius:50px;\"/></div> <div class=\"nickDiv\"> <div class=\"row\" style=\"margin-left:0px;margin-right:0px;\"> <span style=\"color:#2ad0cc\">" + datas[i].nick + "</span></div><div class=\"row\" style=\"margin-top:5px;margin-left:0px;margin-right:0px;\"><span style=\"color:#d1d1d1\">" + data[i].create_at + "</span></div></div></div><div class=\"row\" style=\"margin-left:0px;margin-right:0px;margin-top:10px;\"><div class=\"row\">";
-        //     alert(str);
-        //       for (var j = 0; j < datas[i].images.length; j++) {
-        //         // datas[i].images[j]
-        //           str += " <div class=\"imgStyle\" style=\"background:url(https://painting.shtx.com.cn/images/upload/" + datas[i].images[j] + ");\"></div>"
-        //       }
-          //     {{#each this.images}}
-          //     <div class=\"imgStyle\" style=\"background:url(https://painting.shtx.com.cn/images/upload/{{this}});\">
-          //
-          //     </div>
-          //     {{/each}}
-          //   </div>
-          //     <div class=\"row\" style=\"margin-bottom:10px;font-size:14px;margin-top:10px;\">
-          //       <div class=\"col-xs-12\" style=\"padding-right: 0px;padding-left: 3px;\">
-          //           《{{this.name}}》
-          //       </div>
-          //     </div>
-          //   </div>
-          // </li>
-          // <div class=\"row option\">
-          //     <div class=\"col-xs-6 like\" {{#if this.canLike }} onclick=\"heartClick('{{this._id}}')\" {{/if}}>
-          //         {{#if this.canLike}}
-          //           <img id=\"imgLike\" src=\"/images/aa_08.png\" alt=\"赞\" class=\"img-size\"/>
-          //         {{/if}}
-          //         {{#unless this.canLike}}
-          //           <img id=\"imgLike\" src=\"/images/BB_08.png\" alt=\"赞\" class=\"img-size\"/>
-          //         {{/unless}}
-          //         <span style=\"margin-left:10px;\" id=\"{{this._id}}\">{{this.likes.length}}</span>
-          //     </div>
-          //     <div class=\"col-xs-6 bid\">
-          //         <img src=\"/images/aa_07.png\" alt=\"出价次数\" class=\"img-size\"/>
-          //
-          //         <span style=\"margin-left:10px;\">{{this.bids.length}}</span>
-          //     </div>
-          // </div>
-          // <div class=\"splitItem\">
-          // </div>
-          // {{/each}}";
-        //}
-            $(".list-group").append(str);
+        for (var i = 0; i < datas.length; i++) {
+          var str ="<li class=\"list-group-item item\" onClick=\"gotoItem('" + datas[i]._id + "')\" ><div class=\"row\" style=\"margin-left:-15px;margin-right:0px;\"> <div class=\"avatarStyle\"><img src='";
+          str += datas[i].avatar;
+          str += "' style=\"width:50px;border-radius:50px;\"/></div> <div class=\"nickDiv\"> <div class=\"row\" style=\"margin-left:0px;margin-right:0px;\"> <span style=\"color:#2ad0cc\">" + datas[i].nick + "</span></div><div class=\"row\" style=\"margin-top:5px;margin-left:0px;margin-right:0px;\"><span style=\"color:#d1d1d1\">" + datas[i].create_at + "</span></div></div></div><div class=\"row\" style=\"margin-left:0px;margin-right:0px;margin-top:10px;\"><div class=\"row\">";
+              for (var j = 0; j < datas[i].images.length; j++) {
+                  str += " <div class=\"imgStyle\" style=\"background:url(https://painting.shtx.com.cn/images/upload/" + datas[i].images[j] + ");\"></div>"
+              }
+              str += "</div><div class=\"row\" style=\"margin-bottom:10px;font-size:14px;margin-top:10px;\"><div class=\"col-xs-12\" style=\"padding-right: 0px;padding-left: 3px;\">《" + datas[i].name + "》</div></div></div></li><div class=\"row option\"><div class=\"col-xs-6 like\"";
+              if(datas[i].canLike){
+                str += " onclick=\"heartClick('" + datas[i]._id + "')\" ";
+              }
+              // str += "><div class=\"row\" style=\"margin-bottom:10px;font-size:14px;margin-top:10px;\"><div class=\"col-xs-12\" style=\"padding-right: 0px;padding-left: 3px;\">《 " + datas[i].name + "》</div></div></div></li><div class=\"row option\"><div class=\"col-xs-6 like\"";
+              // if(datas[i].canLike){
+              //   str += " onclick=\"heartClick('" + datas[i]._id + "')\" ";
+              // }
+              str += ">";
+              if(datas[i].canLike){
+                str += "<img id=\"imgLike\" src=\"/images/aa_08.png\" alt=\"赞\" class=\"img-size\"/>";
+              }else{
+                str += "<img id=\"imgLike\" src=\"/images/BB_08.png\" alt=\"赞\" class=\"img-size\"/>";
+              }
+              str += "<span style=\"margin-left:10px;\" id=\"" + datas[i]._id + "\">" + datas[i].likes.length + "</span></div><div class=\"col-xs-6 bid\"><img src=\"/images/aa_07.png\" alt=\"出价次数\" class=\"img-size\"/><span style=\"margin-left:10px;\">" + datas[i].bids.length + "</span></div></div><div class=\"splitItem\"></div>";
+              $(".list-group").append(str);
+            }
             }else if(op == "pulldown"){
 
       }
     }
+
+    var myScroll,
+	pullDownEl, pullDownOffset,
+	pullUpEl, pullUpOffset,
+	generatedCount = 0;
+function pullDownAction () {
+	setTimeout(function () {	// <-- Simulate network congestion, remove setTimeout from production!
+    $.get("/item/getTodayItems/down/" + startTime, function(data){
+        var res = data.data;
+        if(res.length>0){
+          startTime = res[0].create_at.toString();
+          // endTime = res[res.length - 1].create_at;
+        }
+        appendData("get", res);
+        myScroll.refresh();
+    })
+		// var el, li, i;
+		// el = document.getElementById('thelist');
+		// for (i=0; i<3; i++) {
+		// 	li = document.createElement('li');
+		// 	li.innerText = 'Generated row ' + (++generatedCount);
+		// 	el.insertBefore(li, el.childNodes[0]);
+		// }
+    //
+		// myScroll.refresh();		// Remember to refresh when contents are loaded (ie: on ajax completion)
+	}, 1000);	// <-- Simulate network congestion, remove setTimeout from production!
+}
+function pullUpAction () {
+	setTimeout(function () {	// <-- Simulate network congestion, remove setTimeout from production!
+		// var el, li, i;
+		// el = document.getElementById('thelist');
+		// for (i=0; i<3; i++) {
+		// 	li = document.createElement('li');
+		// 	li.innerText = 'Generated row ' + (++generatedCount);
+		// 	el.appendChild(li, el.childNodes[0]);
+		// }
+    // getDatas(myScroll);
+    $.get("/item/getTodayItems/up/" + endTime, function(data){
+        var res = data.data;
+        if(res.length>0){
+          // startTime = res[0].create_at;
+          endTime = res[res.length - 1].create_at.toString();
+        }
+        appendData("get", res);
+        myScroll.refresh();
+    })
+		// myScroll.refresh();		// Remember to refresh when contents are loaded (ie: on ajax completion)
+	}, 1000);	// <-- Simulate network congestion, remove setTimeout from production!
+}
+function loaded() {
+	pullDownEl = document.getElementById('pullDown');
+	pullDownOffset = pullDownEl.offsetHeight;
+	pullUpEl = document.getElementById('pullUp');
+	pullUpOffset = pullUpEl.offsetHeight;
+
+	myScroll = new iScroll('wrapper', {
+		useTransition: true,
+		topOffset: pullDownOffset,
+		onRefresh: function () {
+			if (pullDownEl.className.match('loading')) {
+				pullDownEl.className = '';
+				pullDownEl.querySelector('.pullDownLabel').innerHTML = '下拉刷新...';
+			} else if (pullUpEl.className.match('loading')) {
+				pullUpEl.className = '';
+				pullUpEl.querySelector('.pullUpLabel').innerHTML = '上拉加载更多...';
+			}
+		},
+		onScrollMove: function () {
+			if (this.y > 5 && !pullDownEl.className.match('flip')) {
+				pullDownEl.className = 'flip';
+				pullDownEl.querySelector('.pullDownLabel').innerHTML = '释放刷新数据...';
+				this.minScrollY = 0;
+			} else if (this.y < 5 && pullDownEl.className.match('flip')) {
+				pullDownEl.className = '';
+				pullDownEl.querySelector('.pullDownLabel').innerHTML = '下拉刷新...';
+				this.minScrollY = -pullDownOffset;
+			} else if (this.y < (this.maxScrollY - 5) && !pullUpEl.className.match('flip')) {
+				pullUpEl.className = 'flip';
+				pullUpEl.querySelector('.pullUpLabel').innerHTML = '释放加载数据...';
+				this.maxScrollY = this.maxScrollY;
+			} else if (this.y > (this.maxScrollY + 5) && pullUpEl.className.match('flip')) {
+				pullUpEl.className = '';
+				pullUpEl.querySelector('.pullUpLabel').innerHTML = '上拉加载更多...';
+				this.maxScrollY = pullUpOffset;
+			}
+		},
+		onScrollEnd: function () {
+			if (pullDownEl.className.match('flip')) {
+				pullDownEl.className = 'loading';
+				pullDownEl.querySelector('.pullDownLabel').innerHTML = 'Loading...';
+				pullDownAction();	// Execute custom function (ajax call?)
+			} else if (pullUpEl.className.match('flip')) {
+				pullUpEl.className = 'loading';
+				pullUpEl.querySelector('.pullUpLabel').innerHTML = 'Loading...';
+				pullUpAction();	// Execute custom function (ajax call?)
+			}
+		}
+	});
+
+	setTimeout(function () { document.getElementById('wrapper').style.left = '0'; }, 800);
+}
+document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+document.addEventListener('DOMContentLoaded', setTimeout(function () { loaded(); }, 200), false);
   </script>
 {{/extend}}

@@ -55,7 +55,7 @@
   <div class="split">
   </div>
   <div>
-    <img src="/images/今日最新.png" alt="今日最新" style="width:16%;margin-left:15px;margin-top:10px;" /><div style="float:right;margin-right:15px;margin-top:10px;color:#919191;font-size:12px;">更多<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></div>
+    <img src="/images/今日最新.png" alt="今日最新" style="width:16%;margin-left:15px;margin-top:10px;" /><div style="float:right;margin-right:15px;margin-top:10px;color:#919191;font-size:12px;" onClick="gotoMore()">更多<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></div>
     <ul class="list-group" style="margin-top:10px;border-top:1px solid #ddd;background:#f2f2f2;">
       {{#each today}}
       <li class="list-group-item item" onClick="gotoItem('{{this._id}}')" >
@@ -126,6 +126,10 @@ var loadToday = function(){
     }
   });
 };
+
+function gotoMore(){
+    window.location.href = '/todayMore';
+}
 
 function gotoItem(id){
   window.location.href = '/item/'+id;
