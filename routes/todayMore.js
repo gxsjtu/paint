@@ -11,5 +11,10 @@ router.get('/:type', function(req, res, next) {
     var type = req.params.type;
     res.render("todayMore", {typeStr:type});
 })
+router.get('/:type/:search', function(req, res, next) {
+    var type = req.params.type;
+    var search = req.params.search;
+    res.render("todayMore", {typeStr:type});
+})
 
 module.exports = router;

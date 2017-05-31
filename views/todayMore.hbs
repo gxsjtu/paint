@@ -28,6 +28,9 @@
     var startTime;
     var endTime;
     var typeStr;
+    {{#if search}}
+      var search = {{search}};
+    {{/if}}
 
     $(function(){
       typeStr = "{{typeStr}}";
@@ -47,6 +50,9 @@
             }
             appendData("get", res);
         })
+      }
+      else if(typeStr == "search"){
+        
       }
     }
 
