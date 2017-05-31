@@ -27,8 +27,10 @@
   <script>
     var startTime;
     var endTime;
+    var typeStr;
 
     $(function(){
+      typeStr = "{{typeStr}}";
       getDatas();
     })
 
@@ -36,15 +38,16 @@
     }
 
     function getDatas(){
-      // var a = '';
-      $.get("/item/getTodayItems/0/0", function(data){
-          var res = data.data;
-          if(res.length>0){
-            startTime = res[0].create_at.toString();
-            endTime = res[res.length - 1].create_at.toString();
-          }
-          appendData("get", res);
-      })
+      if(typeStr == "more"){
+        $.get("/item/getTodayItems/0/0", function(data){
+            var res = data.data;
+            if(res.length>0){
+              startTime = res[0].create_at.toString();
+              endTime = res[res.length - 1].create_at.toString();
+            }
+            appendData("get", res);
+        })
+      }
     }
 
     function gotoItem(id){
@@ -80,10 +83,6 @@
               if(datas[i].canLike){
                 str += " onclick=\"heartClick('" + datas[i]._id + "')\" ";
               }
-              // str += "><div class=\"row\" style=\"margin-bottom:10px;font-size:14px;margin-top:10px;\"><div class=\"col-xs-12\" style=\"padding-right: 0px;padding-left: 3px;\">《 " + datas[i].name + "》</div></div></div></li><div class=\"row option\"><div class=\"col-xs-6 like\"";
-              // if(datas[i].canLike){
-              //   str += " onclick=\"heartClick('" + datas[i]._id + "')\" ";
-              // }
               str += ">";
               if(datas[i].canLike){
                 str += "<img id=\"imgLike\" src=\"/images/aa_08.png\" alt=\"赞\" class=\"img-size\"/>";
@@ -94,7 +93,27 @@
               $(".list-group").append(str);
             }
             }else if(op == "pulldown"){
-
+              for (var i = 0; i < datas.length; i++) {
+                var str ="<li class=\"list-group-item item\" onClick=\"gotoItem('" + datas[i]._id + "')\" ><div class=\"row\" style=\"margin-left:-15px;margin-right:0px;\"> <div class=\"avatarStyle\"><img src='";
+                str += datas[i].avatar;
+                str += "' style=\"width:50px;border-radius:50px;\"/></div> <div class=\"nickDiv\"> <div class=\"row\" style=\"margin-left:0px;margin-right:0px;\"> <span style=\"color:#2ad0cc\">" + datas[i].nick + "</span></div><div class=\"row\" style=\"margin-top:5px;margin-left:0px;margin-right:0px;\"><span style=\"color:#d1d1d1\">" + datas[i].create_at + "</span></div></div></div><div class=\"row\" style=\"margin-left:0px;margin-right:0px;margin-top:10px;\"><div class=\"row\">";
+                    for (var j = 0; j < datas[i].images.length; j++) {
+                        str += " <div class=\"imgStyle\" style=\"background:url(https://painting.shtx.com.cn/images/upload/" + datas[i].images[j] + ");\"></div>"
+                    }
+                    str += "</div><div class=\"row\" style=\"margin-bottom:10px;font-size:14px;margin-top:10px;\"><div class=\"col-xs-12\" style=\"padding-right: 0px;padding-left: 3px;\">《" + datas[i].name + "》</div></div></div></li><div class=\"row option\"><div class=\"col-xs-6 like\"";
+                    if(datas[i].canLike){
+                      str += " onclick=\"heartClick('" + datas[i]._id + "')\" ";
+                    }
+                    str += ">";
+                    if(datas[i].canLike){
+                      str += "<img id=\"imgLike\" src=\"/images/aa_08.png\" alt=\"赞\" class=\"img-size\"/>";
+                    }else{
+                      str += "<img id=\"imgLike\" src=\"/images/BB_08.png\" alt=\"赞\" class=\"img-size\"/>";
+                    }
+                    str += "<span style=\"margin-left:10px;\" id=\"" + datas[i]._id + "\">" + datas[i].likes.length + "</span></div><div class=\"col-xs-6 bid\"><img src=\"/images/aa_07.png\" alt=\"出价次数\" class=\"img-size\"/><span style=\"margin-left:10px;\">" + datas[i].bids.length + "</span></div></div><div class=\"splitItem\"></div>";
+                    $(".list-group").append(str);
+                  }
+              $(".list-group").prepend(str);
       }
     }
 
@@ -110,7 +129,7 @@ function pullDownAction () {
           startTime = res[0].create_at.toString();
           // endTime = res[res.length - 1].create_at;
         }
-        appendData("get", res);
+        appendData("pulldown", res);
         myScroll.refresh();
     })
 		// var el, li, i;

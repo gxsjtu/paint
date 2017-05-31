@@ -75,7 +75,7 @@ IndexSvc.prototype.getTodayItems = function(num, upOrDown, create_at) {
             $gt: create_at
           }
         }).sort({
-          create_at: -1
+          create_at: 'asc'
         }).limit(num).lean().exec((err, data) => {
           if (err) {
             return reject(err);

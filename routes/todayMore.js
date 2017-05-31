@@ -7,8 +7,9 @@ const Errors = require('../services/error.js');
 var itemSvc = new ItemSvc();
 
 router.use(Jssdk.jssdk);
-router.get('/', function(req, res, next) {
-    res.render("todayMore");
+router.get('/:type', function(req, res, next) {
+    var type = req.params.type;
+    res.render("todayMore", {typeStr:type});
 })
 
 module.exports = router;
