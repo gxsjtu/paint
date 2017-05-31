@@ -28,10 +28,12 @@
     var startTime;
     var endTime;
     var typeStr;
-    {{#if search}}
-      var search = {{search}};
+    {{#if group}}
+    var group = {{group}};
     {{/if}}
-
+    {{#if key}}
+    var key = {{key}};
+    {{/if}}
     $(function(){
       typeStr = "{{typeStr}}";
       getDatas();
