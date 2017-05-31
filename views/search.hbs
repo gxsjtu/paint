@@ -1,131 +1,112 @@
 {{#extend "stylesheets"}}
     <link rel='stylesheet' href="/javascripts/icheck/skins/line/blue.css" />
     <style media="screen">
-        .label-container {
-            display: flex;
-            flex-wrap: wrap;
-            margin-top: 20px;
-        }
-
-        .label-container input {
-            display: none;
-        }
-
         .container {
-          padding: 40px;
+            padding: 15px;
         }
 
         .search-box {
-          display: inline-block;
-          width: 100%;
-          border-radius: 3px;
-          padding: 4px 55px 4px 15px;
-          position: relative;
-          background: #fff;
-          border: 1px solid #ddd;
-          -webkit-transition: all 200ms ease-in-out;
-          -moz-transition: all 200ms ease-in-out;
-          transition: all 200ms ease-in-out;
+            display: inline-block;
+            width: 100%;
+            border-radius: 3px;
+            padding: 4px 55px 4px 15px;
+            position: relative;
+            background: #efefef;
+            border: 1px solid #ddd;
+            -webkit-transition: all 200ms ease-in-out;
+            -moz-transition: all 200ms ease-in-out;
+            transition: all 200ms ease-in-out;
         }
-        .search-box.hovered, .search-box:hover, .search-box:active {
-          border: 1px solid #aaa;
+
+        .search-box.hovered,
+        .search-box:hover,
+        .search-box:active {
+            border: 1px solid #aaa;
         }
+
         .search-box input[type=text] {
-          border: none;
-          box-shadow: none;
-          display: inline-block;
-          padding: 0;
-          background: transparent;
+            border: none;
+            box-shadow: none;
+            display: inline-block;
+            padding: 0;
+            background: transparent;
         }
-        .search-box input[type=text]:hover, .search-box input[type=text]:focus, .search-box input[type=text]:active {
-          box-shadow: none;
+
+        .search-box input[type=text]:hover,
+        .search-box input[type=text]:focus,
+        .search-box input[type=text]:active {
+            box-shadow: none;
         }
+
         .search-box .search-btn {
-          position: absolute;
-          right: 2px;
-          top: 2px;
-          color: #aaa;
-          border-radius: 3px;
-          font-size: 21px;
-          padding: 5px 10px 1px;
-          -webkit-transition: all 200ms ease-in-out;
-          -moz-transition: all 200ms ease-in-out;
-          transition: all 200ms ease-in-out;
+            position: absolute;
+            right: 2px;
+            top: 2px;
+            color: #aaa;
+            border-radius: 3px;
+            font-size: 21px;
+            padding: 5px 10px 1px;
+            -webkit-transition: all 200ms ease-in-out;
+            -moz-transition: all 200ms ease-in-out;
+            transition: all 200ms ease-in-out;
         }
+
         .search-box .search-btn:hover {
-          color: #fff;
-          background-color: #8FBE00;
+            color: #fff;
+            background-color: #8FBE00;
+        }
+
+        .item {
+            width: calc(calc(100vw - 70px) / 4);
+            margin: 10px 5px;
+            border: 1px solid #cdcdcd;
+            text-align: center;
+            border-radius: 5px;
+            padding-top: 3px;
+            padding-bottom: 3px;
+            -webkit-transition: all 300ms ease-in-out;
+            -moz-transition: all 300ms ease-in-out;
+            transition: all 300ms ease-in-out;
+        }
+
+        .item.active {
+            background: #25decd;
+            color: white;
         }
     </style>
 {{/extend}}
 <div class='container'>
-  <div class='row'>
-    <div class='col-xs-12'>
-      <div class='search-box'>
-        <form class='search-form'>
-          <input class='form-control' placeholder='请输入作者或作品.' type='text'>
-          <button class='btn btn-link search-btn'>
+    <div class='row'>
+        <div class='col-xs-12'>
+            <div class='search-box'>
+                <form class='search-form'>
+                    <input class='form-control' placeholder='请输入作者或作品' type='text'>
+                    <button class='btn btn-link search-btn'>
             <i class='glyphicon glyphicon-search'></i>
           </button>
-        </form>
-      </div>
+                </form>
+            </div>
+        </div>
     </div>
-  </div>
 
-  <div class="label-container">
-      <div class="label all">
-          <input type="checkbox"><label>全部</label>
-      </div>
-      <div class="label">
-          <input type="checkbox"><label>国画</label>
-      </div>
-      <div class="label">
-          <input type="checkbox"><label>油画</label>
-      </div>
-      <div class="label">
-          <input type="checkbox"><label>水粉画</label>
-      </div>
-      <div class="label">
-          <input type="checkbox"><label>版画</label>
-      </div>
-      <div class="label">
-          <input type="checkbox"><label>水彩画</label>
-      </div>
-      <div class="label">
-          <input type="checkbox"><label>人物画</label>
-      </div>
-      <div class="label">
-          <input type="checkbox"><label>风景画</label>
-      </div>
-      <div class="label">
-          <input type="checkbox"><label>山水画</label>
-      </div>
-  </div>
+    <hr style="margin:20px -15px 10px;" />
+
+    <div style="display:flex;flex-wrap:wrap;">
+        <div class="item active">油画</div>
+        <div class="item active">版画</div>
+        <div class="item active">水墨</div>
+        <div class="item active">水彩</div>
+        <div class="item active">雕塑</div>
+        <div class="item active">摄影</div>
+    </div>
+
 </div>
 
 {{#extend "scripts"}}
-    <script src="/javascripts/icheck/icheck.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('.label-container input').each(function() {
-                var self = $(this),
-                    label = self.next(),
-                    label_text = label.text();
 
-                label.remove();
-                self.iCheck({
-                    checkboxClass: 'icheckbox_line-blue',
-                    radioClass: 'iradio_line-blue',
-                    insert: '<div class="icheck_line-icon"></div>' + label_text
-                });
-                if (label_text == '全部') {
-                    $(this).on('ifChecked', function(event) {
-                        $('.label-container input').iCheck('check');
-                    }).on('ifUnchecked', function(event) {
-                        $('.label-container input').iCheck('uncheck');
-                    });
-                }
-            });
+    <script>
+        $(".item").on("click", function() {
+            $(this).toggleClass("active");
         });
     </script>
 {{/extend}}
