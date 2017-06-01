@@ -29,7 +29,14 @@
     var startTime;
     var endTime;
     var typeStr;
-
+    var group='';
+    var key='';
+    {{#if group}}
+    group = '{{group}}';
+    {{/if}}
+    {{#if key}}
+    key = '{{key}}';
+    {{/if}}
 
     $(function(){
       typeStr = "{{typeStr}}";
@@ -61,6 +68,12 @@
             appendData("get", res);
         })
       }
+      if(typeStr == "search"){
+       $.get("/item/getItemBySearch/"+key+"/"+group+"/0/0",function(data){
+         console.log(data);
+       });
+     }
+
     }
 
     function gotoItem(id){

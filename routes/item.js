@@ -33,6 +33,20 @@ router.get('/getTodayItems/:upOrDown/:creatAt', function(req, res, next) {
   }).catch(err => res.json(new Result(Errors.GetItemsFailed, err)));
 });
 
+router.get('/getItemBySearch/:key/:group/:upOrDown/:creatAt', function(req, res, next) {
+  var key = req.params.key;
+  var group = req.params.group;
+  var upOrDown = req.params.upOrDown;
+  var createAt = req.params.creatAt;
+  if(upOrDown == 0){
+    upOrDown = '';
+    creatAt = '';
+  }
+  itemSvc.getSearchItems(30,upOrDown,createAt).then(data => {
+    res.json(new Result(Errors.Success, data))
+  }).catch(err => res.json(new Result(Errors.GetItemsFailed, err)));
+});
+
 router.get('/:itemId', oAuth.oAuth, function(req, res, next) {
   var itemId = req.params.itemId;
   var openId = req.session.openId;

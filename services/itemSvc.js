@@ -175,7 +175,7 @@ ItemSvc.prototype.canBid = function(id, openId, price) {
 };
 
 ItemSvc.prototype.search = function(group,key){
-  
+  Item.find({ catalog: { $in: group } })
 }
 
 ItemSvc.prototype.save = function(name, author, width, height, comment, type, catalog, price, images, from, to, avatar, nick, openId) {
@@ -218,6 +218,65 @@ ItemSvc.prototype.save = function(name, author, width, height, comment, type, ca
       return resolve(item);
     });
   });
+};
+
+ItemSvc.prototype.getSearchItems = function(num,key,group, upOrDown, create_at) {
+  console.log('224');
+  var itemSvc = new ItemSvc();
+  if (!upOrDown) {
+    return new Promise((resolve, reject) => {
+      Item.where({
+        id:{
+          $in:group.split(',')
+        },
+        $or:[{
+          "author":/key/
+        },{
+          "name":/key/
+        }]
+      }).sort({
+        create_at: -1
+      }).limit(num).lean().exec((err, data) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve(data);
+      });
+    });
+  } else {
+    if (upOrDown === "up") {
+      // 加载更多 上拉
+      return new Promise((resolve, reject) => {
+        Item.where({
+          create_at: {
+            $lt: create_at
+          }
+        }).sort({
+          create_at: -1
+        }).limit(num).lean().exec((err, data) => {
+          if (err) {
+            return reject(err);
+          }
+          return resolve(data);
+        });
+      });
+    } else {
+      return new Promise((resolve, reject) => {
+        Item.where({
+          create_at: {
+            $gt: create_at
+          }
+        }).sort({
+          create_at: 'asc'
+        }).limit(num).lean().exec((err, data) => {
+          if (err) {
+            return reject(err);
+          }
+          return resolve(data);
+        });
+      });
+    }
+  }
 };
 
 module.exports = ItemSvc;
