@@ -174,6 +174,10 @@ ItemSvc.prototype.canBid = function(id, openId, price) {
   });
 };
 
+ItemSvc.prototype.search = function(group,key){
+  
+}
+
 ItemSvc.prototype.save = function(name, author, width, height, comment, type, catalog, price, images, from, to, avatar, nick, openId) {
   var item = new Item();
   item.openId = openId;

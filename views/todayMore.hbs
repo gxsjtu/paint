@@ -29,17 +29,9 @@
     var startTime;
     var endTime;
     var typeStr;
-    var aa = [{age:10,j:'112'},{age:11,j:'112'},{age:12,j:'112'}];
-    var bb = [];
+
 
     $(function(){
-      // var m = max(aa, function(a){
-      //   return a.age;
-      // });
-      for (var i = 0; i < aa.length; i++) {
-        bb.push(aa[i].age);
-      }
-      alert(Math.max.apply(null, bb));
       typeStr = "{{typeStr}}";
       getDatas();
     })

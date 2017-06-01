@@ -1,5 +1,4 @@
 {{#extend "stylesheets"}}
-    <link rel='stylesheet' href="/javascripts/icheck/skins/line/blue.css" />
     <style media="screen">
         .container {
             padding: 15px;
@@ -79,12 +78,12 @@
     <div class='row'>
         <div class='col-xs-12'>
             <div class='search-box'>
-                <form class='search-form'>
-                    <input class='form-control' placeholder='请输入作者或作品' type='text'>
+                <div class='search-form'>
+                    <input class='form-control' id="inputSearch" placeholder='请输入作者或作品' type='text'>
                     <button class='btn btn-link search-btn'>
             <i class='glyphicon glyphicon-search'></i>
           </button>
-                </form>
+        </div>
             </div>
         </div>
     </div>
@@ -92,12 +91,12 @@
     <hr style="margin:20px -15px 10px;" />
 
     <div style="display:flex;flex-wrap:wrap;">
-        <div class="item active">油画</div>
-        <div class="item active">版画</div>
-        <div class="item active">水墨</div>
-        <div class="item active">水彩</div>
-        <div class="item active">雕塑</div>
-        <div class="item active">摄影</div>
+        <div class="item active" data-name="油画">油画</div>
+        <div class="item active" data-name="版画">版画</div>
+        <div class="item active" data-name="水墨">水墨</div>
+        <div class="item active" data-name="水彩">水彩</div>
+        <div class="item active" data-name="雕塑">雕塑</div>
+        <div class="item active" data-name="摄影">摄影</div>
     </div>
 
 </div>
@@ -105,8 +104,20 @@
 {{#extend "scripts"}}
 
     <script>
+    var selected = [];
         $(".item").on("click", function() {
             $(this).toggleClass("active");
+        });
+        $(".search-btn").on("click",function(){
+          selected.length=0;
+          var actives = $(".active");
+          for (var i = 0; i < actives.length; i++) {
+            selected.push(actives.eq(i).data("name"));
+          }
+          var group = selected.join(',');
+          var key = $("#inputSearch").val();
+          window.location.hred="/todayMore/search/"+group+"/"+key
+          return false;
         });
     </script>
 {{/extend}}

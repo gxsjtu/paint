@@ -11,5 +11,11 @@ router.get('/:type', function(req, res, next) {
     var type = req.params.type;
     res.render("todayMore", {typeStr:type});
 })
+router.get('/:type/:group/:key', function(req, res, next) {
+    var type = req.params.type;
+    var group = req.params.group;
+    var key = req.params.key;
+    res.render("todayMore", {typeStr:type,group:group,key:key});
+})
 
 module.exports = router;

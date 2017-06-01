@@ -11,6 +11,7 @@ var ItemSchema = new Schema({
   name: String,
   author: String,
   price: String,
+  catalog: String,
   dimension: {
     height: Number,
     width: Number
