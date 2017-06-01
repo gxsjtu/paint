@@ -8,13 +8,8 @@ var userSvc = new UserSvc();
 const Promise = require('promise');
 
 router.use(Jssdk.jssdk);
-router.get('/', oAuth.oAuth, function(req, res, next) {
-  var openId = req.session.openId;
-  Promise.all([userSvc.getMyBids(openId)]).then(data => {
-    res.render("myBids", {
-      items: data[0]
-    });
-  }).catch(err => console.log(err));
+router.get('/', function(req, res, next) {
+  res.render("todayMore", {typeStr:'myBids'});
 })
 
 module.exports = router;
