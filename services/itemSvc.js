@@ -221,12 +221,6 @@ ItemSvc.prototype.save = function(name, author, width, height, comment, type, ca
 };
 
 ItemSvc.prototype.getSearchItems = function(num,key,group, upOrDown, create_at) {
-  console.log('224');
-  console.log(num);
-  console.log(key);
-  console.log(group);
-  console.log(upOrDown);
-  console.log('229');
   var re = new RegExp(key, 'i');
   var itemSvc = new ItemSvc();
   if (!upOrDown) {
@@ -256,7 +250,15 @@ ItemSvc.prototype.getSearchItems = function(num,key,group, upOrDown, create_at) 
         Item.where({
           create_at: {
             $lt: create_at
-          }
+          },
+          catalog:{
+            $in:group.split(',')
+          },
+          $or:[{
+            "author":re
+          },{
+            "name":re
+          }]
         }).sort({
           create_at: -1
         }).limit(num).lean().exec((err, data) => {
@@ -271,7 +273,15 @@ ItemSvc.prototype.getSearchItems = function(num,key,group, upOrDown, create_at) 
         Item.where({
           create_at: {
             $gt: create_at
-          }
+          },
+          catalog:{
+            $in:group.split(',')
+          },
+          $or:[{
+            "author":re
+          },{
+            "name":re
+          }]
         }).sort({
           create_at: 'asc'
         }).limit(num).lean().exec((err, data) => {
