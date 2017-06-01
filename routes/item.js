@@ -42,7 +42,7 @@ router.get('/getItemBySearch/:key/:group/:upOrDown/:creatAt', function(req, res,
     upOrDown = '';
     creatAt = '';
   }
-  itemSvc.getSearchItems(30,upOrDown,createAt).then(data => {
+  itemSvc.getSearchItems(30,key,group,upOrDown,createAt).then(data => {
     res.json(new Result(Errors.Success, data))
   }).catch(err => res.json(new Result(Errors.GetItemsFailed, err)));
 });

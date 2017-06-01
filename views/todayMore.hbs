@@ -70,10 +70,14 @@
       }
       if(typeStr == "search"){
        $.get("/item/getItemBySearch/"+key+"/"+group+"/0/0",function(data){
-         console.log(data);
+         var res = data.data;
+         if(res.length>0){
+           startTime = res[0].create_at.toString();
+           endTime = res[res.length - 1].create_at.toString();
+         }
+         appendData("get", res);
        });
      }
-
     }
 
     function gotoItem(id){
@@ -157,8 +161,16 @@
 	pullUpEl, pullUpOffset,
 	generatedCount = 0;
 function pullDownAction () {
+  var url="";
+  if(typeStr == "more"){
+    url="/item/getTodayItems/down/" + startTime;
+  }
+  else if(typeStr == "search"){
+    url="/item/getItemBySearch/"+key+"/"+group+"/down/" + startTime;
+  }
 	setTimeout(function () {	// <-- Simulate network congestion, remove setTimeout from production!
-    $.get("/item/getTodayItems/down/" + startTime, function(data){
+
+    $.get(url, function(data){
         var res = data.data;
         if(res.length>0){
           startTime = res[0].create_at.toString();
@@ -167,6 +179,7 @@ function pullDownAction () {
         appendData("pulldown", res);
         myScroll.refresh();
     })
+
 		// var el, li, i;
 		// el = document.getElementById('thelist');
 		// for (i=0; i<3; i++) {
@@ -179,6 +192,13 @@ function pullDownAction () {
 	}, 1000);	// <-- Simulate network congestion, remove setTimeout from production!
 }
 function pullUpAction () {
+  var url="";
+  if(typeStr == "more"){
+    url="/item/getTodayItems/up/" + endTime;
+  }
+  else if(typeStr == "search"){
+    url="/item/getItemBySearch/"+key+"/"+group+"/up/" + endTime;
+  }
 	setTimeout(function () {	// <-- Simulate network congestion, remove setTimeout from production!
 		// var el, li, i;
 		// el = document.getElementById('thelist');
@@ -188,7 +208,7 @@ function pullUpAction () {
 		// 	el.appendChild(li, el.childNodes[0]);
 		// }
     // getDatas(myScroll);
-    $.get("/item/getTodayItems/up/" + endTime, function(data){
+    $.get(url, function(data){
         var res = data.data;
         if(res.length>0){
           // startTime = res[0].create_at;
