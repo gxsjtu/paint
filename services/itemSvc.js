@@ -300,6 +300,7 @@ ItemSvc.prototype.getMyOrders = function(num, upOrDown, create_at) {
   if (!upOrDown) {
     return new Promise((resolve, reject) => {
       Item.where({
+        "valid.to":'2017-05-26 10:00'
       }).sort({
         create_at: -1
       }).limit(num).lean().exec((err, data) => {

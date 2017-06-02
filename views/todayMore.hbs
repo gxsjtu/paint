@@ -81,6 +81,7 @@
      if(typeStr == "myOrders"){
       $.get("/item/getMyOrders/0/0",function(data){
         var res = data.data;
+        console.log(res);
         if(res.length>0){
           startTime = res[0].create_at.toString();
           endTime = res[res.length - 1].create_at.toString();
