@@ -3,6 +3,8 @@ var Schema = mongoose.Schema;
 const moment = require('moment');
 
 var ItemSchema = new Schema({
+  myMaxPrice: Number,//我出的最高价
+  maxPrice: Number,//所有出价中的最高价
   canLike: Boolean,
   images: [String],
   openId: String,

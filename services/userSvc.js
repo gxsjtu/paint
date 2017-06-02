@@ -22,7 +22,7 @@ UserSvc.prototype.getProfile = function(openId) {
   });
 };
 
-UserSvc.prototype.getMyBids = function(openId, option, date) {
+UserSvc.prototype.getMyBids = function(num, openId, option, date) {
   if(!option){
     return new Promise((resolve, reject) => {
       Item.find({

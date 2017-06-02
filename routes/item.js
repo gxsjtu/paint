@@ -8,6 +8,7 @@ const oAuth = require('../services/oAuth.js');
 const ItemSvc = require('../services/itemSvc.js');
 const UserSvc = require('../services/userSvc.js');
 const IndexSvc = require('../services/indexSvc.js');
+const _ = require('lodash');
 var itemSvc = new ItemSvc();
 var userSvc = new UserSvc();
 var indexSvc = new IndexSvc();
@@ -21,8 +22,31 @@ router.get('/getMyBids/:option/:date', function(req, res, next) {
     upOrDown = '';
     creatAt = '';
   }
-  userSvc.getMyBids(openId, upOrDown, createAt).then(data => {
-    res.json(new Result(Errors.Success, data))
+  userSvc.getMyBids(30, openId, upOrDown, createAt).then(data => {
+    var results = [];
+    if(data.length > 0){
+      _.forEach(data, (d) => {
+        var bids = d.bids;
+        var bid =  _.max(bids, (b) => {
+            return b.price;
+          });
+        if(bid.openId == openId){
+          d.myMaxPrice = bid.price;
+          d.maxPrice = bid.price;
+        }else{
+          var myBids = _.filter(bids, (b) => {
+            return b.openId == openId;
+          })
+          var myMaxBid = _.max(myBids, (b) => {
+            return b.price;
+          })
+          d.myMaxPrice = myMaxBid.price;
+          d.maxPrice = bid.price;
+        }
+        results.push(d);
+      })
+    }
+    res.json(new Result(Errors.Success, results))
   }).catch(err => res.json(new Result(Errors.GetMyBidsFailed, err)));
 });
 
