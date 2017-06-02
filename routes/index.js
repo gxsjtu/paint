@@ -8,26 +8,9 @@ const Result = require('../services/result.js');
 const Errors = require('../services/error.js');
 const oAuth = require('../services/oAuth.js');
 const fs = require('fs');
-var images = require("images");
-var path = require("path");
 const _ = require('lodash');
 
 router.use(Jssdk.jssdk);
-
-router.get('/images',function(req,res,next){
-  // var bigImage = images(path.join(process.cwd() , '/public/images/swiper/index/5919570edb42022e589808ff'));
-  var bigImage = images('http://img.mp.itc.cn/upload/20170529/350a44e9d2d843bfb69c562413fa9978_th.jpg');
-  var smallImage = images(path.join(process.cwd(),'/public/images/2.jpg')).resize(100);
-  var height1 = bigImage.height();
-  var width1 = bigImage.width();
-  var height2 = smallImage.height();
-  var width2 = smallImage.width();
-  var outputPath = path.join(process.cwd(),'/public/images/output.jpg');
-  bigImage.draw(smallImage,width1-width2-20,height1-height2-20).save(outputPath);
-  res.render('images',{
-    image:'/images/output.jpg'
-  })
-})
 
 /* GET home page. */
 router.get('/', oAuth.oAuth, function(req, res, next) {
