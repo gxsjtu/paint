@@ -295,7 +295,7 @@ ItemSvc.prototype.getSearchItems = function(num,key,group, upOrDown, create_at) 
   }
 };
 //我的订单
-ItemSvc.prototype.getMyOrders = function(num, upOrDown, create_at) {
+ItemSvc.prototype.getMyOrders = function(num,openId, upOrDown, create_at) {
   var itemSvc = new ItemSvc();
   if (!upOrDown) {
     return new Promise((resolve, reject) => {

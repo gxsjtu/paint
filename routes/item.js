@@ -14,7 +14,7 @@ var userSvc = new UserSvc();
 var indexSvc = new IndexSvc();
 router.use(Jssdk.jssdk);
 
-router.get('/getMyBids/:option/:date', function(req, res, next) {
+router.get('/getMyBids/:option/:date', oAuth.oAuth,  function(req, res, next) {
   var openId = req.session.openId;
   var upOrDown = req.params.option;
   var createAt = req.params.date;
@@ -63,14 +63,14 @@ router.get('/getTodayItems/:upOrDown/:creatAt', function(req, res, next) {
   }).catch(err => res.json(new Result(Errors.GetItemsFailed, err)));
 });
 //我的订单
-router.get('/getMyOrders/:upOrDown/:creatAt', function(req, res, next) {
+router.get('/getMyOrders/:upOrDown/:creatAt', oAuth.oAuth,  function(req, res, next) {
   var upOrDown = req.params.upOrDown;
   var createAt = req.params.creatAt;
   if(upOrDown == 0){
     upOrDown = '';
     creatAt = '';
   }
-  itemSvc.getMyOrders(30,upOrDown,createAt).then(data => {
+  itemSvc.getMyOrders(30, req.session.openId,upOrDown,createAt).then(data => {
     res.json(new Result(Errors.Success, data))
   }).catch(err => res.json(new Result(Errors.GetItemsFailed, err)));
 });
