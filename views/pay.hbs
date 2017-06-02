@@ -1,0 +1,25 @@
+{{#extend "stylesheets"}}
+    <style>
+
+    </style>
+{{/extend}}
+
+  <input type="button" value="付款" id="btnPay"/>
+
+{{#extend "scripts"}}
+
+
+
+    <script>
+      $(function(){
+        $("btnPay").on("click",function(){
+          WeixinJSBridge.invoke(
+          	"getBrandWCPayRequest", {{{JSON.stringify(payargs)}}}, function(res){
+          		if(res.err_msg == "get_brand_wcpay_request:ok" ) {
+              		// success
+              	}
+          });
+        });
+      });
+    </script>
+{{/extend}}
