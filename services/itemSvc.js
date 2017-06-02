@@ -306,7 +306,7 @@ ItemSvc.prototype.getMyOrders = function(num,openId, upOrDown, create_at) {
         'bids.openId':openId,
         'valid.to':{$lt:toDate}
       }).sort({
-          create_at: 'asc'
+          create_at: -1
         }).limit(num).then(docs => {
         if ( docs.length <= 0 )
           return resolve([]);
@@ -353,7 +353,7 @@ ItemSvc.prototype.getMyOrders = function(num,openId, upOrDown, create_at) {
           'valid.to':{$lt:toDate},
           'create_at':{$lt:create_at}
         }).sort({
-            create_at: 'asc'
+            create_at: -1
           }).limit(num).then(docs => {
           if ( docs.length <= 0 )
             return resolve([]);
@@ -399,7 +399,7 @@ ItemSvc.prototype.getMyOrders = function(num,openId, upOrDown, create_at) {
           'valid.to':{$lt:toDate},
           'create_at':{$gt:create_at}
         }).sort({
-            create_at: 'asc'
+            create_at: -1
           }).limit(num).then(docs => {
           if ( docs.length <= 0 )
             return resolve([]);
