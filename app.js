@@ -13,7 +13,7 @@ var myGallery = require('./routes/myGallery.js');
 var todayMore = require('./routes/todayMore.js');
 var myBids = require('./routes/myBids.js');
 var search = require('./routes/search.js');
-var pay = require('./routes/pay.js');
+var wxpay = require('./routes/wxpay.js');
 const helmet = require('helmet');
 var hbs = require('hbs');
 const session = require('express-session');
@@ -81,7 +81,7 @@ app.use('/myGallery', myGallery);
 app.use('/todayMore', todayMore);
 app.use('/myBids', myBids);
 app.use('/search', search);
-app.use('/pay', pay);
+app.use('/wxpay', wxpay);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
