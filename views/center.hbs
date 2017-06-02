@@ -12,7 +12,7 @@
     </div>
   </div>
   <div class="menu">
-    <div class="item">
+    <div class="item" onClick="gotoMyOrders()">
       <img src="/images/center/f_01.png" alt="" />
       <div class="menu-name">
         我的订单
@@ -46,6 +46,9 @@
   }
   function gotoMyBids(){
     window.location.href = '/todayMore/myBids';
+  }
+  function gotoMyOrders(){
+    window.location.href = '/todayMore/myOrders';
   }
   </script>
 {{/extend}}

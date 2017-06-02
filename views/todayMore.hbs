@@ -78,7 +78,17 @@
          appendData("get", res);
        });
      }
+     if(typeStr == "myOrders"){
+      $.get("/item/getMyOrders/0/0",function(data){
+        var res = data.data;
+        if(res.length>0){
+          startTime = res[0].create_at.toString();
+          endTime = res[res.length - 1].create_at.toString();
+        }
+        appendData("get", res);
+      });
     }
+  }
 
     function gotoItem(id){
       window.location.href = '/item/'+id;
@@ -168,6 +178,10 @@ function pullDownAction () {
   else if(typeStr == "search"){
     url="/item/getItemBySearch/"+key+"/"+group+"/down/" + startTime;
   }
+  else if(typeStr == "myOrders"){
+    url="/item/getMyOrders/down/" + startTime;
+  }
+
 	setTimeout(function () {	// <-- Simulate network congestion, remove setTimeout from production!
 
     $.get(url, function(data){
@@ -198,6 +212,9 @@ function pullUpAction () {
   }
   else if(typeStr == "search"){
     url="/item/getItemBySearch/"+key+"/"+group+"/up/" + endTime;
+  }
+  else if(typeStr == "myOrders"){
+    url="/item/getMyOrders/up/" + endTime;
   }
 	setTimeout(function () {	// <-- Simulate network congestion, remove setTimeout from production!
 		// var el, li, i;
