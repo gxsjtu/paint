@@ -299,49 +299,139 @@ ItemSvc.prototype.getMyOrders = function(num, upOrDown, create_at) {
   var itemSvc = new ItemSvc();
   if (!upOrDown) {
     return new Promise((resolve, reject) => {
-      Item.where({
-        "valid.to":'2017-05-26 10:00'
+      var ret = [];
+      var tret = [];
+      var toDate = moment().format('yyyy-MM-DD HH:mm');
+      Item.find({
+        'bids.openId':openId,
+        'valid.to':{$lt:toDate}
       }).sort({
-        create_at: -1
-      }).limit(num).lean().exec((err, data) => {
-        if (err) {
-          return reject(err);
-        }
-        return resolve(data);
+          create_at: 'asc'
+        }).limit(num).then(docs => {
+        if ( docs.length <= 0 )
+          return resolve([]);
+          for(var k = 0 ; k < docs.length ; k++)
+          {
+             var x = JSON.parse(JSON.stringify(docs[k]));
+             var xbid = x.bids;
+             if ( xbid.length > 0 )
+             {
+             tret = _.orderBy(xbid, ["create_at"], ["desc"]);
+             if ( tret[0].openId === openId )
+             {
+                ret.push({_id: x._id,
+                            author: x.author,
+                            avatar: x.avatar,
+                            bid: tret[0],
+                            create_at: x.create_at,
+                            dimension: x.dimension,
+                            images: x.images,
+                            likes: x.likes,
+                            name: x.name,
+                            nick:x.nick,
+                            price:x.price,
+                            valid:x.valid
+                        });
+             }
+             }
+          }
+          return resolve(ret);
+      }).catch(err => {
+        return reject(err);
       });
     });
   } else {
     if (upOrDown === "up") {
       // 加载更多 上拉
       return new Promise((resolve, reject) => {
-        Item.where({
-          create_at: {
-            $lt: create_at
-          }
+        var ret = [];
+        var tret = [];
+        var toDate = moment().format('yyyy-MM-DD HH:mm');
+        Item.find({
+          'bids.openId':openId,
+          'valid.to':{$lt:toDate},
+          'create_at':{$lt:create_at}
         }).sort({
-          create_at: -1
-        }).limit(num).lean().exec((err, data) => {
-          if (err) {
-            return reject(err);
-          }
-          return resolve(data);
+            create_at: 'asc'
+          }).limit(num).then(docs => {
+          if ( docs.length <= 0 )
+            return resolve([]);
+            for(var k = 0 ; k < docs.length ; k++)
+            {
+               var x = JSON.parse(JSON.stringify(docs[k]));
+               var xbid = x.bids;
+               if ( xbid.length > 0 )
+               {
+               tret = _.orderBy(xbid, ["create_at"], ["desc"]);
+               if ( tret[0].openId === openId )
+               {
+                  ret.push({_id: x._id,
+                              author: x.author,
+                              avatar: x.avatar,
+                              bid: tret[0],
+                              create_at: x.create_at,
+                              dimension: x.dimension,
+                              images: x.images,
+                              likes: x.likes,
+                              name: x.name,
+                              nick:x.nick,
+                              price:x.price,
+                              valid:x.valid
+                          });
+               }
+               }
+            }
+            return resolve(ret);
+        }).catch(err => {
+          return reject(err);
         });
-      });
+      })
+
     } else {
       return new Promise((resolve, reject) => {
-        Item.where({
-          create_at: {
-            $gt: create_at
-          }
+        var ret = [];
+        var tret = [];
+        var toDate = moment().format('yyyy-MM-DD HH:mm');
+        Item.find({
+          'bids.openId':openId,
+          'valid.to':{$lt:toDate},
+          'create_at':{$gt:create_at}
         }).sort({
-          create_at: 'asc'
-        }).limit(num).lean().exec((err, data) => {
-          if (err) {
-            return reject(err);
-          }
-          return resolve(data);
+            create_at: 'asc'
+          }).limit(num).then(docs => {
+          if ( docs.length <= 0 )
+            return resolve([]);
+            for(var k = 0 ; k < docs.length ; k++)
+            {
+               var x = JSON.parse(JSON.stringify(docs[k]));
+               var xbid = x.bids;
+               if ( xbid.length > 0 )
+               {
+               tret = _.orderBy(xbid, ["create_at"], ["desc"]);
+               if ( tret[0].openId === openId )
+               {
+                  ret.push({_id: x._id,
+                              author: x.author,
+                              avatar: x.avatar,
+                              bid: tret[0],
+                              create_at: x.create_at,
+                              dimension: x.dimension,
+                              images: x.images,
+                              likes: x.likes,
+                              name: x.name,
+                              nick:x.nick,
+                              price:x.price,
+                              valid:x.valid
+                          });
+               }
+               }
+            }
+            return resolve(ret);
+        }).catch(err => {
+          return reject(err);
         });
-      });
+      })
+
     }
   }
 };
