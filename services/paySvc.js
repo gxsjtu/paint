@@ -20,17 +20,18 @@ PaySvc.prototype.getBrandWCPayRequestParams = function(openId, itemId, price) {
   return new Promise((resolve, reject) => {
     wxpay.getBrandWCPayRequestParams({
       openid: openId,
-      // body: '公众号支付测试',
-      // detail: '公众号支付测试',
+      body: '公众号支付测试body',
+      detail: '公众号支付测试detail',
       out_trade_no: itemId,
       total_fee: price,
       //spbill_create_ip: '192.168.2.210',
-      //notify_url: 'http://wxpay_notify_url'
+      notify_url: Global.server + '/pay/notify'
     }, function(err, result) {
       if (err) {
         return reject(err);
       }
-      return resolve(result);
+      console.log(result);
+      return resolve(JSON.stringify(result));
     });
   });
 };

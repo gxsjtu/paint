@@ -22,4 +22,8 @@ router.get('/', oAuth.oAuth, function(req, res, next) {
   });
 });
 
+router.get('/notify', oAuth.oAuth, function(req, res, next) {
+  res.end();
+});
+
 module.exports = router;
