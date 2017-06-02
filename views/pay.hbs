@@ -4,7 +4,7 @@
     </style>
 {{/extend}}
 
-  <input type="button" value="付款" id="btnPay"/>
+  <input type="button" value="付款" id="btnPay" class="btn btn-primary"/>
 
 {{#extend "scripts"}}
 
@@ -12,7 +12,7 @@
 
     <script>
       $(function(){
-        $("btnPay").on("click",function(){
+        $("#btnPay").on("click",function(){
           WeixinJSBridge.invoke(
           	"getBrandWCPayRequest", {{{payargs}}}, function(res){
           		if(res.err_msg == "get_brand_wcpay_request:ok" ) {
