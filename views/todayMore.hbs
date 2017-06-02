@@ -58,7 +58,7 @@
         })
       }
       if(typeStr == "myBids"){
-        $.get("/item/getMyBids", function(data){
+        $.get("/item/getMyBids/0/0", function(data){
           // alert(data.length);
             var res = data;
             if(res.length>0){
@@ -116,10 +116,10 @@
           var str ="<li class=\"list-group-item item\" onClick=\"gotoItem('" + datas[i]._id + "')\" ><div class=\"row\" style=\"margin-left:-15px;margin-right:0px;\"> <div class=\"avatarStyle\"><img src='";
           str += datas[i].avatar;
           str += "' style=\"width:50px;border-radius:50px;\"/></div><div class=\"nickDiv\"><div class=\"row\"><div class=\"col-xs-7\" style=\"padding-right:0px;\"><div class=\"row\" style=\"margin-left:0px;margin-right:0px;margin-top:5px;\"><span style=\"color:#2ad0cc\">" + datas[i].nick + "</span></div><div class=\"row\" style=\"margin-top:5px;margin-left:0px;margin-right:0px;\"><span style=\"color:#919191\">" + datas[i].create_at + "</span></div></div>";
-          if(typeStr == "more"){
-            str += "<div class=\"col-xs-5\" style=\"padding-left:0px;padding-right:0px;\"><div class=\"row\" style=\"background:url('/images/label_01.jpg') no-repeat;height:55px;width:110px;background-size:110px 55px;margin-left:0px;margin-right:0px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;float:right;\"><span style=\"margin-left:30px;\">￥" + datas[i].price + "</span></div></div></div></div></div><div class=\"row\" style=\"margin-left:0px;margin-right:0px;margin-top:10px;\"><div class=\"row\">";
-          }else if(typeStr == "myBids"){
+          if(typeStr == "myBids"){
             str += "<div class=\"col-xs-5\" style=\"padding-left:0px;padding-right:0px;\"><div class=\"row\" style=\"background:url('/images/绿.png') no-repeat;height:25px;width:110px;background-size:110px 25px;margin-left:0px;margin-right:0px;display:flex;flex-direction:column;align-items:center;float:right;padding-top:2px;\"><span style=\"font-size:8px;color:#fff;\">底价:￥" + datas[i].price + "</span></div><div class=\"row\" style=\"background:url('/images/橙.png') no-repeat;height:25px;width:110px;background-size:110px 25px;margin-left:0px;margin-right:0px;display:flex;flex-direction:column;align-items:center;float:right;padding-top:2px;\"><span style=\"font-size:8px;color:#fff;\">出价:￥" + datas[i].price + "</span></div></div></div></div></div><div class=\"row\" style=\"margin-left:0px;margin-right:0px;margin-top:10px;\"><div class=\"row\">";
+          }else{
+            str += "<div class=\"col-xs-5\" style=\"padding-left:0px;padding-right:0px;\"><div class=\"row\" style=\"background:url('/images/label_01.jpg') no-repeat;height:55px;width:110px;background-size:110px 55px;margin-left:0px;margin-right:0px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;float:right;\"><span style=\"margin-left:30px;\">￥" + datas[i].price + "</span></div></div></div></div></div><div class=\"row\" style=\"margin-left:0px;margin-right:0px;margin-top:10px;\"><div class=\"row\">";
           }
               for (var j = 0; j < datas[i].images.length; j++) {
                   str += " <div class=\"imgStyle\" style=\"background:url(https://painting.shtx.com.cn/images/upload/" + datas[i].images[j] + ");\"></div>"
@@ -142,11 +142,11 @@
                 var str ="<li class=\"list-group-item item\" onClick=\"gotoItem('" + datas[i]._id + "')\" ><div class=\"row\" style=\"margin-left:-15px;margin-right:0px;\"> <div class=\"avatarStyle\"><img src='";
                 str += datas[i].avatar;
                 str += "' style=\"width:50px;border-radius:50px;\"/></div><div class=\"nickDiv\"><div class=\"row\"><div class=\"col-xs-7\" style=\"padding-right:0px;\"><div class=\"row\" style=\"margin-left:0px;margin-right:0px;margin-top:5px;\"><span style=\"color:#2ad0cc\">" + datas[i].nick + "</span></div><div class=\"row\" style=\"margin-top:5px;margin-left:0px;margin-right:0px;\"><span style=\"color:#919191\">" + datas[i].create_at + "</span></div></div>";
-                if(typeStr == "more"){
-                  str += "<div class=\"col-xs-5\" style=\"padding-left:0px;padding-right:0px;\"><div class=\"row\" style=\"background:url('/images/label_01.jpg') no-repeat;height:55px;width:110px;background-size:110px 55px;margin-left:0px;margin-right:0px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;float:right;\"><span style=\"margin-left:30px;\">￥" + datas[i].price + "</span></div></div></div></div></div><div class=\"row\" style=\"margin-left:0px;margin-right:0px;margin-top:10px;\"><div class=\"row\">";
-                }else if(typeStr == "myBids"){
+                if(typeStr == "myBids"){
                   str += "<div class=\"col-xs-5\" style=\"padding-left:0px;padding-right:0px;\"><div class=\"row\" style=\"background:url('/images/绿.png') no-repeat;height:25px;width:110px;background-size:110px 25px;margin-left:0px;margin-right:0px;display:flex;flex-direction:column;align-items:center;float:right;padding-top:2px;\"><span style=\"font-size:8px;color:#fff;\">底价:￥" + datas[i].price + "</span></div><div class=\"row\" style=\"background:url('/images/橙.png') no-repeat;height:25px;width:110px;background-size:110px 25px;margin-left:0px;margin-right:0px;display:flex;flex-direction:column;align-items:center;float:right;padding-top:2px;\"><span style=\"font-size:8px;color:#fff;\">出价:￥" + datas[i].price + "</span></div></div></div></div></div><div class=\"row\" style=\"margin-left:0px;margin-right:0px;margin-top:10px;\"><div class=\"row\">";
-                }
+                }else{
+                  str += "<div class=\"col-xs-5\" style=\"padding-left:0px;padding-right:0px;\"><div class=\"row\" style=\"background:url('/images/label_01.jpg') no-repeat;height:55px;width:110px;background-size:110px 55px;margin-left:0px;margin-right:0px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;float:right;\"><span style=\"margin-left:30px;\">￥" + datas[i].price + "</span></div></div></div></div></div><div class=\"row\" style=\"margin-left:0px;margin-right:0px;margin-top:10px;\"><div class=\"row\">";
+                } 
                     for (var j = 0; j < datas[i].images.length; j++) {
                         str += " <div class=\"imgStyle\" style=\"background:url(https://painting.shtx.com.cn/images/upload/" + datas[i].images[j] + ");\"></div>"
                     }
@@ -180,6 +180,8 @@ function pullDownAction () {
   }
   else if(typeStr == "myOrders"){
     url="/item/getMyOrders/down/" + startTime;
+  }else if(typeStr == "myBids"){
+    url="/item/getMyBids/down/" + startTime;
   }
 
 	setTimeout(function () {	// <-- Simulate network congestion, remove setTimeout from production!
@@ -215,6 +217,8 @@ function pullUpAction () {
   }
   else if(typeStr == "myOrders"){
     url="/item/getMyOrders/up/" + endTime;
+  }else if(typeStr == "myBids"){
+    url="/item/getMyBids/up/" + endTime;
   }
 	setTimeout(function () {	// <-- Simulate network congestion, remove setTimeout from production!
 		// var el, li, i;

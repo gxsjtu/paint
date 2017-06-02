@@ -13,9 +13,15 @@ var userSvc = new UserSvc();
 var indexSvc = new IndexSvc();
 router.use(Jssdk.jssdk);
 
-router.get('/getMyBids', function(req, res, next) {
+router.get('/getMyBids/:option/:date', function(req, res, next) {
   var openId = req.session.openId;
-  userSvc.getMyBids(openId).then(data => {
+  var upOrDown = req.params.option;
+  var createAt = req.params.date;
+  if(upOrDown == 0){
+    upOrDown = '';
+    creatAt = '';
+  }
+  userSvc.getMyBids(openId, upOrDown, createAt).then(data => {
     res.json(new Result(Errors.Success, data))
   }).catch(err => res.json(new Result(Errors.GetMyBidsFailed, err)));
 });
