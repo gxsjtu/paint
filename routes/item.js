@@ -32,7 +32,19 @@ router.get('/getTodayItems/:upOrDown/:creatAt', function(req, res, next) {
     res.json(new Result(Errors.Success, data))
   }).catch(err => res.json(new Result(Errors.GetItemsFailed, err)));
 });
-
+//我的订单
+router.get('/getMyOrders/:upOrDown/:creatAt', function(req, res, next) {
+  var upOrDown = req.params.upOrDown;
+  var createAt = req.params.creatAt;
+  if(upOrDown == 0){
+    upOrDown = '';
+    creatAt = '';
+  }
+  itemSvc.getMyOrders(30,upOrDown,createAt).then(data => {
+    res.json(new Result(Errors.Success, data))
+  }).catch(err => res.json(new Result(Errors.GetItemsFailed, err)));
+});
+//查询
 router.get('/getItemBySearch/:key/:group/:upOrDown/:creatAt', function(req, res, next) {
   var key = req.params.key;
   var group = req.params.group;

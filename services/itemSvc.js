@@ -294,5 +294,55 @@ ItemSvc.prototype.getSearchItems = function(num,key,group, upOrDown, create_at) 
     }
   }
 };
+//我的订单
+ItemSvc.prototype.getMyOrders = function(num, upOrDown, create_at) {
+  var itemSvc = new ItemSvc();
+  if (!upOrDown) {
+    return new Promise((resolve, reject) => {
+      Item.where({
+      }).sort({
+        create_at: -1
+      }).limit(num).lean().exec((err, data) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve(data);
+      });
+    });
+  } else {
+    if (upOrDown === "up") {
+      // 加载更多 上拉
+      return new Promise((resolve, reject) => {
+        Item.where({
+          create_at: {
+            $lt: create_at
+          }
+        }).sort({
+          create_at: -1
+        }).limit(num).lean().exec((err, data) => {
+          if (err) {
+            return reject(err);
+          }
+          return resolve(data);
+        });
+      });
+    } else {
+      return new Promise((resolve, reject) => {
+        Item.where({
+          create_at: {
+            $gt: create_at
+          }
+        }).sort({
+          create_at: 'asc'
+        }).limit(num).lean().exec((err, data) => {
+          if (err) {
+            return reject(err);
+          }
+          return resolve(data);
+        });
+      });
+    }
+  }
+};
 
 module.exports = ItemSvc;
