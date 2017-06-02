@@ -155,17 +155,17 @@
                 }
                 str += "<span style=\"margin-left:10px;\" id=\"" + datas[i]._id + "\">" + datas[i].likes.length + "</span></div><div class=\"col-xs-6 bid\"><img src=\"/images/aa_07.png\" alt=\"出价次数\" class=\"img-size\"/><span style=\"margin-left:10px;\">" + datas[i].bids.length + "</span></div></div><div class=\"splitItem\"></div>";
               }
-              str += "</div><div class=\"row\" style=\"margin-bottom:10px;font-size:14px;margin-top:10px;\"><div class=\"col-xs-12\" style=\"padding-right: 0px;padding-left: 3px;\">《" + datas[i].name + "》</div></div></div></li><div class=\"row option\"><div class=\"col-xs-6 like\"";
-              if(datas[i].canLike){
-                str += " onclick=\"heartClick('" + datas[i]._id + "')\" ";
-              }
-              str += ">";
-              if(datas[i].canLike){
-                str += "<img id=\"imgLike\" src=\"/images/aa_08.png\" alt=\"赞\" class=\"img-size\"/>";
-              }else{
-                str += "<img id=\"imgLike\" src=\"/images/BB_08.png\" alt=\"赞\" class=\"img-size\"/>";
-              }
-              str += "<span style=\"margin-left:10px;\" id=\"" + datas[i]._id + "\">" + datas[i].likes.length + "</span></div><div class=\"col-xs-6 bid\"><img src=\"/images/aa_07.png\" alt=\"出价次数\" class=\"img-size\"/><span style=\"margin-left:10px;\">" + datas[i].bids.length + "</span></div></div><div class=\"splitItem\"></div>";
+              // str += "</div><div class=\"row\" style=\"margin-bottom:10px;font-size:14px;margin-top:10px;\"><div class=\"col-xs-12\" style=\"padding-right: 0px;padding-left: 3px;\">《" + datas[i].name + "》</div></div></div></li><div class=\"row option\"><div class=\"col-xs-6 like\"";
+              // if(datas[i].canLike){
+              //   str += " onclick=\"heartClick('" + datas[i]._id + "')\" ";
+              // }
+              // str += ">";
+              // if(datas[i].canLike){
+              //   str += "<img id=\"imgLike\" src=\"/images/aa_08.png\" alt=\"赞\" class=\"img-size\"/>";
+              // }else{
+              //   str += "<img id=\"imgLike\" src=\"/images/BB_08.png\" alt=\"赞\" class=\"img-size\"/>";
+              // }
+              // str += "<span style=\"margin-left:10px;\" id=\"" + datas[i]._id + "\">" + datas[i].likes.length + "</span></div><div class=\"col-xs-6 bid\"><img src=\"/images/aa_07.png\" alt=\"出价次数\" class=\"img-size\"/><span style=\"margin-left:10px;\">" + datas[i].bids.length + "</span></div></div><div class=\"splitItem\"></div>";
               $(".list-group").append(str);
             }
             }else if(op == "pulldown"){
@@ -185,17 +185,46 @@
                     for (var j = 0; j < datas[i].images.length; j++) {
                         str += " <div class=\"imgStyle\" style=\"background:url(https://painting.shtx.com.cn/images/upload/" + datas[i].images[j] + ");\"></div>"
                     }
-                    str += "</div><div class=\"row\" style=\"margin-bottom:10px;font-size:14px;margin-top:10px;\"><div class=\"col-xs-12\" style=\"padding-right: 0px;padding-left: 3px;\">《" + datas[i].name + "》</div></div></div></li><div class=\"row option\"><div class=\"col-xs-6 like\"";
-                    if(datas[i].canLike){
-                      str += " onclick=\"heartClick('" + datas[i]._id + "')\" ";
+
+                    if(typeStr == "myOrders"){
+                      str += "</div><div class=\"row\" style=\"margin-bottom:10px;font-size:14px;margin-top:10px;\"><div class=\"col-xs-12\" style=\"padding-right: 0px;padding-left: 3px;\">《" + datas[i].name + "》</div></div></div></li><div class=\"row option\"><div class=\"col-xs-4 like\"";
+                      if(datas[i].canLike){
+                        str += " onclick=\"heartClick('" + datas[i]._id + "')\" ";
+                      }
+                      str += ">";
+                      if(datas[i].canLike){
+                        str += "<img id=\"imgLike\" src=\"/images/aa_08.png\" alt=\"赞\" class=\"img-size\"/>";
+                      }else{
+                        str += "<img id=\"imgLike\" src=\"/images/BB_08.png\" alt=\"赞\" class=\"img-size\"/>";
+                      }
+                      str += "<span style=\"margin-left:10px;\" id=\"" + datas[i]._id + "\">" + datas[i].likes.length + "</span></div><div class=\"col-xs-4 bid\" style=\"border-right: 1px solid #f2f2f2;\"><img src=\"/images/aa_07.png\" alt=\"出价次数\" class=\"img-size\"/><span style=\"margin-left:10px;\">" + datas[i].bids.length + "</span></div><div class=\"col-xs-4 bid\" style=\"border-right: 1px solid #f2f2f2;\"><img src=\"/images/aa_07.png\" alt=\"付款\" class=\"img-size\"/><span style=\"margin-left:10px;\">付款</span></div></div><div class=\"splitItem\"></div>";
                     }
-                    str += ">";
-                    if(datas[i].canLike){
-                      str += "<img id=\"imgLike\" src=\"/images/aa_08.png\" alt=\"赞\" class=\"img-size\"/>";
-                    }else{
-                      str += "<img id=\"imgLike\" src=\"/images/BB_08.png\" alt=\"赞\" class=\"img-size\"/>";
+                    else{
+                      str += "</div><div class=\"row\" style=\"margin-bottom:10px;font-size:14px;margin-top:10px;\"><div class=\"col-xs-12\" style=\"padding-right: 0px;padding-left: 3px;\">《" + datas[i].name + "》</div></div></div></li><div class=\"row option\"><div class=\"col-xs-6 like\"";
+                      if(datas[i].canLike){
+                        str += " onclick=\"heartClick('" + datas[i]._id + "')\" ";
+                      }
+                      str += ">";
+                      if(datas[i].canLike){
+                        str += "<img id=\"imgLike\" src=\"/images/aa_08.png\" alt=\"赞\" class=\"img-size\"/>";
+                      }else{
+                        str += "<img id=\"imgLike\" src=\"/images/BB_08.png\" alt=\"赞\" class=\"img-size\"/>";
+                      }
+                      str += "<span style=\"margin-left:10px;\" id=\"" + datas[i]._id + "\">" + datas[i].likes.length + "</span></div><div class=\"col-xs-6 bid\"><img src=\"/images/aa_07.png\" alt=\"出价次数\" class=\"img-size\"/><span style=\"margin-left:10px;\">" + datas[i].bids.length + "</span></div></div><div class=\"splitItem\"></div>";
                     }
-                    str += "<span style=\"margin-left:10px;\" id=\"" + datas[i]._id + "\">" + datas[i].likes.length + "</span></div><div class=\"col-xs-6 bid\"><img src=\"/images/aa_07.png\" alt=\"出价次数\" class=\"img-size\"/><span style=\"margin-left:10px;\">" + datas[i].bids.length + "</span></div></div><div class=\"splitItem\"></div>";
+
+
+                    // str += "</div><div class=\"row\" style=\"margin-bottom:10px;font-size:14px;margin-top:10px;\"><div class=\"col-xs-12\" style=\"padding-right: 0px;padding-left: 3px;\">《" + datas[i].name + "》</div></div></div></li><div class=\"row option\"><div class=\"col-xs-6 like\"";
+                    // if(datas[i].canLike){
+                    //   str += " onclick=\"heartClick('" + datas[i]._id + "')\" ";
+                    // }
+                    // str += ">";
+                    // if(datas[i].canLike){
+                    //   str += "<img id=\"imgLike\" src=\"/images/aa_08.png\" alt=\"赞\" class=\"img-size\"/>";
+                    // }else{
+                    //   str += "<img id=\"imgLike\" src=\"/images/BB_08.png\" alt=\"赞\" class=\"img-size\"/>";
+                    // }
+                    // str += "<span style=\"margin-left:10px;\" id=\"" + datas[i]._id + "\">" + datas[i].likes.length + "</span></div><div class=\"col-xs-6 bid\"><img src=\"/images/aa_07.png\" alt=\"出价次数\" class=\"img-size\"/><span style=\"margin-left:10px;\">" + datas[i].bids.length + "</span></div></div><div class=\"splitItem\"></div>";
                     $(".list-group").prepend(str);
                 }
       }
