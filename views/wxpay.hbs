@@ -99,6 +99,14 @@
             });
         });
         wx.ready(function() {
+          wx.checkJsApi({
+             jsApiList: [
+               'openAddress',
+             ],
+             success: function (res) {
+               alert(JSON.stringify(res));
+             }
+           });
             $("#address").on("click", function() {
                 wx.openAddress({
                     success: function(res) {
