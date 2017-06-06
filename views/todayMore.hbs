@@ -145,10 +145,10 @@
                 }
 
                 str += "<span style=\"margin-left:10px;\" id=\"" + datas[i]._id + "\">" + datas[i].likes.length + "</span></div><div class=\"col-xs-4 bid\" style=\"border-right: 1px solid #f2f2f2;\"><img src=\"/images/aa_07.png\" alt=\"出价次数\" class=\"img-size\"/><span style=\"margin-left:10px;\">" + datas[i].bids.length + "</span></div>";
-                if(datas[i].order.status == 1){
+                if(datas[i].order.status && datas[i].order.status == 1){
                   str+="<div class=\"col-xs-4 bid\" data-itemid=\""+datas[i]._id+"\" style=\"border-right: 1px solid #f2f2f2;\"><img src=\"/images/aa_07.png\" class=\"img-size\"/><span style=\"margin-left:10px;\">已付款</span></div></div><div class=\"splitItem\"></div>"
                 }
-                else if(datas[i].order.status == 0){
+                else if(!datas[i].order.status || datas[i].order.status == 0){
                   str+="<div class=\"col-xs-4 bid pay\" data-itemid=\""+datas[i]._id+"\" style=\"border-right: 1px solid #f2f2f2;\"><img src=\"/images/aa_07.png\" class=\"img-size\"/><span style=\"margin-left:10px;\">待付款</span></div></div><div class=\"splitItem\"></div>"
                 }
               }
@@ -209,10 +209,10 @@
                       }
 
                       str += "<span style=\"margin-left:10px;\" id=\"" + datas[i]._id + "\">" + datas[i].likes.length + "</span></div><div class=\"col-xs-4 bid\" style=\"border-right: 1px solid #f2f2f2;\"><img src=\"/images/aa_07.png\" alt=\"出价次数\" class=\"img-size\"/><span style=\"margin-left:10px;\">" + datas[i].bids.length + "</span></div>";
-                      if(datas[i].order.status == 1){
+                      if(datas[i].order.status && datas[i].order.status == 1){
                         str+="<div class=\"col-xs-4 bid\" data-itemid=\""+datas[i]._id+"\" style=\"border-right: 1px solid #f2f2f2;\"><img src=\"/images/aa_07.png\" class=\"img-size\"/><span style=\"margin-left:10px;\">已付款</span></div></div><div class=\"splitItem\"></div>"
                       }
-                      else if(datas[i].order.status == 0){
+                      else if(!datas[i].order.status || datas[i].order.status == 0){
                         str+="<div class=\"col-xs-4 bid pay\" data-itemid=\""+datas[i]._id+"\" style=\"border-right: 1px solid #f2f2f2;\"><img src=\"/images/aa_07.png\" class=\"img-size\"/><span style=\"margin-left:10px;\">待付款</span></div></div><div class=\"splitItem\"></div>"
                       }
                     }
