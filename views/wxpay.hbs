@@ -108,10 +108,12 @@
              }
            });
             $("#address").on("click", function() {
+                alert('openAddress');
                 wx.openAddress({
                     success: function(res) {
                         // 用户成功拉出地址
                         console.log(res);
+                        alert(JSON.stringify(res));
                         var address = res.provinceName + res.cityName + res.detailInfo;
                         $(".addressText").text(address);
                     }
