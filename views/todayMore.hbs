@@ -41,8 +41,7 @@
     $(function(){
       typeStr = "{{typeStr}}";
       getDatas();
-      $(".pay").on("click",function(){
-        debugger;
+      $("body").on("click",".pay",function(){
         var itemId = $(this).data("itemid");
         console.log(itemId);
         window.location.href="/wxpay/pay/"+itemId;
