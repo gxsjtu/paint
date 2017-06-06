@@ -21,8 +21,14 @@
 {{/extend}}
 
 <div class="addressContainer" id="address">
-    <div class="addressText">
+    <div class="addressText" style="display:flex;flex-direction:column;">
+      <div class="detail">
         请填写收货地址
+      </div>
+      <div class="user">
+
+      </div>
+
     </div>
     <div class="addressArrow">
         <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
@@ -34,16 +40,16 @@
     <div style="width:30%;display:table-cell;vertical-align:middle;">
         <img src="/images/upload/Mb3rrsT-oUYbS9ebnyclpMSu_hNbyi6XcSONqBNTc8zDoXzug9rAldY-ao2vkehq" style="width:100%;" />
     </div>
-    <div style="display:table-cell;vertical-align:middle;width:60%;">
+    <div style="display:table-cell;vertical-align:top;width:60%;font-size:large;">
         <div style="display:flex;flex-direction:column;margin-left:5%;height:100%;justify-content: center;">
-            <div style="width:100%;">
+            <div style="width:100%;margin-top:10px;font-size:larger;">
                 {{item.name}}
             </div>
-            <div style="width:100%;">
-                {{item.author}}
+            <div style="width:100%;margin-top:10px;color:#a1a1a1;">
+                作者:&nbsp;{{item.author}}
             </div>
-            <div style="width:100%;">
-                <span style="color:red;">￥{{price}}</span>
+            <div style="width:100%;margin-top:10px;">
+                价格:&nbsp;<span style="color:red;">￥{{price}}</span>
             </div>
         </div>
     </div>
@@ -107,13 +113,12 @@
                         console.log(res);
                         alert(JSON.stringify(res));
                         var address = res.provinceName + res.cityName + res.detailInfo;
-                        $(".addressText").text(address);
+                        var user = res.userName+" "+ res.telNumber;
+                        $(".addressText .detail").text(address);
+                        $(".addressText .user").text(user);
                     },
                     fail:function(err){
                       alert('fail'+JSON.stringify(err));
-                    },
-                    error:function(err){
-                      alert('err'+JSON.stringify(err));
                     }
                 });
             });
