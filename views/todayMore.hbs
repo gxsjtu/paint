@@ -43,7 +43,7 @@
       getDatas();
       $("body").on("click",".pay",function(){
         var itemId = $(this).data("itemid");
-        window.location.href="/wxpay/pay/"+itemId;
+        window.location.href="/wxpay/pay?itemId="+itemId;
       });
     })
 
