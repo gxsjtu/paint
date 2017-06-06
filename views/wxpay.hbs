@@ -108,6 +108,13 @@
                         alert(JSON.stringify(res));
                         var address = res.provinceName + res.cityName + res.detailInfo;
                         $(".addressText").text(address);
+                    },
+                    fail:function(err){
+
+                      alert('fail'+JSON.stringify(err));
+                    },
+                    error:function(err){
+                      alert('err'+JSON.stringify(err));
                     }
                 });
             });
