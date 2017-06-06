@@ -85,7 +85,6 @@
      if(typeStr == "myOrders"){
       $.get("/item/getMyOrders/0/0",function(data){
         var res = data.data;
-        console.log(res);
         if(res.length>0){
           startTime = res[0].create_at.toString();
           endTime = res[res.length - 1].create_at.toString();
@@ -144,7 +143,14 @@
                 }else{
                   str += "<img id=\"imgLike\" src=\"/images/BB_08.png\" alt=\"赞\" class=\"img-size\"/>";
                 }
-                str += "<span style=\"margin-left:10px;\" id=\"" + datas[i]._id + "\">" + datas[i].likes.length + "</span></div><div class=\"col-xs-4 bid\" style=\"border-right: 1px solid #f2f2f2;\"><img src=\"/images/aa_07.png\" alt=\"出价次数\" class=\"img-size\"/><span style=\"margin-left:10px;\">" + datas[i].bids.length + "</span></div><div class=\"col-xs-4 bid pay\" data-itemid=\""+datas[i]._id+"\" style=\"border-right: 1px solid #f2f2f2;\"><img src=\"/images/aa_07.png\" alt=\"付款\" class=\"img-size\"/><span style=\"margin-left:10px;\">付款</span></div></div><div class=\"splitItem\"></div>";
+
+                str += "<span style=\"margin-left:10px;\" id=\"" + datas[i]._id + "\">" + datas[i].likes.length + "</span></div><div class=\"col-xs-4 bid\" style=\"border-right: 1px solid #f2f2f2;\"><img src=\"/images/aa_07.png\" alt=\"出价次数\" class=\"img-size\"/><span style=\"margin-left:10px;\">" + datas[i].bids.length + "</span></div>";
+                if(datas[i].order.status == 1){
+                  <div class=\"col-xs-4 bid\" data-itemid=\""+datas[i]._id+"\" style=\"border-right: 1px solid #f2f2f2;\"><img src=\"/images/aa_07.png\" class=\"img-size\"/><span style=\"margin-left:10px;\">已付款</span></div></div><div class=\"splitItem\"></div>"
+                }
+                else if(datas[i].order.status == 0){
+                  <div class=\"col-xs-4 bid pay\" data-itemid=\""+datas[i]._id+"\" style=\"border-right: 1px solid #f2f2f2;\"><img src=\"/images/aa_07.png\" class=\"img-size\"/><span style=\"margin-left:10px;\">待付款</span></div></div><div class=\"splitItem\"></div>"
+                }
               }
               else{
                 str += "</div><div class=\"row\" style=\"margin-bottom:10px;font-size:14px;margin-top:10px;\"><div class=\"col-xs-12\" style=\"padding-right: 0px;padding-left: 3px;\">《" + datas[i].name + "》</div></div></div></li><div class=\"row option\"><div class=\"col-xs-6 like\"";
@@ -201,7 +207,14 @@
                       }else{
                         str += "<img id=\"imgLike\" src=\"/images/BB_08.png\" alt=\"赞\" class=\"img-size\"/>";
                       }
-                      str += "<span style=\"margin-left:10px;\" id=\"" + datas[i]._id + "\">" + datas[i].likes.length + "</span></div><div class=\"col-xs-4 bid\" style=\"border-right: 1px solid #f2f2f2;\"><img src=\"/images/aa_07.png\" alt=\"出价次数\" class=\"img-size\"/><span style=\"margin-left:10px;\">" + datas[i].bids.length + "</span></div><div class=\"col-xs-4 bid pay\" data-itemid=\""+datas[i]._id+"\" style=\"border-right: 1px solid #f2f2f2;\"><img src=\"/images/aa_07.png\" alt=\"付款\" class=\"img-size\"/><span style=\"margin-left:10px;\">付款</span></div></div><div class=\"splitItem\"></div>";
+
+                      str += "<span style=\"margin-left:10px;\" id=\"" + datas[i]._id + "\">" + datas[i].likes.length + "</span></div><div class=\"col-xs-4 bid\" style=\"border-right: 1px solid #f2f2f2;\"><img src=\"/images/aa_07.png\" alt=\"出价次数\" class=\"img-size\"/><span style=\"margin-left:10px;\">" + datas[i].bids.length + "</span></div>";
+                      if(datas[i].order.status == 1){
+                        <div class=\"col-xs-4 bid\" data-itemid=\""+datas[i]._id+"\" style=\"border-right: 1px solid #f2f2f2;\"><img src=\"/images/aa_07.png\" class=\"img-size\"/><span style=\"margin-left:10px;\">已付款</span></div></div><div class=\"splitItem\"></div>"
+                      }
+                      else if(datas[i].order.status == 0){
+                        <div class=\"col-xs-4 bid pay\" data-itemid=\""+datas[i]._id+"\" style=\"border-right: 1px solid #f2f2f2;\"><img src=\"/images/aa_07.png\" class=\"img-size\"/><span style=\"margin-left:10px;\">待付款</span></div></div><div class=\"splitItem\"></div>"
+                      }
                     }
                     else{
                       str += "</div><div class=\"row\" style=\"margin-bottom:10px;font-size:14px;margin-top:10px;\"><div class=\"col-xs-12\" style=\"padding-right: 0px;padding-left: 3px;\">《" + datas[i].name + "》</div></div></div></li><div class=\"row option\"><div class=\"col-xs-6 like\"";

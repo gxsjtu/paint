@@ -87,33 +87,19 @@
     实付金额: <span style="color:red;">￥{{price}}</span>
 </div>
 
-<!-- <div style="width:90vw;margin:20px auto;">
+<div style="width:90vw;margin:20px auto;">
     <input type="button" value="微信支付" id="btnPay" class="btn btn-success btn-block btn-lg">
-</div> -->
-<div style="width:90vw;margin:20px auto;">
-    <input type="button" value="微信支付" id="btnPay1" class="btn btn-success btn-block btn-lg">
-</div>
-<div style="width:90vw;margin:20px auto;">
-    <input type="button" value="微信支付" id="btnPay2" class="btn btn-success btn-block btn-lg">
 </div>
 
 {{#extend "scripts"}}
     <script>
         $(function() {
-          $("#btnPay1").on("click", function() {
-            self.location=document.referrer;
-          });
-          $("#btnPay2").on("click", function() {
-            history.back();
-            location.reload();
-          });
             $("#btnPay").on("click", function() {
                 WeixinJSBridge.invoke(
                     "getBrandWCPayRequest", {{{payargs}}},function(res) {
                         if (res.err_msg == "get_brand_wcpay_request:ok") {
                             // success
-                            //alert('支付成功');
-                            //self.location=document.referrer;
+                            self.location=document.referrer;
                         }
                         else{
                           notie.alert({
