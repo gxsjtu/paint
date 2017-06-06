@@ -1,15 +1,91 @@
 {{#extend "stylesheets"}}
     <style>
+      .split{
+        width:100vw;
+        height:10px;
+        background: #eee;
+      }
+      .addressContainer{
+        display: flex;
+        height: 70px;
+        align-items: center;
+      }
+      .addressText{
+        margin-left: 1em;
+        width: 85%;
+        font-size: 20px;
 
+      }
     </style>
 {{/extend}}
 
-  <input type="button" value="付款" id="btnPay" class="btn btn-primary"/>
+  <div class="addressContainer">
+    <div class="addressText">
+      请填写收货地址
+    </div>
+    <div class="addressArrow">
+      <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+    </div>
 
+  </div>
+  <img src="/images/pay/addressBorder.png" style="width:100vw;"/>
+  <div style="display:table;margin:20px;">
+      <div style="width:30%;display:table-cell;vertical-align:middle;">
+        <img src="/images/upload/Mb3rrsT-oUYbS9ebnyclpMSu_hNbyi6XcSONqBNTc8zDoXzug9rAldY-ao2vkehq" style="width:100%;"/>
+      </div>
+      <div style="display:table-cell;vertical-align:middle;width:60%;">
+        <div style="display:flex;flex-direction:column;margin-left:5%;height:100%;justify-content: center;">
+          <div style="width:100%;">
+            {{item.name}}
+          </div>
+          <div style="width:100%;">
+            {{item.author}}
+          </div>
+          <div style="width:100%;">
+            <span style="color:red;">￥{{price}}</span>
+          </div>
+        </div>
+      </div>
+  </div>
+
+  <div style="display:table;border-top:1px solid #eee;width:100vw;padding-top:10px;padding-bottom:10px;">
+    <div style="display:table-cell;padding-left:20px;">
+      配送方式
+    </div>
+    <div style="display:table-cell;text-align:right;padding-right:20px;color:#a1a1a1;">
+      第三方快递
+    </div>
+  </div>
+  <div class="split"></div>
+
+  <div style="display:table;padding:10px 20px;width:100vw;border-bottom:1px solid #eee;">
+    <div style="display:table-row;">
+      <div style="display:table-cell;">
+        商品金额
+      </div>
+      <div style="display:table-cell;text-align:right;">
+        <span style="color:red;">￥{{price}}</span>
+      </div>
+    </div>
+    <div style="display:table-row;">
+      <div style="display:table-cell;">
+        运费
+      </div>
+      <div style="display:table-cell;text-align:right;">
+        <span style="color:red;">￥0</span>
+      </div>
+    </div>
+  </div>
+  <div style="width:100vw;padding-right:20px;text-align:right;margin-top:10px;">
+    实付金额: <span style="color:red;">￥{{price}}</span>
+  </div>
+
+<div style="width:90vw;margin:20px auto;">
+  <input type="button" value="微信支付" id="btnPay" class="btn btn-success btn-block btn-lg">
+</div>
+
+<input type="button" name="" value="">
 {{#extend "scripts"}}
-
-
-
     <script>
       $(function(){
         $("#btnPay").on("click",function(){
