@@ -35,6 +35,31 @@ PaySvc.prototype.getBrandWCPayRequestParams = function(openId, itemId, price) {
   });
 };
 
+PaySvc.prototype.payCb = function(openId, itemId, msg) {
+  return new Promise((resolve, reject) => {
+    var status = 0;
+    if (msg.return_code === "SUCCESS") {
+      status = 1;
+    }
+    Item.findOneAndUpdate({
+      _id: itemId[0]
+    }, {
+      order: {
+        openId: openId,
+        status: status
+      }
+    }, {
+      new: true,
+      upsert: true,
+      setDefaultsOnInsert: true
+    }).then(data => {
+      return resolve(data);
+    }).catch(err => {
+      return reject(err);
+    });
+  });
+};
+
 
 
 module.exports = PaySvc;

@@ -26,7 +26,7 @@ router.get('/pay', Jssdk.jssdk, function(req, res, next) {
   var itemId = req.query.itemId;
   itemSvc.getItemById(itemId).then(item => {
     if (item) {
-      var paySvc = new PaySvc(wxpay);
+      var paySvc = new PaySvc();
       var lastBids = _.max(item.bids, 'price');
       var price = lastBids.price;
       var openId = req.session.openId;
@@ -52,27 +52,11 @@ router.post('/notify', wxpay.useWXCallback(function(msg, req, res, next) {
   // 处理商户业务逻辑
   var openId = msg.openid;
   var itemId = _.split(msg.out_trade_no, '_');
-  var status = 0;
-  if (msg.return_code === "SUCCESS") {
-    status = 1;
-  }
-  Item.findOneAndUpdate({
-    _id: itemId[0]
-  }, {
-    order: {
-      openId: openId,
-      status: status
-    }
-  }, {
-    new: true,
-    upsert: true,
-    setDefaultsOnInsert: true
-  }).then(data => {
-    console.log(data);
+  var paySvc = new PaySvc();
+  paySvc.payCb(openId, itemId, msg).then(data => {
     res.success();
   }).catch(err => {
-    console.log(err);
-    res.fail()
+    res.fail();
   });
   // res.success() 向微信返回处理成功信息，res.fail()返回失败信息。
 }));
