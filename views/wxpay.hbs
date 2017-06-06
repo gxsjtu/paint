@@ -19,7 +19,7 @@
     </style>
 {{/extend}}
 
-  <div class="addressContainer">
+  <div class="addressContainer" id="address">
     <div class="addressText">
       请填写收货地址
     </div>
@@ -97,6 +97,21 @@
               	}
           });
         });
+      });
+      wx.ready(funciton(){
+        $("#address").on("click",function(){
+          wx.openAddress({
+             success: function (res) {
+                  // 用户成功拉出地址
+                  console.log(res);
+                  var address = res.provinceName+res.cityName+res.detailInfo;
+                  $(".addressText").text(address);
+                },
+             cancel: function () {
+                  // 用户取消拉出地址
+            }});
+        });
+
       });
     </script>
 {{/extend}}
