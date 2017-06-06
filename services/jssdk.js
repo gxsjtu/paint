@@ -12,6 +12,8 @@ module.exports.jssdk = function(req, res, next) {
     pathname: req.originalUrl,
   });
 
+  options.url = options.url.replace('%3F', '?');
+
   weixinJsConfig(options, function(error, config) {
     //config
     if (!error) {
