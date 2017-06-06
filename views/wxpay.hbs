@@ -99,16 +99,8 @@
             });
         });
         wx.ready(function() {
-          wx.checkJsApi({
-             jsApiList: [
-               'openAddress',
-             ],
-             success: function (res) {
-               alert(JSON.stringify(res));
-             }
-           });
             $("#address").on("click", function() {
-                alert('openAddress');
+                alert(wx.openAddress);
                 wx.openAddress({
                     success: function(res) {
                         // 用户成功拉出地址
