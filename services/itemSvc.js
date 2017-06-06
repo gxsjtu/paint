@@ -331,7 +331,8 @@ ItemSvc.prototype.getMyOrders = function(num,openId, upOrDown, create_at) {
                             name: x.name,
                             nick:x.nick,
                             price:x.price,
-                            valid:x.valid
+                            valid:x.valid,
+                            order:x.order
                         });
              }
              }
@@ -378,7 +379,8 @@ ItemSvc.prototype.getMyOrders = function(num,openId, upOrDown, create_at) {
                               name: x.name,
                               nick:x.nick,
                               price:x.price,
-                              valid:x.valid
+                              valid:x.valid,
+                              order:x.order
                           });
                }
                }
@@ -424,7 +426,8 @@ ItemSvc.prototype.getMyOrders = function(num,openId, upOrDown, create_at) {
                               name: x.name,
                               nick:x.nick,
                               price:x.price,
-                              valid:x.valid
+                              valid:x.valid,
+                              order:x.order
                           });
                }
                }
