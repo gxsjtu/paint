@@ -23,9 +23,9 @@ PaySvc.prototype.getBrandWCPayRequestParams = function(openId, itemId, price) {
       openid: openId,
       body: '公众号支付测试body',
       detail: '公众号支付测试detail',
-      out_trade_no: randomstring.generate(32),
+      out_trade_no: itemId + '_' + randomstring.generate(6),
       total_fee: price,
-      notify_url: Global.server + '/pay/notify'
+      notify_url: Global.server + '/wxpay/notify'
     }, function(err, result) {
       if (err) {
         return reject(err);
@@ -34,5 +34,7 @@ PaySvc.prototype.getBrandWCPayRequestParams = function(openId, itemId, price) {
     });
   });
 };
+
+
 
 module.exports = PaySvc;
