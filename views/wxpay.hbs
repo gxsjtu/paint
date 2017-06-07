@@ -95,6 +95,7 @@
     <script>
         $(function() {
             $("#btnPay").on("click", function() {
+              $(this).attr("disabled","disabled");
                 WeixinJSBridge.invoke(
                     "getBrandWCPayRequest", {{{payargs}}},function(res) {
                         if (res.err_msg == "get_brand_wcpay_request:ok") {
@@ -112,6 +113,7 @@
                             },1500);
                         }
                         else{
+                          $(this).removeAttr("disabled");
                           notie.alert({
                             type: 3,
                             text: "支付失败，请重试"
