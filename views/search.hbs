@@ -90,7 +90,11 @@
 
     <hr style="margin:20px -15px 10px;" />
 
+    <div style="margin-left:5px;">
+      画种
+    </div>
     <div style="display:flex;flex-wrap:wrap;" id="type">
+
         <div class="item active" data-name="油画"><span class="glyphicon glyphicon-ok">油画</span></div>
         <div class="item active" data-name="国画"><span class="glyphicon glyphicon-ok">国画</span></div>
         <div class="item active" data-name="水彩"><span class="glyphicon glyphicon-ok">水彩</span></div>
@@ -105,8 +109,11 @@
     <div style="height:10px;width:100%;background:#efefef;">
 
     </div>
+    <div style="margin-left:20px;margin-top:10px;">
+      题材
+    </div>
+    <div style="display:flex;flex-wrap:wrap;padding:15px;padding-top:0px;" id="catalog">
 
-    <div style="display:flex;flex-wrap:wrap;padding:15px;" id="catalog">
         <div class="item active" data-name="人物"><span class="glyphicon glyphicon-ok">人物</span></div>
         <div class="item active" data-name="山水"><span class="glyphicon glyphicon-ok">山水</span></div>
         <div class="item active" data-name="花鸟"><span class="glyphicon glyphicon-ok">花鸟</span></div>
@@ -138,13 +145,13 @@
           for (var i = 0; i < actives1.length; i++) {
             typeSelected.push(actives1.eq(i).data("name"));
           }
-          var type = typeSelected.join(',');
+          var type = typeSelected.join(',') || 0;
 
           var actives2 = $("#catalog").find(".active");
           for (var i = 0; i < actives2.length; i++) {
             catalogSelected.push(actives2.eq(i).data("name"));
           }
-          var catalog = catalogSelected.join(',');
+          var catalog = catalogSelected.join(',') || 0;
 
           var key = $("#inputSearch").val();
           window.location.href="/todayMore/search/"+type+"/"+catalog+"/"+key;

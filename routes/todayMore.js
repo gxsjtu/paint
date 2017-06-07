@@ -14,7 +14,7 @@ router.get('/search/:type/:catalog/:key', function(req, res, next) {
   var catalog = req.params.catalog;
   var key = req.params.key;
   res.render("todayMore", {
-    typeStr: type,
+    typeStr: method,
     type: type,
     catalog: catalog,
     key: key

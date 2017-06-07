@@ -221,6 +221,12 @@ ItemSvc.prototype.save = function(name, author, width, height, comment, type, ca
 };
 
 ItemSvc.prototype.getSearchItems = function(num,key,type,catalog,upOrDown,create_at) {
+  if(catalog == 0){
+    catalog="人物,山水,花鸟,风景,动物,历史";
+  }
+  if(type == 0){
+    type="油画,国画,水彩,彩铅";
+  }
   var re = new RegExp(key, 'i');
   var itemSvc = new ItemSvc();
   if (!upOrDown) {

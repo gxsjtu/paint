@@ -80,7 +80,9 @@ router.get('/getItemBySearch/:key/:type/:catalog/:upOrDown/:creatAt', function(r
     upOrDown = '';
     creatAt = '';
   }
-  itemSvc.getSearchItems(30, key, group, upOrDown, createAt).then(data => {
+
+  itemSvc.getSearchItems(30, key, type, catalog, upOrDown, createAt).then(data => {
+    console.log(data);
     res.json(new Result(Errors.Success, data))
   }).catch(err => res.json(new Result(Errors.GetItemsFailed, err)));
 });
