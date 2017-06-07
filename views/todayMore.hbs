@@ -262,7 +262,7 @@ function pullDownAction () {
     url="/item/getItemBySearch/"+key+"/"+group+"/down/" + startTime;
   }
   else if(typeStr == "myOrders"){
-    url="/item/getMyOrders/down/" + startTime;
+    url="/item/getMyOrders/down/" + startTime+"?openId="+openId;
   }else if(typeStr == "myBids"){
     url="/item/getMyBids/down/" + startTime;
   }
@@ -299,7 +299,7 @@ function pullUpAction () {
     url="/item/getItemBySearch/"+key+"/"+group+"/up/" + endTime;
   }
   else if(typeStr == "myOrders"){
-    url="/item/getMyOrders/up/" + endTime;
+    url="/item/getMyOrders/up/" + endTime+"?openId="+openId;
   }else if(typeStr == "myBids"){
     url="/item/getMyBids/up/" + endTime;
   }
