@@ -128,7 +128,7 @@ router.get('/getBids/:itemId', function(req, res, next) {
   }).catch(err => res.json(new Result(Errors.Success, 0)));
 });
 
-router.get('/bid/:itemId/:price', oAuth.oAuth, function(req, res, next) {
+router.get('/bid/:itemId/:price', function(req, res, next) {
   var itemId = req.params.itemId;
   var price = req.params.price;
   var openId = req.query.openId;

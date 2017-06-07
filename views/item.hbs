@@ -195,6 +195,7 @@
   <script type="text/javascript">
     var images = [];
     var itemId = '{{item._id}}';
+    var openId = '{{openId}}';
     {{#each item.images }}
     images.push("https://painting.shtx.com.cn/images/upload/{{this}}");
     {{/each}}
@@ -421,7 +422,7 @@
             // $(this).attr("disabled","disabled");
             var l = Ladda.create( document.querySelector( '#btnSubmit' ) );
             l.start();
-            $.get("/item/bid/" + itemId + "/" + myCurrentPrice, function(result) {
+            $.get("/item/bid/" + itemId + "/" + myCurrentPrice+"?openId="+openId, function(result) {
               if(result.status == 0){
                 //出价成功
                 $(".mask,.bidContainer").hide();

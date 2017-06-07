@@ -1,7 +1,5 @@
 {{#extend "stylesheets"}}
 <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css">
-<!-- <link rel="stylesheet" href="/javascripts/web-pull-to-refresh-master/lib/genericons/genericons.css">
-<link rel='stylesheet' href="/javascripts/web-pull-to-refresh-master/base.css" /> -->
 <link rel='stylesheet' href="/stylesheets/index.css" />
 <link rel="stylesheet" href="/stylesheets/todayMore.css" />
 {{/extend}}
@@ -19,12 +17,7 @@
 </div>
 <div id="footer"></div>
 {{#extend "scripts"}}
-<!-- <script src="/javascripts/web-pull-to-refresh-master/lib/hammer.2.0.4.js"></script>
-<script src="/javascripts/web-pull-to-refresh-master/lib/wptr.1.1.js"></script> -->
 <script src="/javascripts/jscroll/iscroll.js"></script>
-<!-- <script src="/lodash/max.js"></script> -->
-<!-- <script src="/javascripts/jscroll/jquery.jscroll.min.js"></script>
-<script src="/javascripts/jscroll/jquery.infinitescroll.min.js"></script> -->
   <script>
     var startTime;
     var endTime;
@@ -44,7 +37,6 @@
       getDatas();
       $("body").on("click",".pay",function(){
         var itemId = $(this).data("itemid");
-        //window.location.href="/wxpay/pay?itemId="+itemId;
         location.replace("/wxpay/pay?itemId="+itemId);
       });
     })
@@ -65,7 +57,6 @@
       }
       if(typeStr == "myBids"){
         $.get("/item/getMyBids/0/0", function(data){
-          // alert(data.length);
             var res = data;
             if(res.length>0){
               startTime = res[0].create_at.toString();
@@ -167,17 +158,6 @@
                 }
                 str += "<span style=\"margin-left:10px;\" id=\"" + datas[i]._id + "\">" + datas[i].likes.length + "</span></div><div class=\"col-xs-6 bid\"><img src=\"/images/aa_07.png\" alt=\"出价次数\" class=\"img-size\"/><span style=\"margin-left:10px;\">" + datas[i].bids.length + "</span></div></div><div class=\"splitItem\"></div>";
               }
-              // str += "</div><div class=\"row\" style=\"margin-bottom:10px;font-size:14px;margin-top:10px;\"><div class=\"col-xs-12\" style=\"padding-right: 0px;padding-left: 3px;\">《" + datas[i].name + "》</div></div></div></li><div class=\"row option\"><div class=\"col-xs-6 like\"";
-              // if(datas[i].canLike){
-              //   str += " onclick=\"heartClick('" + datas[i]._id + "')\" ";
-              // }
-              // str += ">";
-              // if(datas[i].canLike){
-              //   str += "<img id=\"imgLike\" src=\"/images/aa_08.png\" alt=\"赞\" class=\"img-size\"/>";
-              // }else{
-              //   str += "<img id=\"imgLike\" src=\"/images/BB_08.png\" alt=\"赞\" class=\"img-size\"/>";
-              // }
-              // str += "<span style=\"margin-left:10px;\" id=\"" + datas[i]._id + "\">" + datas[i].likes.length + "</span></div><div class=\"col-xs-6 bid\"><img src=\"/images/aa_07.png\" alt=\"出价次数\" class=\"img-size\"/><span style=\"margin-left:10px;\">" + datas[i].bids.length + "</span></div></div><div class=\"splitItem\"></div>";
               $(".list-group").append(str);
             }
             }else if(op == "pulldown"){
@@ -231,19 +211,6 @@
                       }
                       str += "<span style=\"margin-left:10px;\" id=\"" + datas[i]._id + "\">" + datas[i].likes.length + "</span></div><div class=\"col-xs-6 bid\"><img src=\"/images/aa_07.png\" alt=\"出价次数\" class=\"img-size\"/><span style=\"margin-left:10px;\">" + datas[i].bids.length + "</span></div></div><div class=\"splitItem\"></div>";
                     }
-
-
-                    // str += "</div><div class=\"row\" style=\"margin-bottom:10px;font-size:14px;margin-top:10px;\"><div class=\"col-xs-12\" style=\"padding-right: 0px;padding-left: 3px;\">《" + datas[i].name + "》</div></div></div></li><div class=\"row option\"><div class=\"col-xs-6 like\"";
-                    // if(datas[i].canLike){
-                    //   str += " onclick=\"heartClick('" + datas[i]._id + "')\" ";
-                    // }
-                    // str += ">";
-                    // if(datas[i].canLike){
-                    //   str += "<img id=\"imgLike\" src=\"/images/aa_08.png\" alt=\"赞\" class=\"img-size\"/>";
-                    // }else{
-                    //   str += "<img id=\"imgLike\" src=\"/images/BB_08.png\" alt=\"赞\" class=\"img-size\"/>";
-                    // }
-                    // str += "<span style=\"margin-left:10px;\" id=\"" + datas[i]._id + "\">" + datas[i].likes.length + "</span></div><div class=\"col-xs-6 bid\"><img src=\"/images/aa_07.png\" alt=\"出价次数\" class=\"img-size\"/><span style=\"margin-left:10px;\">" + datas[i].bids.length + "</span></div></div><div class=\"splitItem\"></div>";
                     $(".list-group").prepend(str);
                 }
       }
@@ -279,15 +246,6 @@ function pullDownAction () {
         myScroll.refresh();
     })
 
-		// var el, li, i;
-		// el = document.getElementById('thelist');
-		// for (i=0; i<3; i++) {
-		// 	li = document.createElement('li');
-		// 	li.innerText = 'Generated row ' + (++generatedCount);
-		// 	el.insertBefore(li, el.childNodes[0]);
-		// }
-    //
-		// myScroll.refresh();		// Remember to refresh when contents are loaded (ie: on ajax completion)
 	}, 1000);	// <-- Simulate network congestion, remove setTimeout from production!
 }
 function pullUpAction () {
@@ -304,14 +262,6 @@ function pullUpAction () {
     url="/item/getMyBids/up/" + endTime;
   }
 	setTimeout(function () {	// <-- Simulate network congestion, remove setTimeout from production!
-		// var el, li, i;
-		// el = document.getElementById('thelist');
-		// for (i=0; i<3; i++) {
-		// 	li = document.createElement('li');
-		// 	li.innerText = 'Generated row ' + (++generatedCount);
-		// 	el.appendChild(li, el.childNodes[0]);
-		// }
-    // getDatas(myScroll);
     $.get(url, function(data){
         var res = data.data;
         if(res.length>0){
@@ -321,7 +271,6 @@ function pullUpAction () {
         appendData("get", res);
         myScroll.refresh();
     })
-		// myScroll.refresh();		// Remember to refresh when contents are loaded (ie: on ajax completion)
 	}, 1000);	// <-- Simulate network congestion, remove setTimeout from production!
 }
 function loaded() {
