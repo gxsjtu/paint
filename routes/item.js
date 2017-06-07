@@ -113,7 +113,7 @@ router.get('/getItemsByOpenId', oAuth.oAuth, function(req, res, next) {
   }).catch(err => res.json(new Result(Errors.GetItemsFailed, err)));
 });
 
-router.get('/like/:itemId', oAuth.oAuth, function(req, res, next) {
+router.get('/like/:itemId', function(req, res, next) {
   var itemId = req.params.itemId;
   var openId = req.query.openId;
   itemSvc.like(itemId, openId).then(data => {

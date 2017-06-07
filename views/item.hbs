@@ -210,7 +210,7 @@
           $("#good").attr("src", "/images/good_grey.png").parent().removeAttr("onClick");
           var c = parseInt(count + 1);
           $(".goodCount").text(c);
-          $.get('/item/like/' + id, function(data) {
+          $.get('/item/like/' + id+"?openId="+openId, function(data) {
 
           });
         }
