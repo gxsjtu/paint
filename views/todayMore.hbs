@@ -5,12 +5,12 @@
 {{/extend}}
 <div id="wrapper">
   <div id="scroller">
-    <div id="pullDown">
+    <div id="pullDown" style="display:none;">
 			<span class="pullDownIcon"></span><span class="pullDownLabel">下拉刷新数据...</span>
 		</div>
     <ul id="thelist" class="list-group" style="margin-bottom:0px;">
     </ul>
-    <div id="pullUp">
+    <div id="pullUp" style="display:none;">
 			<span class="pullUpIcon"></span><span class="pullUpLabel">上拉加载更多...</span>
 		</div>
   </div>
@@ -314,6 +314,10 @@ function loaded() {
 				this.maxScrollY = pullUpOffset;
 			}
 		},
+    onScrollStart：function(){
+      $("#pullUp").show();
+      $("#pullDown").show();
+    },
 		onScrollEnd: function () {
 			if (pullDownEl.className.match('flip')) {
 				pullDownEl.className = 'loading';
@@ -324,6 +328,8 @@ function loaded() {
 				pullUpEl.querySelector('.pullUpLabel').innerHTML = 'Loading...';
 				pullUpAction();	// Execute custom function (ajax call?)
 			}
+      $("#pullUp").hide();
+      $("#pullDown").hide();
 		}
 	});
 
