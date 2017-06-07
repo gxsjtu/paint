@@ -220,14 +220,17 @@ ItemSvc.prototype.save = function(name, author, width, height, comment, type, ca
   });
 };
 
-ItemSvc.prototype.getSearchItems = function(num,key,group, upOrDown, create_at) {
+ItemSvc.prototype.getSearchItems = function(num,key,type,catalog,upOrDown,create_at) {
   var re = new RegExp(key, 'i');
   var itemSvc = new ItemSvc();
   if (!upOrDown) {
     return new Promise((resolve, reject) => {
       Item.where({
         catalog:{
-          $in:group.split(',')
+          $in:catalog.split(',')
+        },
+        type:{
+          $in:type.split(',')
         },
         $or:[{
           "author":re

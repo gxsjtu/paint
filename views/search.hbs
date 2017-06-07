@@ -90,33 +90,64 @@
 
     <hr style="margin:20px -15px 10px;" />
 
-    <div style="display:flex;flex-wrap:wrap;">
-        <div class="item active" data-name="油画">油画</div>
-        <div class="item active" data-name="版画">版画</div>
-        <div class="item active" data-name="水墨">水墨</div>
-        <div class="item active" data-name="水彩">水彩</div>
-        <div class="item active" data-name="雕塑">雕塑</div>
-        <div class="item active" data-name="摄影">摄影</div>
+    <div style="display:flex;flex-wrap:wrap;" id="type">
+        <div class="item active" data-name="油画"><span class="glyphicon glyphicon-ok">油画</span></div>
+        <div class="item active" data-name="国画"><span class="glyphicon glyphicon-ok">国画</span></div>
+        <div class="item active" data-name="水彩"><span class="glyphicon glyphicon-ok">水彩</span></div>
+        <div class="item active" data-name="彩铅"><span class="glyphicon glyphicon-ok">彩铅</span></div>
     </div>
 
+
 </div>
+
+
+
+    <div style="height:10px;width:100%;background:#efefef;">
+
+    </div>
+
+    <div style="display:flex;flex-wrap:wrap;padding:15px;" id="catalog">
+        <div class="item active" data-name="人物"><span class="glyphicon glyphicon-ok">人物</span></div>
+        <div class="item active" data-name="山水"><span class="glyphicon glyphicon-ok">山水</span></div>
+        <div class="item active" data-name="花鸟"><span class="glyphicon glyphicon-ok">花鸟</span></div>
+        <div class="item active" data-name="风景"><span class="glyphicon glyphicon-ok">风景</span></div>
+        <div class="item active" data-name="动物"><span class="glyphicon glyphicon-ok">动物</span></div>
+        <div class="item active" data-name="历史"><span class="glyphicon glyphicon-ok">历史</span></div>
+    </div>
 
 {{#extend "scripts"}}
 
     <script>
-    var selected = [];
+    var catalogSelected = [];
+    var typeSelected = [];
         $(".item").on("click", function() {
+          var span = $(this).find("span");
+            if(span.hasClass("glyphicon-ok")){
+              span.removeClass("glyphicon-ok")
+            }
+            else{
+              span.addClass("glyphicon-ok")
+            }
             $(this).toggleClass("active");
+
         });
         $(".search-btn").on("click",function(){
-          selected.length=0;
-          var actives = $(".active");
-          for (var i = 0; i < actives.length; i++) {
-            selected.push(actives.eq(i).data("name"));
+          catalogSelected.length=0;
+          typeSelected.length=0;
+          var actives1 = $("#type").find(".active");
+          for (var i = 0; i < actives1.length; i++) {
+            typeSelected.push(actives1.eq(i).data("name"));
           }
-          var group = selected.join(',');
+          var type = typeSelected.join(',');
+
+          var actives2 = $("#catalog").find(".active");
+          for (var i = 0; i < actives2.length; i++) {
+            catalogSelected.push(actives2.eq(i).data("name"));
+          }
+          var catalog = catalogSelected.join(',');
+
           var key = $("#inputSearch").val();
-          window.location.href="/todayMore/search/"+group+"/"+key;
+          window.location.href="/todayMore/search/"+type+"/"+catalog+"/"+key;
           return false;
         });
     </script>
