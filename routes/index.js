@@ -37,23 +37,6 @@ router.get('/', oAuth.oAuth, function(req, res, next) {
   }).catch(err => console.log(err));
 });
 
-// router.get('/openId', function(req, res, next) {
-//   var code = req.query.code;
-//   var state = req.query.state;
-//   oAuth.client.getAccessToken(code, function(err, result) {
-//     // if (err || !(result.data)) {
-//     //   console.log(err);
-//     //   oAuth.oAuth(req, res, next);
-//     // }
-//     // req.session.openId = result.data.openid;
-//     // res.redirect(state);
-//     if (result && result.data && result.data.openid) {
-//       req.session.openId = result.data.openid;
-//     }
-//     res.redirect(state);
-//   });
-// });
-
 router.get('/openId', function(req, res, next) {
   var code = req.query.code;
   var state = req.query.state;
