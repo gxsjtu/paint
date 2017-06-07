@@ -85,7 +85,7 @@
        });
      }
      if(typeStr == "myOrders"){
-      $.get("/item/getMyOrders/0/0/"+openId,function(data){
+      $.get("/item/getMyOrders/0/0?openId="+openId,function(data){
         var res = data.data;
         if(res.length>0){
           startTime = res[0].create_at.toString();
