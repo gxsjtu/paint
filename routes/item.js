@@ -70,9 +70,10 @@ router.get('/getMyOrders/:upOrDown/:creatAt', oAuth.oAuth, function(req, res, ne
   }).catch(err => res.json(new Result(Errors.GetItemsFailed, err)));
 });
 //查询
-router.get('/getItemBySearch/:key/:group/:upOrDown/:creatAt', function(req, res, next) {
+router.get('/getItemBySearch/:key/:type/:catalog/:upOrDown/:creatAt', function(req, res, next) {
   var key = req.params.key;
-  var group = req.params.group;
+  var type = req.params.type;
+  var catalog = req.params.catalog;
   var upOrDown = req.params.upOrDown;
   var createAt = req.params.creatAt;
   if (upOrDown == 0) {

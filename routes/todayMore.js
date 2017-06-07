@@ -8,13 +8,15 @@ var itemSvc = new ItemSvc();
 
 router.use(Jssdk.jssdk);
 
-router.get('/search/:group/:key', function(req, res, next) {
-  var type = 'search';
-  var group = req.params.group;
+router.get('/search/:type/:catalog/:key', function(req, res, next) {
+  var method = 'search';
+  var type = req.params.type;
+  var catalog = req.params.catalog;
   var key = req.params.key;
   res.render("todayMore", {
     typeStr: type,
-    group: group,
+    type: type,
+    catalog: catalog,
     key: key
   });
 })

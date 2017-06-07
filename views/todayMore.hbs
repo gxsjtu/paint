@@ -22,11 +22,15 @@
     var startTime;
     var endTime;
     var typeStr;
-    var group='';
+    var type='';
+    var catalog='';
     var key='';
     var openId = '{{openId}}';
-    {{#if group}}
-    group = '{{group}}';
+    {{#if type}}
+    type = '{{type}}';
+    {{/if}}
+    {{#if catalog}}
+    type = '{{catalog}}';
     {{/if}}
     {{#if key}}
     key = '{{key}}';
@@ -66,7 +70,7 @@
         })
       }
       if(typeStr == "search"){
-       $.get("/item/getItemBySearch/"+key+"/"+group+"/0/0",function(data){
+       $.get("/item/getItemBySearch/"+key+"/"+type+"/"+catalog+"/0/0",function(data){
          var res = data.data;
          if(res.length>0){
            startTime = res[0].create_at.toString();
@@ -114,10 +118,10 @@
           str += datas[i].avatar;
           str += "' style=\"width:50px;border-radius:50px;\"/></div><div class=\"nickDiv\"><div class=\"row\"><div class=\"col-xs-7\" style=\"padding-right:0px;\"><div class=\"row\" style=\"margin-left:0px;margin-right:0px;margin-top:5px;\"><span style=\"color:#2ad0cc\">" + datas[i].nick + "</span></div><div class=\"row\" style=\"margin-top:5px;margin-left:0px;margin-right:0px;\"><span style=\"color:#919191\">" + datas[i].create_at + "</span></div></div>";
           if(typeStr == "myBids"){
-            str += "<div class=\"col-xs-5\" style=\"padding-left:0px;padding-right:0px;\"><div class=\"row\" style=\"background:url('/images/绿.png') no-repeat;height:25px;width:110px;background-size:110px 25px;margin-left:0px;margin-right:0px;display:flex;flex-direction:column;align-items:center;float:right;padding-top:2px;\"><span style=\"font-size:8px;color:#fff;\">最高价:￥" + datas[i].maxPrice + "</span></div><div class=\"row\" style=\"background:url('/images/橙.png') no-repeat;height:25px;width:110px;background-size:110px 25px;margin-left:0px;margin-right:0px;display:flex;flex-direction:column;align-items:center;float:right;padding-top:2px;\"><span style=\"font-size:8px;color:#fff;\">出价:￥" + datas[i].myMaxPrice + "</span></div></div></div></div></div><div class=\"row\" style=\"margin-left:0px;margin-right:0px;margin-top:10px;\"><div class=\"row\">";
+            str += "<div class=\"col-xs-5\" style=\"padding-left:0px;padding-right:0px;\"><div class=\"row\" style=\"background:url('/images/标签_07.png') no-repeat;height:25px;width:110px;background-size:110px 25px;margin-left:0px;margin-right:0px;display:flex;flex-direction:column;align-items:center;float:right;padding-top:2px;\"><span style=\"font-size:8px;color:#fff;\">最高价:￥" + datas[i].maxPrice + "</span></div><div class=\"row\" style=\"background:url('/images/标签_48.png') no-repeat;height:25px;width:110px;background-size:110px 25px;margin-left:0px;margin-right:0px;display:flex;flex-direction:column;align-items:center;float:right;padding-top:2px;\"><span style=\"font-size:8px;color:#fff;\">出价:￥" + datas[i].myMaxPrice + "</span></div></div></div></div></div><div class=\"row\" style=\"margin-left:0px;margin-right:0px;margin-top:10px;\"><div class=\"row\">";
           }
           else if(typeStr == "myOrders"){
-            str += "<div class=\"col-xs-5\" style=\"padding-left:0px;padding-right:0px;\"><div class=\"row\" style=\"background:url('/images/绿.png') no-repeat;height:25px;width:110px;background-size:110px 25px;margin-left:0px;margin-right:0px;display:flex;flex-direction:column;align-items:center;float:right;padding-top:2px;\"><span style=\"font-size:8px;color:#fff;\">底价:￥" + datas[i].price + "</span></div><div class=\"row\" style=\"background:url('/images/橙.png') no-repeat;height:25px;width:110px;background-size:110px 25px;margin-left:0px;margin-right:0px;display:flex;flex-direction:column;align-items:center;float:right;padding-top:2px;\"><span style=\"font-size:8px;color:#fff;\">我:￥" + datas[i].bid.price + "</span></div></div></div></div></div><div class=\"row\" style=\"margin-left:0px;margin-right:0px;margin-top:10px;\"><div class=\"row\">";
+            str += "<div class=\"col-xs-5\" style=\"padding-left:0px;padding-right:0px;\"><div class=\"row\" style=\"background:url('/images/标签_07.png') no-repeat;height:25px;width:110px;background-size:110px 25px;margin-left:0px;margin-right:0px;display:flex;flex-direction:column;align-items:center;float:right;padding-top:2px;\"><span style=\"font-size:8px;color:#fff;\">底价:￥" + datas[i].price + "</span></div><div class=\"row\" style=\"background:url('/images/=标签_48.png') no-repeat;height:25px;width:110px;background-size:110px 25px;margin-left:0px;margin-right:0px;display:flex;flex-direction:column;align-items:center;float:right;padding-top:2px;\"><span style=\"font-size:8px;color:#fff;\">我:￥" + datas[i].bid.price + "</span></div></div></div></div></div><div class=\"row\" style=\"margin-left:0px;margin-right:0px;margin-top:10px;\"><div class=\"row\">";
           }
           else{
             str += "<div class=\"col-xs-5\" style=\"padding-left:0px;padding-right:0px;\"><div class=\"row\" style=\"background:url('/images/label_01.jpg') no-repeat;height:55px;width:110px;background-size:110px 55px;margin-left:0px;margin-right:0px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;float:right;\"><span style=\"margin-left:30px;\">￥" + datas[i].price + "</span></div></div></div></div></div><div class=\"row\" style=\"margin-left:0px;margin-right:0px;margin-top:10px;\"><div class=\"row\">";
@@ -166,10 +170,10 @@
                 str += datas[i].avatar;
                 str += "' style=\"width:50px;border-radius:50px;\"/></div><div class=\"nickDiv\"><div class=\"row\"><div class=\"col-xs-7\" style=\"padding-right:0px;\"><div class=\"row\" style=\"margin-left:0px;margin-right:0px;margin-top:5px;\"><span style=\"color:#2ad0cc\">" + datas[i].nick + "</span></div><div class=\"row\" style=\"margin-top:5px;margin-left:0px;margin-right:0px;\"><span style=\"color:#919191\">" + datas[i].create_at + "</span></div></div>";
                 if(typeStr == "myBids"){
-                  str += "<div class=\"col-xs-5\" style=\"padding-left:0px;padding-right:0px;\"><div class=\"row\" style=\"background:url('/images/绿.png') no-repeat;height:25px;width:110px;background-size:110px 25px;margin-left:0px;margin-right:0px;display:flex;flex-direction:column;align-items:center;float:right;padding-top:2px;\"><span style=\"font-size:8px;color:#fff;\">底价:￥" + datas[i].price + "</span></div><div class=\"row\" style=\"background:url('/images/橙.png') no-repeat;height:25px;width:110px;background-size:110px 25px;margin-left:0px;margin-right:0px;display:flex;flex-direction:column;align-items:center;float:right;padding-top:2px;\"><span style=\"font-size:8px;color:#fff;\">出价:￥" + datas[i].price + "</span></div></div></div></div></div><div class=\"row\" style=\"margin-left:0px;margin-right:0px;margin-top:10px;\"><div class=\"row\">";
+                  str += "<div class=\"col-xs-5\" style=\"padding-left:0px;padding-right:0px;\"><div class=\"row\" style=\"background:url('/images/标签_07.png') no-repeat;height:25px;width:110px;background-size:110px 25px;margin-left:0px;margin-right:0px;display:flex;flex-direction:column;align-items:center;float:right;padding-top:2px;\"><span style=\"font-size:8px;color:#fff;\">底价:￥" + datas[i].price + "</span></div><div class=\"row\" style=\"background:url('/images/标签_48.png') no-repeat;height:25px;width:110px;background-size:110px 25px;margin-left:0px;margin-right:0px;display:flex;flex-direction:column;align-items:center;float:right;padding-top:2px;\"><span style=\"font-size:8px;color:#fff;\">出价:￥" + datas[i].price + "</span></div></div></div></div></div><div class=\"row\" style=\"margin-left:0px;margin-right:0px;margin-top:10px;\"><div class=\"row\">";
                 }
                 else if(typeStr == "myOrders"){
-                  str += "<div class=\"col-xs-5\" style=\"padding-left:0px;padding-right:0px;\"><div class=\"row\" style=\"background:url('/images/绿.png') no-repeat;height:25px;width:110px;background-size:110px 25px;margin-left:0px;margin-right:0px;display:flex;flex-direction:column;align-items:center;float:right;padding-top:2px;\"><span style=\"font-size:8px;color:#fff;\">底价:￥" + datas[i].price + "</span></div><div class=\"row\" style=\"background:url('/images/橙.png') no-repeat;height:25px;width:110px;background-size:110px 25px;margin-left:0px;margin-right:0px;display:flex;flex-direction:column;align-items:center;float:right;padding-top:2px;\"><span style=\"font-size:8px;color:#fff;\">我:￥" + datas[i].bid.price + "</span></div></div></div></div></div><div class=\"row\" style=\"margin-left:0px;margin-right:0px;margin-top:10px;\"><div class=\"row\">";
+                  str += "<div class=\"col-xs-5\" style=\"padding-left:0px;padding-right:0px;\"><div class=\"row\" style=\"background:url('/images/标签_07.png') no-repeat;height:25px;width:110px;background-size:110px 25px;margin-left:0px;margin-right:0px;display:flex;flex-direction:column;align-items:center;float:right;padding-top:2px;\"><span style=\"font-size:8px;color:#fff;\">底价:￥" + datas[i].price + "</span></div><div class=\"row\" style=\"background:url('/images/标签_48.png') no-repeat;height:25px;width:110px;background-size:110px 25px;margin-left:0px;margin-right:0px;display:flex;flex-direction:column;align-items:center;float:right;padding-top:2px;\"><span style=\"font-size:8px;color:#fff;\">我:￥" + datas[i].bid.price + "</span></div></div></div></div></div><div class=\"row\" style=\"margin-left:0px;margin-right:0px;margin-top:10px;\"><div class=\"row\">";
                 }
                 else{
                   str += "<div class=\"col-xs-5\" style=\"padding-left:0px;padding-right:0px;\"><div class=\"row\" style=\"background:url('/images/label_01.jpg') no-repeat;height:55px;width:110px;background-size:110px 55px;margin-left:0px;margin-right:0px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;float:right;\"><span style=\"margin-left:30px;\">￥" + datas[i].price + "</span></div></div></div></div></div><div class=\"row\" style=\"margin-left:0px;margin-right:0px;margin-top:10px;\"><div class=\"row\">";
@@ -226,7 +230,7 @@ function pullDownAction () {
     url="/item/getTodayItems/down/" + startTime;
   }
   else if(typeStr == "search"){
-    url="/item/getItemBySearch/"+key+"/"+group+"/down/" + startTime;
+    url="/item/getItemBySearch/"+key+"/"+type+"/"+catalog+"/down/" + startTime;
   }
   else if(typeStr == "myOrders"){
     url="/item/getMyOrders/down/" + startTime+"?openId="+openId;
@@ -254,7 +258,7 @@ function pullUpAction () {
     url="/item/getTodayItems/up/" + endTime;
   }
   else if(typeStr == "search"){
-    url="/item/getItemBySearch/"+key+"/"+group+"/up/" + endTime;
+    url="/item/getItemBySearch/"+key+"/"+type+"/"+catalog+"/up/" + endTime;
   }
   else if(typeStr == "myOrders"){
     url="/item/getMyOrders/up/" + endTime+"?openId="+openId;
