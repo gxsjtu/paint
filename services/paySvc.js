@@ -7,6 +7,7 @@ var WXPay = require('weixin-pay');
 const fs = require('fs');
 const path = require('path');
 var randomstring = require("randomstring");
+const Item = require('../models/item.js');
 
 var wxpay = WXPay({
   appid: Global.appId,

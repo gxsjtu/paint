@@ -13,7 +13,6 @@ const Global = require('../global.js');
 var WXPay = require('weixin-pay');
 const fs = require('fs');
 const path = require('path');
-const Item = require('../models/item.js');
 
 var wxpay = WXPay({
   appid: Global.appId,
