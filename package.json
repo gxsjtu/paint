@@ -7,7 +7,7 @@
   },
   "dependencies": {
     "async": "^2.4.1",
-    "axios": "^0.16.1",
+    "axios": "^0.16.2",
     "body-parser": "~1.17.1",
     "bootstrap": "^3.3.7",
     "bootstrap-datetime-picker": "git://github.com/smalot/bootstrap-datetimepicker.git",
@@ -25,7 +25,7 @@
     "less-compiler": "git+https://github.com/alexkwolfe/node-less-compiler.git",
     "lodash": "^4.17.4",
     "moment": "^2.18.1",
-    "mongoose": "^4.9.9",
+    "mongoose": "^4.10.5",
     "morgan": "~1.8.1",
     "notie": "^4.3.1",
     "promise": "^7.1.1",
