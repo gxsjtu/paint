@@ -98,7 +98,8 @@ router.get('/:itemId', oAuth.oAuth, function(req, res, next) {
     res.render("item", {
       item: data[0],
       like: data[1],
-      isMe: isMe
+      isMe: isMe,
+      openId: openId
     });
   }).catch(err => {
     res.json(err);
