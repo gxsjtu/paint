@@ -31,6 +31,7 @@
     var typeStr;
     var group='';
     var key='';
+    var openId = '{{openId}}';
     {{#if group}}
     group = '{{group}}';
     {{/if}}
@@ -84,7 +85,7 @@
        });
      }
      if(typeStr == "myOrders"){
-      $.get("/item/getMyOrders/0/0",function(data){
+      $.get("/item/getMyOrders/0/0/"+openId,function(data){
         var res = data.data;
         if(res.length>0){
           startTime = res[0].create_at.toString();

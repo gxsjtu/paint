@@ -63,14 +63,15 @@ router.get('/getTodayItems/:upOrDown/:creatAt', function(req, res, next) {
   }).catch(err => res.json(new Result(Errors.GetItemsFailed, err)));
 });
 //我的订单
-router.get('/getMyOrders/:upOrDown/:creatAt', oAuth.oAuth, function(req, res, next) {
+router.get('/getMyOrders/:upOrDown/:creatAt/:openId', oAuth.oAuth, function(req, res, next) {
   var upOrDown = req.params.upOrDown;
   var createAt = req.params.creatAt;
+  var openId = req.params.openId;
   if (upOrDown == 0) {
     upOrDown = '';
     creatAt = '';
   }
-  itemSvc.getMyOrders(30, req.query.openId, upOrDown, createAt).then(data => {
+  itemSvc.getMyOrders(30, openId, upOrDown, createAt).then(data => {
     res.json(new Result(Errors.Success, data))
   }).catch(err => res.json(new Result(Errors.GetItemsFailed, err)));
 });
