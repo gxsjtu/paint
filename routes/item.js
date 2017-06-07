@@ -121,7 +121,7 @@ router.get('/like/:itemId', oAuth.oAuth, function(req, res, next) {
   }).catch(err => res.json(new Result(Errors.Success, 0)));
 });
 
-router.get('/getBids/:itemId', oAuth.oAuth, function(req, res, next) {
+router.get('/getBids/:itemId', function(req, res, next) {
   var itemId = req.params.itemId;
   itemSvc.getBids(itemId).then(data => {
     res.json(new Result(Errors.Success, data))
