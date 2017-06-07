@@ -102,7 +102,14 @@
                             //self.location.href.replace(document.referrer);
                             // window.history.go(-1);
                             // window.location.reload()；
-                            window.history.back();
+                            // window.history.back();
+                            notie.alert({
+                              type: 3,
+                              text: "支付成功"
+                            });
+                            setTimeout(function(){
+                              location.replace('/todayMore/myOrders');
+                            },1500);
                         }
                         else{
                           notie.alert({
