@@ -224,7 +224,8 @@ wx.ready(function() {
               images: serverIds,
               catalog: $("#catalogTitle").text(),
               auctionStartDate: $("#datetimepicker1").val(),
-              auctionEndDate: $("#datetimepicker2").val()
+              auctionEndDate: $("#datetimepicker2").val(),
+              openId:$("#hideOpenId").val()
             },
             success: function(data) {
               //window.location = '/item/'+data.data._id;

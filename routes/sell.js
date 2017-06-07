@@ -19,6 +19,7 @@ router.get('/', oAuth.oAuth, function(req, res, next) {
       jssdk: req.jssdk,
       type: data[0],
       catalog: data[1],
+      openId: req.query.openId
     });
   }).catch(err => console.log(err));
 });
@@ -35,16 +36,17 @@ router.post('/saveItem', function(req, res, next) {
   var height = req.body.height;
   var from = req.body.auctionStartDate;
   var to = req.body.auctionEndDate;
+  var openId = req.body.openId;
   var avatar = "";
   var nick = "";
 
-  userSvc.getProfile(req.query.openId).then(data => {
+  userSvc.getProfile(openId).then(data => {
     avatar = data.headimgurl;
     nick = data.nickname;
   }).catch(err => {
 
   }).finally(() => {
-    itemSvc.save(name, author, width, height, comment, type, catalog, price, images, from, to, avatar, nick, req.query.openId).then(data => {
+    itemSvc.save(name, author, width, height, comment, type, catalog, price, images, from, to, avatar, nick, openId).then(data => {
       res.json(new Result(Errors.Success, data));
     }).catch(err => {
       res.json(new Result(Errors.SaveItemFailed, err));
