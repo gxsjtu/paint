@@ -22,70 +22,23 @@ UserSvc.prototype.getProfile = function(openId) {
   });
 };
 
-UserSvc.prototype.getMyBids = function(num, openId, option, date) {
-  if(!option){
-    return new Promise((resolve, reject) => {
-      Item.find({
-        bids: {
-          $elemMatch: {
-            openId: openId
-          }
+UserSvc.prototype.getMyBids = function(openId) {
+  return new Promise((resolve, reject) => {
+    Item.find({
+      bids: {
+        $elemMatch: {
+          openId: openId
         }
-      }).sort({
-        create_at: -1
-      }).limit(num).lean().exec((err, data) => {
-        if (err) {
-          return reject(err);
-        }
-        return resolve(data);
-      })
-    });
-  }else{
-    if(option === "up"){
-      return new Promise((resolve, reject) => {
-        Item.find({
-          bids: {
-            $elemMatch: {
-              openId: openId
-            }
-          }
-        }).where({
-          create_at: {
-            $lt: date
-          }
-        }).sort({
-          create_at: -1
-        }).limit(num).lean().exec((err, data) => {
-          if (err) {
-            return reject(err);
-          }
-          return resolve(data);
-        });
-      });
-    }
-    else{
-      return new Promise((resolve, reject) => {
-        Item.find({
-          bids: {
-            $elemMatch: {
-              openId: openId
-            }
-          }
-        }).where({
-          create_at: {
-            $gt: date
-          }
-        }).sort({
-          create_at: 'asc'
-        }).limit(num).lean().exec((err, data) => {
-          if (err) {
-            return reject(err);
-          }
-          return resolve(data);
-        });
-      });
-    }
-  }
-}
+      }
+    }).sort({
+      create_at: -1
+    }).lean().exec((err, data) => {
+      if (err) {
+        return reject(err);
+      }
+      return resolve(data);
+    })
+  });
+};
 
 module.exports = UserSvc;
