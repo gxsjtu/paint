@@ -100,8 +100,8 @@
                         if (res.err_msg == "get_brand_wcpay_request:ok") {
                             // success
                             //self.location.href.replace(document.referrer);
-                            history.back();
-                            location.reload();
+                            window.history.go(-1);
+                            window.location.reload()
                         }
                         else{
                           notie.alert({
