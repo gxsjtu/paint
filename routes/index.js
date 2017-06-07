@@ -32,7 +32,8 @@ router.get('/', oAuth.oAuth, function(req, res, next) {
     res.render("index", {
       jssdk: req.jssdk,
       headers: data[0],
-      today: result
+      today: result,
+      openId: openId
     });
   }).catch(err => console.log(err));
 });

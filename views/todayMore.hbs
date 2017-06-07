@@ -56,7 +56,7 @@
         })
       }
       if(typeStr == "myBids"){
-        $.get("/item/getMyBids/0/0", function(data){
+        $.get("/item/getMyBids/0/0?openId="+openId, function(data){
             var res = data;
             if(res.length>0){
               startTime = res[0].create_at.toString();
@@ -102,7 +102,7 @@
       var like = ele.text();
       var res = parseInt(like) + 1;
       ele.text(res);
-      $.get('/item/like/' + id, function(data) {
+      $.get('/item/like/' + id+"?openId="+openId, function(data) {
 
       });
     }
@@ -231,7 +231,7 @@ function pullDownAction () {
   else if(typeStr == "myOrders"){
     url="/item/getMyOrders/down/" + startTime+"?openId="+openId;
   }else if(typeStr == "myBids"){
-    url="/item/getMyBids/down/" + startTime;
+    url="/item/getMyBids/down/" + startTime+"?openId="+openId;
   }
 
 	setTimeout(function () {	// <-- Simulate network congestion, remove setTimeout from production!
@@ -259,7 +259,7 @@ function pullUpAction () {
   else if(typeStr == "myOrders"){
     url="/item/getMyOrders/up/" + endTime+"?openId="+openId;
   }else if(typeStr == "myBids"){
-    url="/item/getMyBids/up/" + endTime;
+    url="/item/getMyBids/up/" + endTime+"?openId="+openId;
   }
 	setTimeout(function () {	// <-- Simulate network congestion, remove setTimeout from production!
     $.get(url, function(data){

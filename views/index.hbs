@@ -126,6 +126,7 @@
 <script src="/javascripts/webPullToRefresh/lib/hammer.2.0.4.js"></script>
 <script src="/javascripts/webPullToRefresh/lib/wptr.1.1.js"></script>
 <script>
+var openId='{{openId}}';
 var loadToday = function(){
   return new Promise(function(resolve,reject){
     if (true) {
@@ -156,7 +157,7 @@ function heartClick(id){
   var like = ele.text();
   var res = parseInt(like) + 1;
   ele.text(res);
-  $.get('/item/like/' + id, function(data) {
+  $.get('/item/like/' + id+"?openId="+openId, function(data) {
 
   });
 }
