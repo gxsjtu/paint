@@ -38,13 +38,13 @@ router.post('/saveItem', function(req, res, next) {
   var avatar = "";
   var nick = "";
 
-  userSvc.getProfile(req.session.openId).then(data => {
+  userSvc.getProfile(req.query.openId).then(data => {
     avatar = data.headimgurl;
     nick = data.nickname;
   }).catch(err => {
 
   }).finally(() => {
-    itemSvc.save(name, author, width, height, comment, type, catalog, price, images, from, to, avatar, nick, req.session.openId).then(data => {
+    itemSvc.save(name, author, width, height, comment, type, catalog, price, images, from, to, avatar, nick, req.query.openId).then(data => {
       res.json(new Result(Errors.Success, data));
     }).catch(err => {
       res.json(new Result(Errors.SaveItemFailed, err));

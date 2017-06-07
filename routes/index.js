@@ -16,7 +16,7 @@ router.use(Jssdk.jssdk);
 router.get('/', oAuth.oAuth, function(req, res, next) {
   //获取index页面的走马灯图片
   var indexSvc = new IndexSvc();
-  var openId = req.session.openId;
+  var openId = req.query.openId;
   Promise.all([indexSvc.getSwipers(), indexSvc.getTodayItems(6, "", "")]).then(data => {
     var todayDatas = data[1];
     var result = [];
@@ -37,27 +37,42 @@ router.get('/', oAuth.oAuth, function(req, res, next) {
   }).catch(err => console.log(err));
 });
 
+// router.get('/openId', function(req, res, next) {
+//   var code = req.query.code;
+//   var state = req.query.state;
+//   oAuth.client.getAccessToken(code, function(err, result) {
+//     // if (err || !(result.data)) {
+//     //   console.log(err);
+//     //   oAuth.oAuth(req, res, next);
+//     // }
+//     // req.session.openId = result.data.openid;
+//     // res.redirect(state);
+//     if (result && result.data && result.data.openid) {
+//       req.session.openId = result.data.openid;
+//     }
+//     res.redirect(state);
+//   });
+// });
+
 router.get('/openId', function(req, res, next) {
   var code = req.query.code;
   var state = req.query.state;
   oAuth.client.getAccessToken(code, function(err, result) {
-    // if (err || !(result.data)) {
-    //   console.log(err);
-    //   oAuth.oAuth(req, res, next);
-    // }
-    // req.session.openId = result.data.openid;
-    // res.redirect(state);
     if (result && result.data && result.data.openid) {
-      req.session.openId = result.data.openid;
+      if (state.indexOf('?') === -1) {
+        return res.redirect(state + '?openId=' + result.data.openid);
+      } else {
+        return res.redirect(state + '&openId=' + result.data.openid);
+      }
     }
-    res.redirect(state);
+    return res.redirect(state);
   });
 });
 
 router.get('/like/:itemId', oAuth.oAuth, function(req, res, next) {
   var itemSvc = new ItemSvc();
   var itemId = req.params.itemId;
-  var openId = req.session.openId;
+  var openId = req.query.openId;
   itemSvc.like(itemId, openId).then(data => {
     res.json(new Result(Errors.Success, data))
   }).catch(res.json(new Result(Errors.Success, 0)));

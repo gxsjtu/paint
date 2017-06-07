@@ -20,6 +20,7 @@ const session = require('express-session');
 var lessCompiler = require('less-compiler');
 var lessPath = __dirname + '/public/stylesheets';
 var cssPath = __dirname + '/public/stylesheets';
+var jwt = require('express-jwt');
 
 var compiler = lessCompiler({
   src: path.join(lessPath, 'style_less.less'), // the less file with all your imports

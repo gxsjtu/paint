@@ -8,9 +8,11 @@ var itemSvc = new ItemSvc();
 
 router.use(Jssdk.jssdk);
 router.get('/', oAuth.oAuth, function(req, res, next) {
-  var openId = req.session.openId;
+  var openId = req.query.openId;
   itemSvc.getItemsByOpenId(openId).then(data => {
-      res.render("myGallery", {items:data});
+    res.render("myGallery", {
+      items: data
+    });
   }).catch(err => res.json(new Result(Errors.GetItemsFailed, err)));
 })
 

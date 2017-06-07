@@ -28,7 +28,7 @@ router.get('/pay', Jssdk.jssdk, function(req, res, next) {
       var paySvc = new PaySvc();
       var lastBids = _.max(item.bids, 'price');
       var price = lastBids.price;
-      var openId = req.session.openId;
+      var openId = req.query.openId;
       var payargs = '';
       paySvc.getBrandWCPayRequestParams(openId, itemId, price * 100).then(data => {
         res.render("wxpay", {

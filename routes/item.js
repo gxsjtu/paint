@@ -14,26 +14,26 @@ var userSvc = new UserSvc();
 var indexSvc = new IndexSvc();
 router.use(Jssdk.jssdk);
 
-router.get('/getMyBids/:option/:date', oAuth.oAuth,  function(req, res, next) {
-  var openId = req.session.openId;
+router.get('/getMyBids/:option/:date', oAuth.oAuth, function(req, res, next) {
+  var openId = req.query.openId;
   var upOrDown = req.params.option;
   var createAt = req.params.date;
-  if(upOrDown == 0){
+  if (upOrDown == 0) {
     upOrDown = '';
     creatAt = '';
   }
   userSvc.getMyBids(30, openId, upOrDown, createAt).then(data => {
     var results = [];
-    if(data.length > 0){
+    if (data.length > 0) {
       _.forEach(data, (d) => {
         var bids = d.bids;
-        var bid =  _.max(bids, (b) => {
-            return b.price;
-          });
-        if(bid.openId == openId){
+        var bid = _.max(bids, (b) => {
+          return b.price;
+        });
+        if (bid.openId == openId) {
           d.myMaxPrice = bid.price;
           d.maxPrice = bid.price;
-        }else{
+        } else {
           var myBids = _.filter(bids, (b) => {
             return b.openId == openId;
           })
@@ -54,23 +54,23 @@ router.get('/getMyBids/:option/:date', oAuth.oAuth,  function(req, res, next) {
 router.get('/getTodayItems/:upOrDown/:creatAt', function(req, res, next) {
   var upOrDown = req.params.upOrDown;
   var createAt = req.params.creatAt;
-  if(upOrDown == 0){
+  if (upOrDown == 0) {
     upOrDown = '';
     creatAt = '';
   }
-  indexSvc.getTodayItems(30,upOrDown,createAt).then(data => {
+  indexSvc.getTodayItems(30, upOrDown, createAt).then(data => {
     res.json(new Result(Errors.Success, data))
   }).catch(err => res.json(new Result(Errors.GetItemsFailed, err)));
 });
 //我的订单
-router.get('/getMyOrders/:upOrDown/:creatAt', oAuth.oAuth,  function(req, res, next) {
+router.get('/getMyOrders/:upOrDown/:creatAt', oAuth.oAuth, function(req, res, next) {
   var upOrDown = req.params.upOrDown;
   var createAt = req.params.creatAt;
-  if(upOrDown == 0){
+  if (upOrDown == 0) {
     upOrDown = '';
     creatAt = '';
   }
-  itemSvc.getMyOrders(30, req.session.openId,upOrDown,createAt).then(data => {
+  itemSvc.getMyOrders(30, req.query.openId, upOrDown, createAt).then(data => {
     res.json(new Result(Errors.Success, data))
   }).catch(err => res.json(new Result(Errors.GetItemsFailed, err)));
 });
@@ -80,18 +80,18 @@ router.get('/getItemBySearch/:key/:group/:upOrDown/:creatAt', function(req, res,
   var group = req.params.group;
   var upOrDown = req.params.upOrDown;
   var createAt = req.params.creatAt;
-  if(upOrDown == 0){
+  if (upOrDown == 0) {
     upOrDown = '';
     creatAt = '';
   }
-  itemSvc.getSearchItems(30,key,group,upOrDown,createAt).then(data => {
+  itemSvc.getSearchItems(30, key, group, upOrDown, createAt).then(data => {
     res.json(new Result(Errors.Success, data))
   }).catch(err => res.json(new Result(Errors.GetItemsFailed, err)));
 });
 
 router.get('/:itemId', oAuth.oAuth, function(req, res, next) {
   var itemId = req.params.itemId;
-  var openId = req.session.openId;
+  var openId = req.query.openId;
   Promise.all([itemSvc.getItemById(itemId), itemSvc.getLikes(itemId, openId)]).then(data => {
     var isMe = (openId == data[0].openId ? true : false);
     res.render("item", {
@@ -105,7 +105,7 @@ router.get('/:itemId', oAuth.oAuth, function(req, res, next) {
 });
 
 router.get('/getItemsByOpenId', oAuth.oAuth, function(req, res, next) {
-  var openId = req.session.openId;
+  var openId = req.query.openId;
   itemSvc.getItemsByOpenId(openId).then(data => {
     res.json(new Result(Errors.Success, data))
   }).catch(err => res.json(new Result(Errors.GetItemsFailed, err)));
@@ -113,7 +113,7 @@ router.get('/getItemsByOpenId', oAuth.oAuth, function(req, res, next) {
 
 router.get('/like/:itemId', oAuth.oAuth, function(req, res, next) {
   var itemId = req.params.itemId;
-  var openId = req.session.openId;
+  var openId = req.query.openId;
   itemSvc.like(itemId, openId).then(data => {
     res.json(new Result(Errors.Success, data))
   }).catch(err => res.json(new Result(Errors.Success, 0)));
@@ -129,7 +129,7 @@ router.get('/getBids/:itemId', oAuth.oAuth, function(req, res, next) {
 router.get('/bid/:itemId/:price', oAuth.oAuth, function(req, res, next) {
   var itemId = req.params.itemId;
   var price = req.params.price;
-  var openId = req.session.openId;
+  var openId = req.query.openId;
   itemSvc.bid(itemId, openId, price).then(data => {
     res.json(new Result(Errors.Success, data))
   }).catch(err => {

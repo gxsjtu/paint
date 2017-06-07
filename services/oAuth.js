@@ -17,7 +17,7 @@ var client = new OAuth(Global.appId, Global.appSecret, function(openid, callback
 });
 
 module.exports.oAuth = function(req, res, next) {
-  if (!req.session.openId) {
+  if (!req.query.openId) {
     var u = client.getAuthorizeURL(Global.server + "/openId", req.originalUrl, 'snsapi_base');
     res.redirect(u);
   } else {

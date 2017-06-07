@@ -7,16 +7,24 @@ const Errors = require('../services/error.js');
 var itemSvc = new ItemSvc();
 
 router.use(Jssdk.jssdk);
+
 router.get('/search/:group/:key', function(req, res, next) {
-    var type = 'search';
-    var group = req.params.group;
-    var key = req.params.key;
-    res.render("todayMore", {typeStr:type,group:group,key:key});
+  var type = 'search';
+  var group = req.params.group;
+  var key = req.params.key;
+  res.render("todayMore", {
+    typeStr: type,
+    group: group,
+    key: key
+  });
 })
 
-router.get('/:type', function(req, res, next) {
-    var type = req.params.type;
-    res.render("todayMore", {typeStr:type});
+router.get('/:type', oAuth.oAuth, function(req, res, next) {
+  var type = req.params.type;
+  res.render("todayMore", {
+    typeStr: type,
+    openId: req.query.openId
+  });
 })
 
 module.exports = router;
