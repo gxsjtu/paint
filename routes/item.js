@@ -40,9 +40,26 @@ router.get('/getMyBids', oAuth.oAuth, function(req, res, next) {
           d.myMaxPrice = myMaxBid.price;
           d.maxPrice = bid.price;
         }
+
+        if(d.openId == openId){
+          d.canLike = false;
+        }
+        else{
+          if(d.likes && d.likes.length > 0){
+            var liked = _.find(d.likes, x => {
+              return x.openId == openId;
+            })
+            d.canLike = !liked;
+          }
+          else{
+            d.canLike = true;
+          }
+        }
+
         results.push(d);
       })
     }
+    console.log(results);
     res.render("myBids",{
       bids:results,
       openId:openId

@@ -147,10 +147,17 @@
   </div>
 
   <div class="menu">
-    <div class="like canLike">
-      <img src="/images/aa_08.png" style="width:20px;"/>
-      <div style="margin-left:10px;">{{this.likes.length}}</div>
-    </div>
+    {{#if like.canLike}}
+      <div class="like canLike" data-itemid="{{this._id}}">
+        <img src="/images/aa_08.png" style="width:20px;"/>
+        <div style="margin-left:10px;">{{this.likes.length}}</div>
+      </div>
+    {{else}}
+      <div class="like">
+        <img src="/images/BB_08.png" style="width:20px;"/>
+        <div style="margin-left:10px;">{{this.likes.length}}</div>
+      </div>
+    {{/if}}
     <div class="bid">
       <img src="/images/aa_07.png" style="width:20px;"/>
       <div style="margin-left:10px;">{{this.bids.length}}</div>
@@ -179,22 +186,21 @@ var loadNews = function(){
   });
 };
 
-function like(itemId){
-
-  $.get('/item/like/' + itemId+"?openId="+openId, function(data) {
-
-  });
-}
 $(function(){
   WebPullToRefresh.init( {
       loadingFunction: loadNews
   } );
   $(".canLike").on("click",function(){
     $(this).removeClass("canLike");
+    $(this).off("click");
     $(this).find("img").attr("src","/images/BB_08.png");
     var number = $(this).find("div");
     var count = parseInt(number.text())+1;
     number.text(count);
+    var itemId = $(this).data("itemid");
+    $.get('/item/like/' + itemId+"?openId="+openId, function(data) {
+
+    });
   });
 });
 </script>
