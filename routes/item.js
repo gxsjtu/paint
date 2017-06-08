@@ -14,8 +14,9 @@ var userSvc = new UserSvc();
 var indexSvc = new IndexSvc();
 router.use(Jssdk.jssdk);
 
-router.get('/getMyBids', function(req, res, next) {
+router.get('/getMyBids', oAuth.oAuth, function(req, res, next) {
   var openId = req.query.openId;
+  //var openId = 'o9nEBjwL7fxFLngQFPszSw8XRfPc';
   userSvc.getMyBids(openId).then(data => {
     var results = [];
     if (data.length > 0) {
@@ -24,6 +25,8 @@ router.get('/getMyBids', function(req, res, next) {
         var bid = _.max(bids, (b) => {
           return b.price;
         });
+        var img = d.images[0];
+        d.img = img;
         if (bid.openId == openId) {
           d.myMaxPrice = bid.price;
           d.maxPrice = bid.price;
@@ -40,7 +43,11 @@ router.get('/getMyBids', function(req, res, next) {
         results.push(d);
       })
     }
-    res.json(new Result(Errors.Success, results))
+    res.render("myBids",{
+      bids:results,
+      openId:openId
+    })
+    //res.json(new Result(Errors.Success, results))
   }).catch(err => res.json(new Result(Errors.GetMyBidsFailed, err)));
 });
 
