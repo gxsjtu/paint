@@ -2,6 +2,8 @@
 <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css">
 <link rel='stylesheet' href="/stylesheets/index.css" />
 <link rel="stylesheet" href="/stylesheets/todayMore.css" />
+<link rel="stylesheet" href="/bootstrap-material-design/dist/css/bootstrap-material-design.css" />
+<link rel="stylesheet" href="/bootstrap-material-design/dist/css/ripples.min.css" />
 {{/extend}}
 <div id="wrapper">
   <div id="scroller">
@@ -145,10 +147,10 @@
 
                 str+="<div class=\"col-xs-4 bid\" style=\"border-right: 1px solid #f2f2f2;\"><img src=\"/images/2_07.png\" alt=\"出价次数\" class=\"img-size\"/><span style=\"margin-left:10px;color:#bdbdbd;\">" + datas[i].bids.length + "</span></div>";
                 if(datas[i].order && datas[i].order.status == 1){
-                  str+="<div class=\"col-xs-4 bid\" data-itemid=\""+datas[i]._id+"\" style=\"border-right: 1px solid #f2f2f2;\"><img src=\"/images/2_07.png\" class=\"img-size\"/><span style=\"margin-left:10px;color:#bdbdbd;\">已付款</span></div></div><div class=\"splitItem\"><button class="btn btn-default" data-ripple-color="#F0F0F0">测试</button></div>"
+                  str+="<div class=\"col-xs-4 bid\" data-itemid=\""+datas[i]._id+"\" style=\"border-right: 1px solid #f2f2f2;\"><img src=\"/images/2_07.png\" class=\"img-size\"/><span style=\"margin-left:10px;color:#bdbdbd;\">已付款</span></div></div><div class=\"splitItem\"></div>"
                 }
                 else if(!datas[i].order || datas[i].order.status == 0){
-                  str+="<div class=\"col-xs-4 bid pay\" data-itemid=\""+datas[i]._id+"\" style=\"border-right: 1px solid #f2f2f2;\"><img src=\"/images/aa_07.png\" class=\"img-size\"/><span style=\"margin-left:10px;\">待付款</span></div></div><div class=\"splitItem\"></div>"
+                  str+="<div class=\"col-xs-4 bid\" style=\"border-right: 1px solid #f2f2f2;margin-top: 0px;margin-bottom: 0px;\"><button style=\"margin-top: 5px;margin-left: 1px;\" class=\"btn btn-raised btn-danger btn-sm pay\" data-itemid=\""+datas[i]._id+"\">付款</button></div></div><div class=\"splitItem\"></div>"
                 }
               }
               else{
@@ -204,7 +206,7 @@
                         str+="<div class=\"col-xs-4 bid\" data-itemid=\""+datas[i]._id+"\" style=\"border-right: 1px solid #f2f2f2;\"><img src=\"/images/2_07.png\" class=\"img-size\"/><span style=\"margin-left:10px;color:#bdbdbd;\">已付款</span></div></div><div class=\"splitItem\"></div>"
                       }
                       else if(!datas[i].order || datas[i].order.status == 0){
-                        str+="<div class=\"col-xs-4 bid pay\" data-itemid=\""+datas[i]._id+"\" style=\"border-right: 1px solid #f2f2f2;\"><img src=\"/images/aa_07.png\" class=\"img-size\"/><span style=\"margin-left:10px;\">待付款</span></div></div><div class=\"splitItem\"></div>"
+                        str+="<div class=\"col-xs-4 bid\" style=\"border-right: 1px solid #f2f2f2;margin-top: 0px;margin-bottom: 0px;\"><button style=\"margin-top: 5px;margin-left: 1px;\" class=\"btn btn-raised btn-danger btn-sm pay\" data-itemid=\""+datas[i]._id+"\">付款</button></div></div><div class=\"splitItem\"></div>"
                       }
                     }
                     else{
