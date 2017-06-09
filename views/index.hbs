@@ -36,19 +36,19 @@
     <!-- <div style="float:right;margin-right:15px;margin-top:10px;color:#919191;font-size:12px;">更多<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></div> -->
   </div>
   <div class="menu">
-    <div class="item">
+    <div class="item" onclick="goto('油画')">
       <img src="/images/油画.png" alt="油画" />
       <div class="name">油画</div>
     </div>
-    <div class="item">
+    <div class="item" onclick="goto('国画')">
       <img src="/images/国画.png" alt="国画" />
       <div class="name">国画</div>
     </div>
-    <div class="item">
+    <div class="item" onclick="goto('水彩')">
       <img src="/images/水彩.png" alt="水彩" />
       <div class="name">水彩</div>
     </div>
-    <div class="item">
+    <div class="item" onclick="goto('彩铅')">
       <img src="/images/彩铅.png" alt="彩铅" />
       <div class="name">彩铅</div>
     </div>
@@ -144,6 +144,11 @@ function gotoMore(){
 
 function gotoItem(id){
   window.location.href = '/item/'+id;
+}
+
+function goto(type){
+  var catalog="人物,山水,花鸟,风景,动物,历史";
+  window.location.href="/todayMore/search/"+type+"/"+catalog+"/000";
 }
 
 function heartClick(id){

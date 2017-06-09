@@ -156,7 +156,7 @@
         }
         var catalog = catalogSelected.join(',') || 0;
 
-        var key = $("#inputSearch").val();
+        var key = $("#inputSearch").val() || '000';
         window.location.href="/todayMore/search/"+type+"/"+catalog+"/"+key;
         return false;
       });

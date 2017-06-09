@@ -11,6 +11,7 @@
     "body-parser": "~1.17.1",
     "bootstrap": "^3.3.7",
     "bootstrap-datetime-picker": "git://github.com/smalot/bootstrap-datetimepicker.git",
+    "bootstrap-material-design": "^0.5.10",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.3",
     "express": "~4.15.2",

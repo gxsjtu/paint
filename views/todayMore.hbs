@@ -164,7 +164,6 @@
                   str += "<img id=\"imgLike\" src=\"/images/BB_08.png\" alt=\"赞\" class=\"img-size\"/>";
                   str += "<span style=\"margin-left:10px;color:#bdbdbd;\" id=\"" + datas[i]._id + "\">" + datas[i].likes.length + "</span></div>";
                 }
-                str += "<span style=\"margin-left:10px;\" id=\"" + datas[i]._id + "\">" + datas[i].likes.length + "</span></div>";
                 str+="<div class=\"col-xs-6 bid\"><img src=\"/images/2_07.png\" alt=\"出价次数\" class=\"img-size\"/><span style=\"margin-left:10px;color:#bdbdbd;\">" + datas[i].bids.length + "</span></div></div><div class=\"splitItem\"></div>";
               }
               $(".list-group").append(str);
