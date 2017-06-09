@@ -140,7 +140,7 @@
       <div class="name">
         《{{this.name}}》
       </div>
-      <div class="draw">
+      <div class="draw" data-itemid="{{this._id}}">
         <img src="https://painting.shtx.com.cn/images/upload/{{this.img}}" />
       </div>
     </div>
@@ -202,6 +202,11 @@ $(function(){
 
     });
   });
+
+  $(".draw").on("click",function(){
+    var itemId = $(this).data("itemid");
+    window.location.href = '/item/'+itemId;
+  })
 });
 </script>
 {{/extend}}

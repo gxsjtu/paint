@@ -9,6 +9,7 @@ const ItemSvc = require('../services/itemSvc.js');
 const UserSvc = require('../services/userSvc.js');
 const IndexSvc = require('../services/indexSvc.js');
 const _ = require('lodash');
+const moment = require('moment');
 var itemSvc = new ItemSvc();
 var userSvc = new UserSvc();
 var indexSvc = new IndexSvc();
@@ -127,10 +128,19 @@ router.get('/:itemId', oAuth.oAuth, function(req, res, next) {
     var openId = req.query.openId;
     Promise.all([itemSvc.getItemById(itemId), itemSvc.getLikes(itemId, openId)]).then(data => {
         var isMe = (openId == data[0].openId ? true : false);
+        var canBid = false;
+        if(!isMe){
+          var from = data[0].valid.from;
+          var to = data[0].valid.to;
+          if(moment().isBetween(moment(from), moment(to))){
+            canBid = true;
+          }
+        }
         res.render("item", {
             item: data[0],
             like: data[1],
             isMe: isMe,
+            canBid: canBid,
             openId: openId
         });
     }).catch(err => {

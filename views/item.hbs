@@ -110,7 +110,7 @@
     </div>
   </div>
   <div class="footer">
-    <div class="bid {{#if isMe}}unClick{{/if}}" id="bid">
+    <div class="bid {{#if canBid}}unClick{{/if}}" id="bid">
       出价
     </div>
     <div class="good">
@@ -376,7 +376,7 @@
           });
 
           $("#bid").on("click", function() {
-            {{#unless isMe}}
+            {{#unless canBid}}
 
             $(".mask,.bidContainer").show();
             $.get("/item/getBids/" + itemId, function(data) {
