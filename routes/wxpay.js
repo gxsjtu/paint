@@ -21,7 +21,7 @@ var wxpay = WXPay({
   pfx: fs.readFileSync(path.normalize(__dirname + '/..' + '/apiclient_cert.p12')), //微信商户平台证书
 });
 
-router.get('/pay', Jssdk.jssdk, function(req, res, next) {
+router.get('/pay', Jssdk.jssdk, oAuth.oAuth, function(req, res, next) {
   var itemId = req.query.itemId;
   itemSvc.getItemById(itemId).then(item => {
     if (item) {
