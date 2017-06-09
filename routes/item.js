@@ -41,17 +41,15 @@ router.get('/getMyBids', oAuth.oAuth, function(req, res, next) {
           d.maxPrice = bid.price;
         }
 
-        if(d.openId == openId){
+        if (d.openId == openId) {
           d.canLike = false;
-        }
-        else{
-          if(d.likes && d.likes.length > 0){
+        } else {
+          if (d.likes && d.likes.length > 0) {
             var liked = _.find(d.likes, x => {
               return x.openId == openId;
             })
             d.canLike = !liked;
-          }
-          else{
+          } else {
             d.canLike = true;
           }
         }
@@ -60,9 +58,9 @@ router.get('/getMyBids', oAuth.oAuth, function(req, res, next) {
       })
     }
     console.log(results);
-    res.render("myBids",{
-      bids:results,
-      openId:openId
+    res.render("myBids", {
+      bids: results,
+      openId: openId
     })
     //res.json(new Result(Errors.Success, results))
   }).catch(err => res.json(new Result(Errors.GetMyBidsFailed, err)));
@@ -106,7 +104,6 @@ router.get('/getItemBySearch/:key/:type/:catalog/:upOrDown/:creatAt', function(r
   }
 
   itemSvc.getSearchItems(30, key, type, catalog, upOrDown, createAt).then(data => {
-    console.log(data);
     res.json(new Result(Errors.Success, data))
   }).catch(err => res.json(new Result(Errors.GetItemsFailed, err)));
 });
