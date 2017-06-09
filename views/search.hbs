@@ -79,7 +79,7 @@
         <div class='col-xs-12'>
             <div class='search-box'>
                 <div class='search-form'>
-                    <input class='form-control' id="inputSearch" placeholder='请输入作者或作品' type='text'>
+                    <input class='form-control' id="inputSearch" placeholder='请输入作者或作品' type='search' />
                     <button class='btn btn-link search-btn'>
             <i class='glyphicon glyphicon-search'></i>
           </button>
@@ -127,35 +127,41 @@
     <script>
     var catalogSelected = [];
     var typeSelected = [];
-        $(".item").on("click", function() {
-          var span = $(this).find("span");
-            if(span.hasClass("glyphicon-ok")){
-              span.removeClass("glyphicon-ok")
-            }
-            else{
-              span.addClass("glyphicon-ok")
-            }
-            $(this).toggleClass("active");
+    $(function(){
+      $("#inputSearch").focus();
 
-        });
-        $(".search-btn").on("click",function(){
-          catalogSelected.length=0;
-          typeSelected.length=0;
-          var actives1 = $("#type").find(".active");
-          for (var i = 0; i < actives1.length; i++) {
-            typeSelected.push(actives1.eq(i).data("name"));
+      $(".item").on("click", function() {
+        var span = $(this).find("span");
+          if(span.hasClass("glyphicon-ok")){
+            span.removeClass("glyphicon-ok")
           }
-          var type = typeSelected.join(',') || 0;
-
-          var actives2 = $("#catalog").find(".active");
-          for (var i = 0; i < actives2.length; i++) {
-            catalogSelected.push(actives2.eq(i).data("name"));
+          else{
+            span.addClass("glyphicon-ok")
           }
-          var catalog = catalogSelected.join(',') || 0;
+          $(this).toggleClass("active");
 
-          var key = $("#inputSearch").val();
-          window.location.href="/todayMore/search/"+type+"/"+catalog+"/"+key;
-          return false;
-        });
+      });
+      $(".search-btn").on("click",function(){
+        catalogSelected.length=0;
+        typeSelected.length=0;
+        var actives1 = $("#type").find(".active");
+        for (var i = 0; i < actives1.length; i++) {
+          typeSelected.push(actives1.eq(i).data("name"));
+        }
+        var type = typeSelected.join(',') || 0;
+
+        var actives2 = $("#catalog").find(".active");
+        for (var i = 0; i < actives2.length; i++) {
+          catalogSelected.push(actives2.eq(i).data("name"));
+        }
+        var catalog = catalogSelected.join(',') || 0;
+
+        var key = $("#inputSearch").val();
+        window.location.href="/todayMore/search/"+type+"/"+catalog+"/"+key;
+        return false;
+      });
+
+    })
+
     </script>
 {{/extend}}
