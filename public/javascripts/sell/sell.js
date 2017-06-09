@@ -229,12 +229,13 @@ wx.ready(function() {
             },
             success: function(data) {
               //window.location = '/item/'+data.data._id;
-              window.location.replace('/item/'+data.data._id);
+              location.replace('/item/'+data.data._id);
             },
-            error: function(req, status, err) {},
+            error: function(req, status, err) {
+                $("#btnSave").removeAttr("disabled");
+            },
             complete: function(res, status) {
-              $("#btnSave").removeAttr("disabled");
-              console.log(res);
+
             }
           })
         }
