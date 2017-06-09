@@ -31,14 +31,14 @@ var compiler = lessCompiler({
 compiler.watch();
 
 var app = express();
-app.use(session({
-  secret: 'guoxuan',
-  resave: false,
-  saveUninitialized: true,
-  cookie: {
-    secure: false
-  }
-}))
+// app.use(session({
+//   secret: 'guoxuan',
+//   resave: false,
+//   saveUninitialized: true,
+//   cookie: {
+//     secure: false
+//   }
+// }))
 app.use(helmet());
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
