@@ -12,18 +12,24 @@ const _ = require('lodash');
 var itemSvc = new ItemSvc();
 var userSvc = new UserSvc();
 var indexSvc = new IndexSvc();
-router.use(Jssdk.jssdk);
+// router.use(Jssdk.jssdk);
 
-router.get('/getMyBids', oAuth.oAuth, function(req, res, next) {
-  var openId = req.query.openId;
-  //var openId = 'o9nEBjwL7fxFLngQFPszSw8XRfPc';
+router.get('/getMyBids', function(req, res, next) {
+  //var openId = req.query.openId;
+  var openId = 'o9nEBjwL7fxFLngQFPszSw8XRfPc';
   userSvc.getMyBids(openId).then(data => {
     var results = [];
     if (data.length > 0) {
       _.forEach(data, (d) => {
         var bids = d.bids;
-        var bid = _.max(bids, (b) => {
-          return b.price;
+        // var bid = _.max(bids, (b) => {
+        //   return b.price;
+        // });
+        var bid = bids[0];
+        _.forEach(bids, (b) => {
+          if(bid.price < b.price){
+            bid = b;
+          }
         });
         var img = d.images[0];
         d.img = img;
@@ -34,20 +40,28 @@ router.get('/getMyBids', oAuth.oAuth, function(req, res, next) {
           var myBids = _.filter(bids, (b) => {
             return b.openId == openId;
           })
-          var myMaxBid = _.max(myBids, (b) => {
-            return b.price;
+
+          // var myMaxBid = _.max(myBids, (b) => {
+          //   return b.price;
+          // })
+
+          var myMaxBid = myBids[0];
+          _.forEach(myBids,(b)=>{
+            if(myMaxBid.price < b.price){
+              myMaxBid = b;
+            }
           })
+
           d.myMaxPrice = myMaxBid.price;
           d.maxPrice = bid.price;
         }
-
         if(d.openId == openId){
           d.canLike = false;
         }
         else{
           if(d.likes && d.likes.length > 0){
             var liked = _.find(d.likes, x => {
-              return x.openId == openId;
+              return x == openId;
             })
             d.canLike = !liked;
           }
@@ -59,7 +73,7 @@ router.get('/getMyBids', oAuth.oAuth, function(req, res, next) {
         results.push(d);
       })
     }
-    console.log(results);
+    //console.log(results);
     res.render("myBids",{
       bids:results,
       openId:openId

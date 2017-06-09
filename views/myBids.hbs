@@ -155,12 +155,12 @@
     {{else}}
       <div class="like">
         <img src="/images/BB_08.png" style="width:20px;"/>
-        <div style="margin-left:10px;">{{this.likes.length}}</div>
+        <div style="margin-left:10px;color:#e7e7e7;">{{this.likes.length}}</div>
       </div>
     {{/if}}
     <div class="bid">
       <img src="/images/aa_07.png" style="width:20px;"/>
-      <div style="margin-left:10px;">{{this.bids.length}}</div>
+      <div style="margin-left:10px;color:#e7e7e7;">{{this.bids.length}}</div>
     </div>
   </div>
   <div class="splitItem">
@@ -196,7 +196,7 @@ $(function(){
     $(this).find("img").attr("src","/images/BB_08.png");
     var number = $(this).find("div");
     var count = parseInt(number.text())+1;
-    number.text(count);
+    number.text(count).css("color","#e7e7e7");
     var itemId = $(this).data("itemid");
     $.get('/item/like/' + itemId+"?openId="+openId, function(data) {
 
