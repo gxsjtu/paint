@@ -110,7 +110,7 @@
     </div>
   </div>
   <div class="footer">
-    <div class="bid {{#if canBid}}unClick{{/if}}" id="bid">
+    <div class="bid {{#unless canBid}}unClick{{/unless}}" id="bid">
       出价
     </div>
     <div class="good">
@@ -376,7 +376,7 @@
           });
 
           $("#bid").on("click", function() {
-            {{#unless canBid}}
+            {{#if canBid}}
 
             $(".mask,.bidContainer").show();
             $.get("/item/getBids/" + itemId, function(data) {
@@ -391,7 +391,7 @@
                   lastPrice = price;
               }
             })
-            {{/unless}}
+            {{/if}}
 
           });
 
