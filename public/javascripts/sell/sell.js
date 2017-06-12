@@ -162,8 +162,10 @@ wx.ready(function() {
       });
       return;
     }
-    $(this).attr("disabled", "disabled");
-    syncUpload(localIds);
+    var l = Ladda.create(document.querySelector('#btnSave'));
+    l.start();
+    // $(this).attr("disabled", "disabled");
+    syncUpload(localIds, l);
   });
 
   $("#btnRemoveImg").click(function() {
@@ -198,7 +200,7 @@ wx.ready(function() {
     }
   })
 
-  var syncUpload = function(localIds) {
+  var syncUpload = function(localIds, l) {
     var localId = localIds.pop();
     wx.uploadImage({
       localId: localId.toString(),
@@ -206,7 +208,7 @@ wx.ready(function() {
         var serverId = res.serverId;
         serverIds.push(serverId.toString());
         if (localIds.length > 0) {
-          syncUpload(localIds);
+          syncUpload(localIds, l);
         } else {
           $.ajax({
             url: '/sell/saveItem',
@@ -232,7 +234,8 @@ wx.ready(function() {
               location.replace('/item/'+data.data._id);
             },
             error: function(req, status, err) {
-                $("#btnSave").removeAttr("disabled");
+                // $("#btnSave").removeAttr("disabled");
+                l.stop();
             },
             complete: function(res, status) {
 
