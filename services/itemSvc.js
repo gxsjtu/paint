@@ -125,6 +125,7 @@ ItemSvc.prototype.bid = function(itemId, openId, price) {
           }, {
             new: true
           }).then(data => {
+            //推送模板消息给作者
             return resolve();
           }).catch(err => {
             console.log(err);
