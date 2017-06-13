@@ -137,7 +137,7 @@ ItemSvc.prototype.bid = function(itemId, openId, price) {
                 "color": "#173177"
               },
               "keyword2": {
-                "value": moment().format('YYYY-MM-DD HH:mm:ss'),
+                "value": data.valid.to,
                 "color": "#173177"
               },
               // "remark": {
