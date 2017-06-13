@@ -151,7 +151,7 @@
       <div class="draw" data-itemid="{{this._id}}">
         <img src="https://painting.shtx.com.cn/images/upload/{{this.img}}" />
       </div> -->
-      <div class="row" style="margin-left:0px;margin-right:0px;margin-top:10px;">
+      <div class="row" style="margin-left:0px;margin-right:0px;margin-top:10px;" data-itemid="{{this._id}}" id="itemDiv">
       <div class="row">
         {{#each this.images}}
         <div class="imgStyle" style="background:url(https://painting.shtx.com.cn/images/upload/{{this}}) no-repeat;background-position:center center;background-size:100% auto;overflow:hidden;">
@@ -224,7 +224,7 @@ $(function(){
     });
   });
 
-  $(".draw").on("click",function(){
+  $("#itemDiv").on("click",function(){
     var itemId = $(this).data("itemid");
     window.location.href = '/item/'+itemId;
   })
