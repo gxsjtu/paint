@@ -111,6 +111,7 @@ ItemSvc.prototype.bid = function(itemId, openId, price) {
       if (data == true) {
         var usrSvc = new UserSvc();
         usrSvc.getProfile(openId).then(data => {
+          var name = data.nickname;
           Item.findOneAndUpdate({
             _id: itemId
           }, {
@@ -126,7 +127,27 @@ ItemSvc.prototype.bid = function(itemId, openId, price) {
             new: true
           }).then(data => {
             //推送模板消息给作者
-            return resolve();
+            var doc = {
+              "first": {
+                "value": "「" + name + "」" + "成功出价您的作品" + "「" + data.name + "」" + "，出价为" + price + '元。',
+                "color": "#173177"
+              },
+              "keyword1": {
+                "value": data.name,
+                "color": "#173177"
+              },
+              "keyword2": {
+                "value": moment().format('YYYY-MM-DD HH:mm:ss'),
+                "color": "#173177"
+              },
+              // "remark": {
+              //   "value": "欢迎再次购买！",
+              //   "color": "#173177"
+              // }
+            };
+            api.sendTemplate(data.openId, "A8Ofs9ct3CWj7-9LUOaT0lr97O-GFBDM-mSyog-lVQ0", "", doc, (err, result) => {
+              return resolve();
+            });
           }).catch(err => {
             console.log(err);
             return reject(err);
@@ -175,8 +196,12 @@ ItemSvc.prototype.canBid = function(id, openId, price) {
   });
 };
 
-ItemSvc.prototype.search = function(group,key){
-  Item.find({ catalog: { $in: group } })
+ItemSvc.prototype.search = function(group, key) {
+  Item.find({
+    catalog: {
+      $in: group
+    }
+  })
 }
 
 ItemSvc.prototype.save = function(name, author, width, height, comment, type, catalog, price, images, from, to, avatar, nick, openId) {
@@ -221,16 +246,16 @@ ItemSvc.prototype.save = function(name, author, width, height, comment, type, ca
   });
 };
 
-ItemSvc.prototype.getSearchItems = function(num,key,type,catalog,upOrDown,create_at) {
-  if(catalog == 0){
+ItemSvc.prototype.getSearchItems = function(num, key, type, catalog, upOrDown, create_at) {
+  if (catalog == 0) {
     // catalog="人物,山水,花鸟,风景,动物,历史";
-    catalog="";
+    catalog = "";
   }
-  if(type == 0){
+  if (type == 0) {
     // type="油画,国画,水彩,彩铅";
-    type="";
+    type = "";
   }
-  if(key == '000'){
+  if (key == '000') {
     key = '.*';
   }
   var re = new RegExp(key, 'i');
@@ -238,16 +263,16 @@ ItemSvc.prototype.getSearchItems = function(num,key,type,catalog,upOrDown,create
   if (!upOrDown) {
     return new Promise((resolve, reject) => {
       Item.where({
-        catalog:{
-          $in:catalog.split(',')
+        catalog: {
+          $in: catalog.split(',')
         },
-        type:{
-          $in:type.split(',')
+        type: {
+          $in: type.split(',')
         },
-        $or:[{
-          "author":re
-        },{
-          "name":re
+        $or: [{
+          "author": re
+        }, {
+          "name": re
         }]
       }).sort({
         create_at: -1
@@ -266,13 +291,13 @@ ItemSvc.prototype.getSearchItems = function(num,key,type,catalog,upOrDown,create
           create_at: {
             $lt: create_at
           },
-          catalog:{
-            $in:group.split(',')
+          catalog: {
+            $in: group.split(',')
           },
-          $or:[{
-            "author":re
-          },{
-            "name":re
+          $or: [{
+            "author": re
+          }, {
+            "name": re
           }]
         }).sort({
           create_at: -1
@@ -289,13 +314,13 @@ ItemSvc.prototype.getSearchItems = function(num,key,type,catalog,upOrDown,create
           create_at: {
             $gt: create_at
           },
-          catalog:{
-            $in:group.split(',')
+          catalog: {
+            $in: group.split(',')
           },
-          $or:[{
-            "author":re
-          },{
-            "name":re
+          $or: [{
+            "author": re
+          }, {
+            "name": re
           }]
         }).sort({
           create_at: 'asc'
@@ -310,7 +335,7 @@ ItemSvc.prototype.getSearchItems = function(num,key,type,catalog,upOrDown,create
   }
 };
 //我的订单
-ItemSvc.prototype.getMyOrders = function(num,openId, upOrDown, create_at) {
+ItemSvc.prototype.getMyOrders = function(num, openId, upOrDown, create_at) {
   var itemSvc = new ItemSvc();
   if (!upOrDown) {
     return new Promise((resolve, reject) => {
@@ -318,41 +343,41 @@ ItemSvc.prototype.getMyOrders = function(num,openId, upOrDown, create_at) {
       var tret = [];
       var toDate = moment().format('yyyy-MM-DD HH:mm');
       Item.find({
-        'bids.openId':openId,
-        'valid.to':{$lt:toDate}
+        'bids.openId': openId,
+        'valid.to': {
+          $lt: toDate
+        }
       }).sort({
-          create_at: -1
-        }).limit(num).then(docs => {
-        if ( docs.length <= 0 )
+        create_at: -1
+      }).limit(num).then(docs => {
+        if (docs.length <= 0)
           return resolve([]);
-          for(var k = 0 ; k < docs.length ; k++)
-          {
-             var x = JSON.parse(JSON.stringify(docs[k]));
-             var xbid = x.bids;
-             if ( xbid.length > 0 )
-             {
-             tret = _.orderBy(xbid, ["create_at"], ["desc"]);
-             if ( tret[0].openId === openId )
-             {
-                ret.push({_id: x._id,
-                            author: x.author,
-                            avatar: x.avatar,
-                            bid: tret[0],
-                            bids: x.bids,
-                            create_at: x.create_at,
-                            dimension: x.dimension,
-                            images: x.images,
-                            likes: x.likes,
-                            name: x.name,
-                            nick:x.nick,
-                            price:x.price,
-                            valid:x.valid,
-                            order:x.order
-                        });
-             }
-             }
+        for (var k = 0; k < docs.length; k++) {
+          var x = JSON.parse(JSON.stringify(docs[k]));
+          var xbid = x.bids;
+          if (xbid.length > 0) {
+            tret = _.orderBy(xbid, ["create_at"], ["desc"]);
+            if (tret[0].openId === openId) {
+              ret.push({
+                _id: x._id,
+                author: x.author,
+                avatar: x.avatar,
+                bid: tret[0],
+                bids: x.bids,
+                create_at: x.create_at,
+                dimension: x.dimension,
+                images: x.images,
+                likes: x.likes,
+                name: x.name,
+                nick: x.nick,
+                price: x.price,
+                valid: x.valid,
+                order: x.order
+              });
+            }
           }
-          return resolve(ret);
+        }
+        return resolve(ret);
       }).catch(err => {
         return reject(err);
       });
@@ -365,42 +390,44 @@ ItemSvc.prototype.getMyOrders = function(num,openId, upOrDown, create_at) {
         var tret = [];
         var toDate = moment().format('yyyy-MM-DD HH:mm');
         Item.find({
-          'bids.openId':openId,
-          'valid.to':{$lt:toDate},
-          'create_at':{$lt:create_at}
+          'bids.openId': openId,
+          'valid.to': {
+            $lt: toDate
+          },
+          'create_at': {
+            $lt: create_at
+          }
         }).sort({
-            create_at: -1
-          }).limit(num).then(docs => {
-          if ( docs.length <= 0 )
+          create_at: -1
+        }).limit(num).then(docs => {
+          if (docs.length <= 0)
             return resolve([]);
-            for(var k = 0 ; k < docs.length ; k++)
-            {
-               var x = JSON.parse(JSON.stringify(docs[k]));
-               var xbid = x.bids;
-               if ( xbid.length > 0 )
-               {
-               tret = _.orderBy(xbid, ["create_at"], ["desc"]);
-               if ( tret[0].openId === openId )
-               {
-                  ret.push({_id: x._id,
-                              author: x.author,
-                              avatar: x.avatar,
-                              bid: tret[0],
-                              bids: x.bids,
-                              create_at: x.create_at,
-                              dimension: x.dimension,
-                              images: x.images,
-                              likes: x.likes,
-                              name: x.name,
-                              nick:x.nick,
-                              price:x.price,
-                              valid:x.valid,
-                              order:x.order
-                          });
-               }
-               }
+          for (var k = 0; k < docs.length; k++) {
+            var x = JSON.parse(JSON.stringify(docs[k]));
+            var xbid = x.bids;
+            if (xbid.length > 0) {
+              tret = _.orderBy(xbid, ["create_at"], ["desc"]);
+              if (tret[0].openId === openId) {
+                ret.push({
+                  _id: x._id,
+                  author: x.author,
+                  avatar: x.avatar,
+                  bid: tret[0],
+                  bids: x.bids,
+                  create_at: x.create_at,
+                  dimension: x.dimension,
+                  images: x.images,
+                  likes: x.likes,
+                  name: x.name,
+                  nick: x.nick,
+                  price: x.price,
+                  valid: x.valid,
+                  order: x.order
+                });
+              }
             }
-            return resolve(ret);
+          }
+          return resolve(ret);
         }).catch(err => {
           return reject(err);
         });
@@ -412,42 +439,44 @@ ItemSvc.prototype.getMyOrders = function(num,openId, upOrDown, create_at) {
         var tret = [];
         var toDate = moment().format('yyyy-MM-DD HH:mm');
         Item.find({
-          'bids.openId':openId,
-          'valid.to':{$lt:toDate},
-          'create_at':{$gt:create_at}
+          'bids.openId': openId,
+          'valid.to': {
+            $lt: toDate
+          },
+          'create_at': {
+            $gt: create_at
+          }
         }).sort({
-            create_at: -1
-          }).limit(num).then(docs => {
-          if ( docs.length <= 0 )
+          create_at: -1
+        }).limit(num).then(docs => {
+          if (docs.length <= 0)
             return resolve([]);
-            for(var k = 0 ; k < docs.length ; k++)
-            {
-               var x = JSON.parse(JSON.stringify(docs[k]));
-               var xbid = x.bids;
-               if ( xbid.length > 0 )
-               {
-               tret = _.orderBy(xbid, ["create_at"], ["desc"]);
-               if ( tret[0].openId === openId )
-               {
-                  ret.push({_id: x._id,
-                              author: x.author,
-                              avatar: x.avatar,
-                              bid: tret[0],
-                              bids: x.bids,
-                              create_at: x.create_at,
-                              dimension: x.dimension,
-                              images: x.images,
-                              likes: x.likes,
-                              name: x.name,
-                              nick:x.nick,
-                              price:x.price,
-                              valid:x.valid,
-                              order:x.order
-                          });
-               }
-               }
+          for (var k = 0; k < docs.length; k++) {
+            var x = JSON.parse(JSON.stringify(docs[k]));
+            var xbid = x.bids;
+            if (xbid.length > 0) {
+              tret = _.orderBy(xbid, ["create_at"], ["desc"]);
+              if (tret[0].openId === openId) {
+                ret.push({
+                  _id: x._id,
+                  author: x.author,
+                  avatar: x.avatar,
+                  bid: tret[0],
+                  bids: x.bids,
+                  create_at: x.create_at,
+                  dimension: x.dimension,
+                  images: x.images,
+                  likes: x.likes,
+                  name: x.name,
+                  nick: x.nick,
+                  price: x.price,
+                  valid: x.valid,
+                  order: x.order
+                });
+              }
             }
-            return resolve(ret);
+          }
+          return resolve(ret);
         }).catch(err => {
           return reject(err);
         });
