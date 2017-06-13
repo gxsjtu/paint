@@ -1,0 +1,18 @@
+{{#extend "stylesheets"}}
+<link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css">
+{{/extend}}
+<div class="content" style="padding-right:5px;">
+    {{#each items}}
+    <div class="row">
+      <div class="row">
+        《{{this.name}}》
+      </div>
+    {{#each this.images}}
+      <div class="row" style="margin-top:3px;">
+        <img src="https://painting.shtx.com.cn/images/upload/{{this}}" style="width:100%;"/>
+      </div>
+    {{/each}}
+      {{this.comment}}
+    </div>
+    {{/each}}
+</div>

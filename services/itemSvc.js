@@ -29,6 +29,26 @@ ItemSvc.prototype.getItemsByOpenId = function(openId) {
   });
 };
 
+ItemSvc.prototype.getShareItemsByOpenId = function(openId) {
+  return new Promise((resolve, reject) => {
+    Item.find({
+      openId: openId,
+      "$and":[{
+        "valid.from":{"$lt": moment()}
+      },{
+        "valid.to":{"$gt": moment()}
+      }]
+    }).sort({
+      create_at: -1
+    }).exec((err, data) => {
+      if (err) {
+        return reject(err);
+      }
+      return resolve(data);
+    });
+  });
+};
+
 ItemSvc.prototype.getItemById = function(id) {
   return new Promise((resolve, reject) => {
     Item.findById(id).then(data => {

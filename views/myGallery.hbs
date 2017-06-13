@@ -43,7 +43,7 @@
   wx.ready(function(){
     wx.onMenuShareTimeline({
       title:'{{items.[0].nick}}' + '的画廊',
-      link:'',
+      link:'/sharePage',
       imgUrl:'https://painting.shtx.com.cn/images/upload/{{this.items.[0].images.[0]}}',
       success: function(){
 
@@ -55,7 +55,7 @@
 
     wx.onMenuShareAppMessage({
       title:'{{items.[0].nick}}' + '的画廊',
-      link:'',
+      link:'/sharePage',
       imgUrl:'https://painting.shtx.com.cn/images/upload/{{this.items.[0].images.[0]}}',
       success: function(){
 
