@@ -11,7 +11,8 @@ router.get('/', oAuth.oAuth, function(req, res, next) {
   var openId = req.query.openId;
   itemSvc.getItemsByOpenId(openId).then(data => {
     res.render("myGallery", {
-      items: data
+      items: data,
+      jssdk: req.jssdk,
     });
   }).catch(err => res.json(new Result(Errors.GetItemsFailed, err)));
 })
