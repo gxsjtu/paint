@@ -8,7 +8,7 @@ var itemSvc = new ItemSvc();
 
 router.use(Jssdk.jssdk);
 
-router.get('/', oAuth.oAuth, function(req, res, next) {
+router.get('/', function(req, res, next) {
   var openId = req.query.openId;
   itemSvc.getShareItemsByOpenId(openId).then(data => {
     res.render("sharePage", {
@@ -17,3 +17,5 @@ router.get('/', oAuth.oAuth, function(req, res, next) {
     });
   }).catch(err => res.json(new Result(Errors.GetItemsFailed, err)));
 })
+
+module.exports = router;

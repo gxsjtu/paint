@@ -1,69 +1,69 @@
 <div class="content" style="padding-right:5px;">
   {{#each items}}
-  <div style="border:1px #eee solid;margin-left:5px;margin-top:5px;" onClick="gotoItem('{{this._id}}')">
-    <div>
-      <img src="https://painting.shtx.com.cn/images/upload/{{this.images.[0]}}" style="width:100%;" class="pic1"/>
-    </div>
-    <div class="row" style="margin-left:0px;margin-right:0px;border-top:1px #f2f2f2 solid;margin-top:1px;">
+    <div style="border:1px #eee solid;margin-left:5px;margin-top:5px;" onClick="gotoItem('{{this._id}}')">
+      <div>
+        <img src="https://painting.shtx.com.cn/images/upload/{{this.images.[0]}}" style="width:100%;" class="pic1" />
+      </div>
+      <div class="row" style="margin-left:0px;margin-right:0px;border-top:1px #f2f2f2 solid;margin-top:1px;">
         <div class="col-xs-4" style="padding-left:0px;padding-right:0px;color:gray;margin-top:10px;margin-bottom:10px;border-right:1px solid #f2f2f2;display:flex;flex-direction:row;justify-content:center;align-items:center;">
-          <img id="imgLike" src="/images/BB_08.png" alt="赞" style="width:20px;height:20px;"/>
+          <img id="imgLike" src="/images/BB_08.png" alt="赞" style="width:20px;height:20px;" />
           <span style="margin-left:2px;color:#bdbdbd;">{{this.likes.length}}</span>
         </div>
         <div class="col-xs-4" style="padding-left:0px;padding-right:0px;color:gray;margin-top:10px;margin-bottom:10px;border-right:1px solid #f2f2f2;display:flex;flex-direction:row;justify-content:center;align-items:center;">
-          <img src="/images/2_07.png" alt="出价次数" style="width:20px;height:20px;"/>
+          <img src="/images/2_07.png" alt="出价次数" style="width:20px;height:20px;" />
           <span style="margin-left:2px;color:#bdbdbd;">{{this.bids.length}}</span>
         </div>
         <div class="col-xs-4" style="padding-left:0px;padding-right:0px;color:gray;margin-top:10px;margin-bottom:10px;border-right:1px solid #f2f2f2;display:flex;flex-direction:row;justify-content:center;align-items:center;">
-           <img src="/images/2_08.png" alt="最高价" style="width:20px;height:20px;"/>
-           <span style="margin-left:2px;color:#bdbdbd;">{{this.price}}</span>
+          <img src="/images/2_08.png" alt="最高价" style="width:20px;height:20px;" />
+          <span style="margin-left:2px;color:#bdbdbd;">{{this.price}}</span>
         </div>
+      </div>
     </div>
-  </div>
   {{/each}}
 </div>
 {{#extend "scripts"}}
-<script>
-  $(function(){
-    alert('{{items.length}}');
-    $(".pic1").each(function(){
-      $(this).load(function(){
-        $(".content").waterfall({
-          colMinWidth:150,
-          defaultContainerWidth:500,
-          autoresize:true
-        });
+  <script>
+    $(function() {
+      $(".pic1").each(function() {
+        $(this).load(function() {
+          $(".content").waterfall({
+            colMinWidth: 150,
+            defaultContainerWidth: 500,
+            autoresize: true
+          });
+        })
       })
     })
-  })
 
-  function gotoItem(id){
-    window.location.href = '/item/'+id;
-  }
+    function gotoItem(id) {
+      window.location.href = '/item/' + id;
+    }
 
-  wx.ready(function(){
-    wx.onMenuShareTimeline({
-      title:'{{items.[0].nick}}' + '的画廊',
-      link:'/sharePage',
-      imgUrl:'https://painting.shtx.com.cn/images/upload/{{this.items.[0].images.[0]}}',
-      success: function(){
+    wx.ready(function() {
+      wx.onMenuShareTimeline({
+        title: '{{items.[0].nick}}' + '的画廊',
+        link: 'https://painting.shtx.com.cn/sharePage',
+        imgUrl: 'https://painting.shtx.com.cn/images/upload/{{this.items.[0].images.[0]}}',
+        success: function() {
 
-      },
-      cancel: function(){
+        },
+        cancel: function() {
 
-      }
-    });
+        }
+      });
 
-    wx.onMenuShareAppMessage({
-      title:'{{items.[0].nick}}' + '的画廊',
-      link:'/sharePage',
-      imgUrl:'https://painting.shtx.com.cn/images/upload/{{this.items.[0].images.[0]}}',
-      success: function(){
+      wx.onMenuShareAppMessage({
+        title: '{{items.[0].nick}}' + '的画廊',
+        link: 'https://painting.shtx.com.cn/sharePage',
+        desc: "亲爱的小伙伴，快来看看吧！",
+        imgUrl: 'https://painting.shtx.com.cn/images/upload/{{this.items.[0].images.[0]}}',
+        success: function() {
 
-      },
-      cancel: function(){
+        },
+        cancel: function() {
 
-      }
+        }
+      })
     })
-  })
-</script>
+  </script>
 {{/extend}}

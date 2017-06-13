@@ -33,14 +33,19 @@ ItemSvc.prototype.getShareItemsByOpenId = function(openId) {
   return new Promise((resolve, reject) => {
     Item.find({
       openId: openId,
-      "$and":[{
-        "valid.from":{"$lt": moment()}
-      },{
-        "valid.to":{"$gt": moment()}
+      "$and": [{
+        "valid.from": {
+          "$lt": moment().format('YYYY-MM-DD HH:mm:ss')
+        }
+      }, {
+        "valid.to": {
+          "$gt": moment().format('YYYY-MM-DD HH:mm:ss')
+        }
       }]
     }).sort({
       create_at: -1
     }).exec((err, data) => {
+      console.log(data);
       if (err) {
         return reject(err);
       }
