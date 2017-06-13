@@ -23,34 +23,8 @@
 </div>
 {{#extend "scripts"}}
 <script>
-  // var imgDatas = [];
-  //   function loadImg(imgs){
-  //     // imgs.each(function(){
-  //     for (var i = 0; i < imgs.length; i++) {
-  //       if(img[i]){
-  //         imgs[i].load(function(){
-  //                         alert(i);
-  //           var ii = imgs.indexOf(imgs[i]);
-  //           // alert(imgs[i]);
-  //           if(ii > -1){
-  //             imgs.splice(ii, 1);
-  //           }
-  //         })
-  //       }
-  //     }
-  //     if(imgs.length > 0){
-  //       // loadImg(imgs);
-  //     }else{
-  //       alert("ii");
-  //       $(".content").waterfall({
-  //         colMinWidth:150,
-  //         defaultContainerWidth:500,
-  //         autoresize:true
-  //       });
-  //     }
-  //   }
-
   $(function(){
+    alert('{{items.length}}');
     $(".pic1").each(function(){
       $(this).load(function(){
         $(".content").waterfall({
@@ -59,22 +33,37 @@
           autoresize:true
         });
       })
-      // imgDatas.push($(this));
     })
-    // var imgs = $(".pic1");
-    // alert(imgDatas);
-    // alert(imgDatas[0]);
-    // loadImg(imgDatas);
-
-    // $(".content").waterfall({
-    //   colMinWidth:150,
-    //   defaultContainerWidth:500,
-    //   autoresize:true
-    // });
   })
 
   function gotoItem(id){
     window.location.href = '/item/'+id;
   }
+
+  wx.ready(function(){
+    wx.onMenuShareTimeline({
+      title:'{{items.[0].nick}}' + '的画廊',
+      link:'',
+      imgUrl:'https://painting.shtx.com.cn/images/upload/{{this.items.[0].images.[0]}}',
+      success: function(){
+
+      },
+      cancel: function(){
+
+      }
+    });
+
+    wx.onMenuShareAppMessage({
+      title:'{{items.[0].nick}}' + '的画廊',
+      link:'',
+      imgUrl:'https://painting.shtx.com.cn/images/upload/{{this.items.[0].images.[0]}}',
+      success: function(){
+
+      },
+      cancel: function(){
+
+      }
+    })
+  })
 </script>
 {{/extend}}
