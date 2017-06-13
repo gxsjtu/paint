@@ -129,7 +129,7 @@
             str += "<div class=\"col-xs-5\" style=\"padding-left:0px;padding-right:0px;\"><div class=\"row\" style=\"background:url('/images/label_01.jpg') no-repeat;height:55px;width:110px;background-size:110px 55px;margin-left:0px;margin-right:0px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;float:right;\"><span style=\"margin-left:30px;\">￥" + datas[i].price + "</span></div></div></div></div></div><div class=\"row\" style=\"margin-left:0px;margin-right:0px;margin-top:10px;\"><div class=\"row\">";
           }
               for (var j = 0; j < datas[i].images.length; j++) {
-                  str += " <div class=\"imgStyle\" style=\"background:url(https://painting.shtx.com.cn/images/upload/" + datas[i].images[j] + ");\"></div>"
+                  str += " <div class=\"imgStyle\" style=\"background:url(https://painting.shtx.com.cn/images/upload/" + datas[i].images[j] + ") no-repeat;background-position:center center;background-size:100% auto;overflow:hidden;\"></div>"
               }
               if(typeStr == "myOrders"){
                 str += "</div><div class=\"row\" style=\"margin-bottom:10px;font-size:14px;margin-top:10px;\"><div class=\"col-xs-12\" style=\"padding-right: 0px;padding-left: 3px;\">《" + datas[i].name + "》</div></div></div></li><div class=\"row option\"><div class=\"col-xs-4 like\"";
@@ -185,7 +185,7 @@
                   str += "<div class=\"col-xs-5\" style=\"padding-left:0px;padding-right:0px;\"><div class=\"row\" style=\"background:url('/images/label_01.jpg') no-repeat;height:55px;width:110px;background-size:110px 55px;margin-left:0px;margin-right:0px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;float:right;\"><span style=\"margin-left:30px;\">￥" + datas[i].price + "</span></div></div></div></div></div><div class=\"row\" style=\"margin-left:0px;margin-right:0px;margin-top:10px;\"><div class=\"row\">";
                 }
                     for (var j = 0; j < datas[i].images.length; j++) {
-                        str += " <div class=\"imgStyle\" style=\"background:url(https://painting.shtx.com.cn/images/upload/" + datas[i].images[j] + ");\"></div>"
+                        str += " <div class=\"imgStyle\" style=\"background:url(https://painting.shtx.com.cn/images/upload/" + datas[i].images[j] + ") no-repeat;background-position:center center;background-size:100% auto;overflow:hidden;\"></div>"
                     }
 
                     if(typeStr == "myOrders"){
