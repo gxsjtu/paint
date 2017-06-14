@@ -1,18 +1,32 @@
 {{#extend "stylesheets"}}
 <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css">
 {{/extend}}
-<div class="content" style="padding-right:5px;padding-left:5px;">
+<div style="background-color:#a3d215;padding-top:20px;padding-bottom:20px;">
+<div class="content" style="margin-right:20px;margin-left:20px;background-color:#d0e889;border-radius:5px;">
     {{#each items}}
-    <div class="row" style="margin-left:0px;margin-right:0px;margin-top:10px;">
-      <div style="display:flex;flex-direction:row;align-items:center;justify-content:center;width:100%;font-size:18px;">
+    <div class="row" style="margin-left:0px;margin-right:0px;padding-left:5px;padding-right:5px;">
+      <div style="display:flex;flex-direction:row;align-items:center;justify-content:center;width:100%;font-size:20px;color:#315600;padding-top:10px;font-weight:bold;">
         《{{this.name}}》
       </div>
     {{#each this.images}}
-      <div style="margin-top:3px;margin-bottom:3px;">
+      <div style="margin-top:5px;margin-bottom:5px;">
         <img src="https://painting.shtx.com.cn/images/upload/{{this}}" style="width:100%;"/>
       </div>
     {{/each}}
-      {{this.comment}}
+      <div style="width:100%;color:#315600;font-size:16px;">
+        {{this.type}} {{this.catalog}}
+      </div>
+      <div style="width:100%;color:#315600;font-size:16px;">
+        {{this.dimension.width}}<span style="font-size:13px;">cm X</span> {{this.dimension.height}}<span style="font-size:13px;">cm</span>
+      </div>
+      <div style="width:100%;color:#315600;margin-bottom:5px;">
+        {{this.comment}}
+      </div>
+    </div>
+    <div style="height:5px;background-color:#a3d215;">
+
     </div>
     {{/each}}
+</div>
+
 </div>
