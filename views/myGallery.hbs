@@ -50,8 +50,8 @@
 {{/extend}}
 
 <ul class="nav nav-pills" style="display:flex;justify-content:center;margin-top:10px;">
-  <li role="presentation" class="active" data-type="1"><a href="#">未开始</a></li>
-  <li role="presentation" data-type="2"><a href="#">进行中</a></li>
+  <li role="presentation" data-type="1"><a href="#">未开始</a></li>
+  <li role="presentation" class="active" data-type="2"><a href="#">进行中</a></li>
   <li role="presentation" data-type="3"><a href="#">已结束</a></li>
 </ul>
 
@@ -140,6 +140,18 @@
             right.append(priceSpan);
 
             $(".content").append(itemContainer);
+
+
+            $(".pic1").each(function() {
+              $(this).load(function() {
+                $(".content").waterfall({
+                  colMinWidth: 150,
+                  defaultContainerWidth: 500,
+                  autoresize: true
+                });
+              })
+            })
+
           }
 
         });

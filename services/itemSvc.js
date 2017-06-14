@@ -30,12 +30,12 @@ ItemSvc.prototype.getItemsByOpenId = function(openId) {
 };
 
 ItemSvc.prototype.getShareItemsByOpenId = function(openId,type) {
+  console.log(type);
   if(type == 1){
     //未开始
     return new Promise((resolve, reject) => {
       Item.find({
         openId: openId,
-
           "valid.from": {
             "$gt": moment().format('YYYY-MM-DD HH:mm')
           }
@@ -83,7 +83,7 @@ ItemSvc.prototype.getShareItemsByOpenId = function(openId,type) {
         openId: openId,
           "valid.to": {
             "$lt": moment().format('YYYY-MM-DD HH:mm')
-          }  
+          }
       }).sort({
         create_at: -1
       }).exec((err, data) => {
