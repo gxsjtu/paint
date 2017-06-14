@@ -10,7 +10,7 @@ router.use(Jssdk.jssdk);
 
 router.get('/', function(req, res, next) {
   var openId = req.query.openId;
-  itemSvc.getShareItemsByOpenId(openId).then(data => {
+  itemSvc.getShareItemsByOpenId(openId,2).then(data => {
     res.render("sharePage", {
       items: data,
       jssdk: req.jssdk,
