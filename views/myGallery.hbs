@@ -51,8 +51,8 @@
 
 <ul class="nav nav-pills" style="display:flex;justify-content:center;margin-top:10px;">
   <li role="presentation" class="active" data-type="1"><a href="#">未开始</a></li>
-  <li role="presentation" data-type="1"><a href="#">进行中</a></li>
-  <li role="presentation" data-type="1"><a href="#">已结束</a></li>
+  <li role="presentation" data-type="2"><a href="#">进行中</a></li>
+  <li role="presentation" data-type="3"><a href="#">已结束</a></li>
 </ul>
 
 <div class="content" style="padding-right:5px;">
@@ -63,7 +63,7 @@
       </div>
       <div class="row rowContainer">
         <div class="col-xs-4 left">
-          <img id="imgLike" src="/images/BB_08.png" />
+          <img class="imgLike" src="/images/BB_08.png" />
           <span>{{this.likes.length}}</span>
         </div>
         <div class="col-xs-4 center">
@@ -96,8 +96,52 @@
         $(this).addClass("active");
         var type = $(this).data("type");
 
-        $.get("/getMyGalleryByType/"+type,function(data){
+        $.get("/myGallery/getMyGalleryByType/"+type,function(data){
           console.log(data);
+          $(".content").empty();
+          for (var i = 0; i < data.length; i++) {
+            var itemContainer = $("<div onClick=\"gotoItem('"+data[i]._id+"')\"></div>");
+            itemContainer.addClass("itemContainer");
+
+            var pic1Container = $("<div></div>");
+            var pic1 = $("<img />");
+            pic1.addClass("pic1");
+            pic1.attr("src","https://painting.shtx.com.cn/images/upload/"+data[i].images[0]);
+
+            pic1Container.append(pic1);
+            itemContainer.append(pic1Container);
+
+            var row = $("<div></div>");
+            row.addClass("row rowContainer");
+            itemContainer.append(row);
+
+            var left = $("<div></div>");
+            left.addClass("col-xs-4 left");
+            row.append(left);
+            var like = $("<img class=\"imgLike\" src=\"/images/BB_08.png\" />");
+            var likeSpan = $("<span>"+data[i].likes.length+"</span>");
+            left.append(like);
+            left.append(likeSpan);
+
+            var center = $("<div></div>");
+            center.addClass("col-xs-4 center");
+            row.append(center);
+            var bid = $("<img src=\"/images/2_07.png\" />");
+            var bidSpan = $("<span>"+data[i].bids.length+"</span>");
+            center.append(bid);
+            center.append(bidSpan);
+
+            var right = $("<div></div>");
+            right.addClass("col-xs-4 right");
+            row.append(right);
+            var price = $("<img src=\"/images/2_08.png\" />");
+            var priceSpan = $("<span>"+data[i].price+"</span>");
+            right.append(price);
+            right.append(priceSpan);
+
+            $(".content").append(itemContainer);
+          }
+
         });
 
         return false;
