@@ -8,7 +8,7 @@ var itemSvc = new ItemSvc();
 
 router.use(Jssdk.jssdk);
 
-router.get('/getMyGalleryByType/:type', oAuth.oAuth, function(req, res, next) {
+router.get('/getMyGalleryByType/:type', function(req, res, next) {
   var openId = req.query.openId;
   var type = req.params.type;
 
