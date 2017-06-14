@@ -127,6 +127,12 @@
     <script>
     var catalogSelected = [];
     var typeSelected = [];
+
+
+      function setFocus(){
+        $("#inputSearch").trigger("focus");
+      }
+
     $(function(){
       $("#inputSearch").focus();
 
@@ -160,7 +166,7 @@
         window.location.href="/todayMore/search/"+type+"/"+catalog+"/"+key;
         return false;
       });
-
+      setFocus();
     })
 
     </script>
