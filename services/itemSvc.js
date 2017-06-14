@@ -5,10 +5,23 @@ var Item = require('../models/item.js');
 const _ = require('lodash');
 const Global = require('../global.js');
 var WechatAPI = require('wechat-api');
-var api = new WechatAPI(Global.appId, Global.appSecret);
 const fs = require('fs');
 const moment = require('moment');
 const UserSvc = require('../services/userSvc.js');
+
+var api = new WechatAPI(Global.appId, Global.appSecret, function(callback) {
+  // 传入一个获取全局token的方法
+  fs.readFile(__dirname + '/access_token.txt', 'utf8', function(err, txt) {
+    if (err) {
+      return callback(err);
+    }
+    callback(null, JSON.parse(txt));
+  });
+}, function(token, callback) {
+  // 请将token存储到全局，跨进程、跨机器级别的全局，比如写到数据库、redis等
+  // 这样才能在cluster模式及多机情况下使用，以下为写入到文件的示例
+  fs.writeFile(__dirname + '/access_token.txt', JSON.stringify(token), callback);
+});
 
 var ItemSvc = function() {
 
@@ -29,16 +42,16 @@ ItemSvc.prototype.getItemsByOpenId = function(openId) {
   });
 };
 
-ItemSvc.prototype.getShareItemsByOpenId = function(openId,type) {
+ItemSvc.prototype.getShareItemsByOpenId = function(openId, type) {
   console.log(type);
-  if(type == 1){
+  if (type == 1) {
     //未开始
     return new Promise((resolve, reject) => {
       Item.find({
         openId: openId,
-          "valid.from": {
-            "$gt": moment().format('YYYY-MM-DD HH:mm')
-          }
+        "valid.from": {
+          "$gt": moment().format('YYYY-MM-DD HH:mm')
+        }
 
       }).sort({
         create_at: -1
@@ -50,8 +63,7 @@ ItemSvc.prototype.getShareItemsByOpenId = function(openId,type) {
         return resolve(data);
       });
     });
-  }
-  else if(type == 2){
+  } else if (type == 2) {
     //进行中
     return new Promise((resolve, reject) => {
       Item.find({
@@ -75,15 +87,14 @@ ItemSvc.prototype.getShareItemsByOpenId = function(openId,type) {
         return resolve(data);
       });
     });
-  }
-  else if(type == 3){
+  } else if (type == 3) {
     //已结束
     return new Promise((resolve, reject) => {
       Item.find({
         openId: openId,
-          "valid.to": {
-            "$lt": moment().format('YYYY-MM-DD HH:mm')
-          }
+        "valid.to": {
+          "$lt": moment().format('YYYY-MM-DD HH:mm')
+        }
       }).sort({
         create_at: -1
       }).exec((err, data) => {
@@ -94,8 +105,7 @@ ItemSvc.prototype.getShareItemsByOpenId = function(openId,type) {
         return resolve(data);
       });
     });
-  }
-  else{
+  } else {
     return new Promise((resolve, reject) => {
       Item.find({
         openId: openId,
