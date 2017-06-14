@@ -4,34 +4,75 @@
   padding-top:5px;
   padding-bottom:5px;
 }
+.itemContainer{
+  border:1px #eee solid;
+  margin-left:5px;
+  margin-top:5px;
+}
+
+.rowContainer{
+  margin-left:0px;
+  margin-right:0px;
+  border-top:1px #f2f2f2 solid;
+  margin-top:1px;
+}
+
+.left,.center,.right{
+  padding-left:0px;
+  padding-right:0px;
+  color:gray;
+  margin-top:10px;
+  margin-bottom:10px;
+  border-right:1px solid #f2f2f2;
+  display:flex;
+  flex-direction:row;
+  justify-content:center;
+  align-items:center;
+}
+
+.rowContainer img{
+  width:20px;
+  height:20px;
+}
+
+.rowContainer span{
+  margin-left:2px;
+  color:#bdbdbd;
+}
+
+.pic1{
+  width:100%;
+}
+
+
 </style>
 
 {{/extend}}
 
 <ul class="nav nav-pills" style="display:flex;justify-content:center;margin-top:10px;">
-  <li role="presentation" class="active"><a href="#">未开始</a></li>
-  <li role="presentation"><a href="#">进行中</a></li>
-  <li role="presentation"><a href="#">已结束</a></li>
+  <li role="presentation" class="active" data-type="1"><a href="#">未开始</a></li>
+  <li role="presentation" data-type="1"><a href="#">进行中</a></li>
+  <li role="presentation" data-type="1"><a href="#">已结束</a></li>
 </ul>
 
 <div class="content" style="padding-right:5px;">
   {{#each items}}
-    <div style="border:1px #eee solid;margin-left:5px;margin-top:5px;" onClick="gotoItem('{{this._id}}')">
+    <div class="itemContainer" onClick="gotoItem('{{this._id}}')">
       <div>
-        <img src="https://painting.shtx.com.cn/images/upload/{{this.images.[0]}}" style="width:100%;" class="pic1" />
+        <img src="https://painting.shtx.com.cn/images/upload/{{this.images.[0]}}" class="pic1" />
       </div>
-      <div class="row" style="margin-left:0px;margin-right:0px;border-top:1px #f2f2f2 solid;margin-top:1px;">
-        <div class="col-xs-4" style="padding-left:0px;padding-right:0px;color:gray;margin-top:10px;margin-bottom:10px;border-right:1px solid #f2f2f2;display:flex;flex-direction:row;justify-content:center;align-items:center;">
-          <img id="imgLike" src="/images/BB_08.png" alt="赞" style="width:20px;height:20px;" />
-          <span style="margin-left:2px;color:#bdbdbd;">{{this.likes.length}}</span>
+      <div class="row rowContainer">
+        <div class="col-xs-4 left">
+          <img id="imgLike" src="/images/BB_08.png" />
+          <span>{{this.likes.length}}</span>
         </div>
-        <div class="col-xs-4" style="padding-left:0px;padding-right:0px;color:gray;margin-top:10px;margin-bottom:10px;border-right:1px solid #f2f2f2;display:flex;flex-direction:row;justify-content:center;align-items:center;">
-          <img src="/images/2_07.png" alt="出价次数" style="width:20px;height:20px;" />
-          <span style="margin-left:2px;color:#bdbdbd;">{{this.bids.length}}</span>
+        <div class="col-xs-4 center">
+          <img src="/images/2_07.png" />
+          <span>{{this.bids.length}}</span>
         </div>
-        <div class="col-xs-4" style="padding-left:0px;padding-right:0px;color:gray;margin-top:10px;margin-bottom:10px;border-right:1px solid #f2f2f2;display:flex;flex-direction:row;justify-content:center;align-items:center;">
-          <img src="/images/2_08.png" alt="最高价" style="width:20px;height:20px;" />
-          <span style="margin-left:2px;color:#bdbdbd;">{{this.price}}</span>
+        <div class="col-xs-4 right">
+          <img src="/images/2_08.png" />
+          <span>{{this.price}}</span>
         </div>
       </div>
     </div>
@@ -48,6 +89,13 @@
             autoresize: true
           });
         })
+      })
+
+      $(".nav li").on("click",function(){
+        $(".active").removeClass("active");
+        $(this).addClass("active");
+        var type = $(this).data("type");
+        return false;
       })
     })
 

@@ -6,9 +6,9 @@ const ItemSvc = require('../services/itemSvc.js');
 const Errors = require('../services/error.js');
 var itemSvc = new ItemSvc();
 
-router.use(Jssdk.jssdk);
-router.get('/', oAuth.oAuth, function(req, res, next) {
-  var openId = req.query.openId;
+// router.use(Jssdk.jssdk);
+router.get('/', function(req, res, next) {
+  var openId = 'o9nEBjwL7fxFLngQFPszSw8XRfPc';
   itemSvc.getItemsByOpenId(openId).then(data => {
     res.render("myGallery", {
       items: data,
