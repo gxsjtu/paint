@@ -1,14 +1,14 @@
 {{#extend "stylesheets"}}
 <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css">
 {{/extend}}
-<div class="content" style="padding-right:5px;">
+<div class="content" style="padding-right:5px;padding-left:5px;">
     {{#each items}}
-    <div class="row">
-      <div class="row">
+    <div class="row" style="margin-left:0px;margin-right:0px;margin-top:10px;">
+      <div style="display:flex;flex-direction:row;align-items:center;justify-content:center;width:100%;font-size:18px;">
         《{{this.name}}》
       </div>
     {{#each this.images}}
-      <div class="row" style="margin-top:3px;">
+      <div style="margin-top:3px;margin-bottom:3px;">
         <img src="https://painting.shtx.com.cn/images/upload/{{this}}" style="width:100%;"/>
       </div>
     {{/each}}
