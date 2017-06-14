@@ -4,10 +4,33 @@ const Promise = require('promise');
 var Item = require('../models/item.js');
 const _ = require('lodash');
 const Global = require('../global.js');
+var WechatAPI = require('wechat-api');
 const fs = require('fs');
 const moment = require('moment');
 const UserSvc = require('../services/userSvc.js');
-const api = require('../services/apiWrapper.js');
+const Parameter = require('../models/parameter.js');
+
+var api = new WechatAPI(Global.appId, Global.appSecret, function(callback) {
+    Parameter.findOne({}, (err, data) => {
+      if (err || !data) {
+        return callback(err);
+      }
+      return callback(null, JSON.parse(data.token));
+    });
+  },
+  function(token, callback) {
+    Parameter.findOneAndUpdate({}, {
+      token: JSON.stringify(token),
+      updated: moment().format('YYYY-MM-DD HH:mm:ss')
+    }, {
+      upsert: true,
+      new: true
+    }, (err, data) => {
+      if (err) {
+        console.log(err);
+      }
+    });
+  });
 
 var ItemSvc = function() {
 
@@ -29,6 +52,7 @@ ItemSvc.prototype.getItemsByOpenId = function(openId) {
 };
 
 ItemSvc.prototype.getShareItemsByOpenId = function(openId, type) {
+  console.log(type);
   if (type == 1) {
     //未开始
     return new Promise((resolve, reject) => {
