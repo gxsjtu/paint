@@ -95,6 +95,11 @@
         $(".active").removeClass("active");
         $(this).addClass("active");
         var type = $(this).data("type");
+
+        $.get("/getMyGalleryByType/"+type,function(data){
+          console.log(data);
+        });
+
         return false;
       })
     })

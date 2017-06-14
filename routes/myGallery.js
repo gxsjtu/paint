@@ -9,10 +9,21 @@ var itemSvc = new ItemSvc();
 router.use(Jssdk.jssdk);
 router.get('/', oAuth.oAuth, function(req, res, next) {
   var openId = req.query.openId;
-  itemSvc.getItemsByOpenId(openId).then(data => {
+  itemSvc.getItemsByOpenId(openId,2).then(data => {
     res.render("myGallery", {
       items: data,
-      jssdk: req.jssdk,
+      jssdk: req.jssdk
+    });
+  }).catch(err => res.json(new Result(Errors.GetItemsFailed, err)));
+})
+
+router.get('/getMyGalleryByType/:type', oAuth.oAuth, function(req, res, next) {
+  var openId = req.query.openId;
+  var type = req.params.type;
+  itemSvc.getItemsByOpenId(openId,type).then(data => {
+    res.render("myGallery", {
+      items: data,
+      jssdk: req.jssdk
     });
   }).catch(err => res.json(new Result(Errors.GetItemsFailed, err)));
 })
