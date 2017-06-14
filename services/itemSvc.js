@@ -29,29 +29,96 @@ ItemSvc.prototype.getItemsByOpenId = function(openId) {
   });
 };
 
-ItemSvc.prototype.getShareItemsByOpenId = function(openId) {
-  return new Promise((resolve, reject) => {
-    Item.find({
-      openId: openId,
-      "$and": [{
-        "valid.from": {
-          "$lt": moment().format('YYYY-MM-DD HH:mm:ss')
+ItemSvc.prototype.getShareItemsByOpenId = function(openId,type) {
+  if(type == 1){
+    //未开始
+    return new Promise((resolve, reject) => {
+      Item.find({
+        openId: openId,
+
+          "valid.from": {
+            "$gt": moment().format('YYYY-MM-DD HH:mm')
+          }
+
+      }).sort({
+        create_at: -1
+      }).exec((err, data) => {
+        console.log(data);
+        if (err) {
+          return reject(err);
         }
-      }, {
-        "valid.to": {
-          "$gt": moment().format('YYYY-MM-DD HH:mm:ss')
-        }
-      }]
-    }).sort({
-      create_at: -1
-    }).exec((err, data) => {
-      console.log(data);
-      if (err) {
-        return reject(err);
-      }
-      return resolve(data);
+        return resolve(data);
+      });
     });
-  });
+  }
+  else if(type == 2){
+    //进行中
+    return new Promise((resolve, reject) => {
+      Item.find({
+        openId: openId,
+        "$and": [{
+          "valid.from": {
+            "$lt": moment().format('YYYY-MM-DD HH:mm:ss')
+          }
+        }, {
+          "valid.to": {
+            "$gt": moment().format('YYYY-MM-DD HH:mm:ss')
+          }
+        }]
+      }).sort({
+        create_at: -1
+      }).exec((err, data) => {
+        console.log(data);
+        if (err) {
+          return reject(err);
+        }
+        return resolve(data);
+      });
+    });
+  }
+  else if(type == 3){
+    //已结束
+    return new Promise((resolve, reject) => {
+      Item.find({
+        openId: openId,
+          "valid.to": {
+            "$lt": moment().format('YYYY-MM-DD HH:mm')
+          }  
+      }).sort({
+        create_at: -1
+      }).exec((err, data) => {
+        console.log(data);
+        if (err) {
+          return reject(err);
+        }
+        return resolve(data);
+      });
+    });
+  }
+  else{
+    return new Promise((resolve, reject) => {
+      Item.find({
+        openId: openId,
+        "$and": [{
+          "valid.from": {
+            "$lt": moment().format('YYYY-MM-DD HH:mm:ss')
+          }
+        }, {
+          "valid.to": {
+            "$gt": moment().format('YYYY-MM-DD HH:mm:ss')
+          }
+        }]
+      }).sort({
+        create_at: -1
+      }).exec((err, data) => {
+        console.log(data);
+        if (err) {
+          return reject(err);
+        }
+        return resolve(data);
+      });
+    });
+  }
 };
 
 ItemSvc.prototype.getItemById = function(id) {
