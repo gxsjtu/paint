@@ -44,16 +44,56 @@
   width:100%;
 }
 
+.menuContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.menu{
+  border: 1px solid blue;
+  padding: 5px 15px;
+  color: blue;
+}
+
+.menu:first-child{
+  border-right-width: 0px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.menu:last-child{
+  border-left-width: 0px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.menuContainer .active{
+  background: blue;
+  color: white;
+}
 
 </style>
 
 {{/extend}}
 
-<ul class="nav nav-pills" style="display:flex;justify-content:center;margin-top:10px;">
+<!-- <ul class="nav nav-pills" style="display:flex;justify-content:center;margin-top:10px;">
   <li role="presentation" data-type="1"><a href="#">未开始</a></li>
   <li role="presentation" class="active" data-type="2"><a href="#">进行中</a></li>
   <li role="presentation" data-type="3"><a href="#">已结束</a></li>
-</ul>
+</ul> -->
+<div class="menuContainer">
+  <div class="menu" data-type="1">
+    未开始
+  </div>
+  <div class="menu active" data-type="2">
+    进行中
+  </div>
+  <div class="menu" data-type="3">
+    已结束
+  </div>
+</div>
 
 <div class="content" style="padding-right:5px;">
   {{#each items}}
@@ -91,7 +131,7 @@
         })
       })
 
-      $(".nav li").on("click",function(){
+      $(".menu").on("click",function(){
         $(".active").removeClass("active");
         $(this).addClass("active");
         var type = $(this).data("type");
