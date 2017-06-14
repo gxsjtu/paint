@@ -1,3 +1,19 @@
+{{#extend "stylesheets"}}
+<style>
+.nav>li>a{
+  padding-top:5px;
+  padding-bottom:5px;
+}
+</style>
+
+{{/extend}}
+
+<ul class="nav nav-pills" style="display:flex;justify-content:center;margin-top:10px;">
+  <li role="presentation" class="active"><a href="#">未开始</a></li>
+  <li role="presentation"><a href="#">进行中</a></li>
+  <li role="presentation"><a href="#">已结束</a></li>
+</ul>
+
 <div class="content" style="padding-right:5px;">
   {{#each items}}
     <div style="border:1px #eee solid;margin-left:5px;margin-top:5px;" onClick="gotoItem('{{this._id}}')">
