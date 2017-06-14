@@ -121,6 +121,7 @@
 </div>
 {{#extend "scripts"}}
   <script>
+  var openId = '{{openId}}';
     $(function() {
       $(".pic1").each(function() {
         $(this).load(function() {
@@ -137,7 +138,7 @@
         $(this).addClass("active");
         var type = $(this).data("type");
 
-        $.get("/myGallery/getMyGalleryByType/"+type,function(data){
+        $.get("/myGallery/getMyGalleryByType/"+type+"?openId="+openId,function(data){
           console.log(data);
           $(".content").empty();
           for (var i = 0; i < data.length; i++) {
