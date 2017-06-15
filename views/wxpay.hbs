@@ -93,8 +93,16 @@
 
 {{#extend "scripts"}}
     <script>
+        var hasAddress = false;
         $(function() {
             $("#btnPay").on("click", function() {
+              if(!hasAddress){
+                notie.alert({
+                  type: 3,
+                  text: "请输入收货地址"
+                });
+                return false;
+              }
               $(this).attr("disabled","disabled");
                 WeixinJSBridge.invoke(
                     "getBrandWCPayRequest", {{{payargs}}},function(res) {
@@ -135,6 +143,7 @@
                         $(".addressText").css("fontSize","small");
                         $(".addressText .detail").text(address);
                         $(".addressText .user").text(user);
+                        hasAddress = true;
                     },
                     fail:function(err){
                       alert('fail'+JSON.stringify(err));
