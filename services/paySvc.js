@@ -18,12 +18,12 @@ var wxpay = WXPay({
 
 var PaySvc = function() {};
 
-PaySvc.prototype.getBrandWCPayRequestParams = function(openId, itemId, price) {
+PaySvc.prototype.getBrandWCPayRequestParams = function(openId, itemId, price, name, author) {
   return new Promise((resolve, reject) => {
     wxpay.getBrandWCPayRequestParams({
       openid: openId,
-      body: '公众号支付测试body',
-      detail: '公众号支付测试detail',
+      body: name + 'by' + author,
+      detail: '书画微展',
       out_trade_no: itemId + '_' + randomstring.generate(6),
       total_fee: price,
       notify_url: Global.server + '/wxpay/notify'
