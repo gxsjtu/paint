@@ -1,7 +1,14 @@
 {{#extend "stylesheets"}}
 <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css">
 {{/extend}}
-<div style="background-color:#d0d215;padding-top:20px;padding-bottom:20px;">
+{{#if isFull}}
+<div style="background-color:#d0d215;padding-top:20px;padding-bottom:20px;height:100vh;">
+  {{else}}
+  <div style="background-color:#d0d215;padding-top:20px;padding-bottom:20px;">
+    {{/if}}
+    <div style="display:flex;flex-direction:row;align-items:center;justify-content:center;width:100%;font-size:22px;color:#315600;margin-top:5px;font-weight:bold;">
+        {{items.[0].nick}}的画廊
+    </div>
 <div class="content" style="margin-right:20px;margin-left:20px;background-color:#ebeca1;border-radius:5px;">
     {{#each items}}
     <div class="row" style="margin-left:0px;margin-right:0px;padding-left:10px;padding-right:10px;">
@@ -16,9 +23,6 @@
       <div style="width:100%;color:#315600;font-size:18px;">
         {{this.type}} {{this.catalog}} {{this.dimension.width}}<span style="font-size:13px;">cm X</span> {{this.dimension.height}}<span style="font-size:13px;">cm</span>
       </div>
-      <!-- <div style="width:100%;color:#315600;font-size:16px;">
-        {{this.dimension.width}}<span style="font-size:13px;">cm X</span> {{this.dimension.height}}<span style="font-size:13px;">cm</span>
-      </div> -->
       <div style="width:100%;color:#315600;margin-bottom:5px;font-size:18px;">
         {{this.comment}}
       </div>
