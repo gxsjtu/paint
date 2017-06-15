@@ -1,10 +1,12 @@
 body {
-    background: #fff;
+    /*background: #fff;*/
     font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
     font-size: 14px;
-    color:#000;
+    /*color:#000;*/
     margin: 0;
     padding: 0;
+    background: #ebeca1;
+    color: #315600;
 }
 .mySegment{
   width: 100%;
@@ -17,7 +19,8 @@ body {
 .segmentItem{
   width: 48%;
   text-align: center;
-  color: #c4c4c4;
+  /*color: #c4c4c4;*/
+  color: dimgray;
 }
 
 .segmentSplit{
@@ -27,7 +30,8 @@ body {
 }
 
 .segmentItem.active{
-  color: #ab4255;
+  /*color: #ab4255;*/
+  color: red;
 }
 
 .segmentContainer{
