@@ -211,7 +211,7 @@
     wx.ready(function() {
       wx.onMenuShareTimeline({
         title: '{{items.[0].nick}}' + '的画廊',
-        link: 'https://painting.shtx.com.cn/sharePage?openId=' + '{{this.items.[0].openId}}',
+        link: 'https://painting.shtx.com.cn/sharePage?option=gallery&openId=' + '{{this.items.[0].openId}}',
         imgUrl: 'https://painting.shtx.com.cn/images/upload/{{this.items.[0].images.[0]}}',
         success: function() {
 
@@ -223,7 +223,7 @@
 
       wx.onMenuShareAppMessage({
         title: '{{items.[0].nick}}' + '的画廊',
-        link: 'https://painting.shtx.com.cn/sharePage?openId=' + '{{this.items.[0].openId}}',
+        link: 'https://painting.shtx.com.cn/sharePage?option=gallery&openId=' + '{{this.items.[0].openId}}',
         desc: "亲爱的小伙伴，快来看看吧！",
         imgUrl: 'https://painting.shtx.com.cn/images/upload/{{this.items.[0].images.[0]}}',
         success: function() {

@@ -4,22 +4,22 @@
 <div style="background-color:#d0d215;padding-top:20px;padding-bottom:20px;">
 <div class="content" style="margin-right:20px;margin-left:20px;background-color:#ebeca1;border-radius:5px;">
     {{#each items}}
-    <div class="row" style="margin-left:0px;margin-right:0px;padding-left:5px;padding-right:5px;">
+    <div class="row" style="margin-left:0px;margin-right:0px;padding-left:10px;padding-right:10px;">
       <div style="display:flex;flex-direction:row;align-items:center;justify-content:center;width:100%;font-size:20px;color:#315600;padding-top:10px;font-weight:bold;">
         《{{this.name}}》
       </div>
     {{#each this.images}}
-      <div style="margin-top:5px;margin-bottom:5px;">
+      <div style="margin-top:15px;margin-bottom:15px;">
         <img src="https://painting.shtx.com.cn/images/upload/{{this}}" style="width:100%;"/>
       </div>
     {{/each}}
-      <div style="width:100%;color:#315600;font-size:16px;">
-        {{this.type}} {{this.catalog}}
+      <div style="width:100%;color:#315600;font-size:18px;">
+        {{this.type}} {{this.catalog}} {{this.dimension.width}}<span style="font-size:13px;">cm X</span> {{this.dimension.height}}<span style="font-size:13px;">cm</span>
       </div>
-      <div style="width:100%;color:#315600;font-size:16px;">
+      <!-- <div style="width:100%;color:#315600;font-size:16px;">
         {{this.dimension.width}}<span style="font-size:13px;">cm X</span> {{this.dimension.height}}<span style="font-size:13px;">cm</span>
-      </div>
-      <div style="width:100%;color:#315600;margin-bottom:5px;">
+      </div> -->
+      <div style="width:100%;color:#315600;margin-bottom:5px;font-size:18px;">
         {{this.comment}}
       </div>
     </div>

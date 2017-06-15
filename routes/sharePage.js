@@ -9,13 +9,24 @@ var itemSvc = new ItemSvc();
 router.use(Jssdk.jssdk);
 
 router.get('/', function(req, res, next) {
-  var openId = req.query.openId;
-  itemSvc.getShareItemsByOpenId(openId,2).then(data => {
-    res.render("sharePage", {
-      items: data,
-      jssdk: req.jssdk,
-    });
-  }).catch(err => res.json(new Result(Errors.GetItemsFailed, err)));
+  var option = req.query.option;
+  if(option == 'detail'){
+    var itemId = req.query.itemId;
+    itemSvc.getItemById(itemId).then(data => {
+      res.render("sharePage", {
+        items: data,
+        jssdk: req.jssdk,
+      }).catch(err => res.json(new Result(Errors.GetItemsFailed, err)));
+    })
+  }else{
+    var openId = req.query.openId;
+    itemSvc.getShareItemsByOpenId('o9nEBj8ZJ5qzbmWmP1Ypv3wm-CGw',2).then(data => {
+      res.render("sharePage", {
+        items: data,
+        jssdk: req.jssdk,
+      });
+    }).catch(err => res.json(new Result(Errors.GetItemsFailed, err)));
+  }
 })
 
 module.exports = router;
