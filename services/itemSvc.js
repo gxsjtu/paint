@@ -294,7 +294,9 @@ ItemSvc.prototype.save = function(name, author, width, height, comment, type, ca
   item.name = name;
   item.author = author;
   item.catalog = catalog;
+  console.log(comment);
   item.comment = comment;
+  console.log(item.comment);
   item.type = type;
   item.price = price;
   item.dimension = {
