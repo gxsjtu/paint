@@ -112,13 +112,17 @@
                               location.replace('/todayMore/myOrders');
                             },1500);
                         }
+                        else if(res.err_msg == "get_brand_wcpay_request:cancel"){
+                          $("#btnPay").removeAttr("disabled");
+                        }
                         else{
-                          $(this).removeAttr("disabled");
+                          $("#btnPay").removeAttr("disabled");
                           notie.alert({
                             type: 3,
                             text: "支付失败，请重试"
                           });
                         }
+
                     });
             });
         });
