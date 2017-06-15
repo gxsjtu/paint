@@ -29,7 +29,6 @@ router.post('/saveItem', function(req, res, next) {
   var name = req.body.name;
   var author = req.body.author;
   var catalog = req.body.catalog;
-  console.log(req.body.comment);
   var comment = req.body.comment;
   var type = req.body.type;
   var price = req.body.price;
