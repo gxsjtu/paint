@@ -1,13 +1,18 @@
 {{#extend "stylesheets"}}
 <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css">
+<style>
+  body{
+    background-color:#d0d215;
+  }
+</style>
 {{/extend}}
 <!-- {{#if isFull}}
 <div style="background-color:#d0d215;padding-top:20px;padding-bottom:20px;height:100vh;">
   {{else}}
   <div style="background-color:#d0d215;padding-top:20px;padding-bottom:20px;">
     {{/if}} -->
-<div style="background-color:#d0d215;padding-top:20px;padding-bottom:20px;">
-    <div style="display:flex;flex-direction:row;align-items:center;justify-content:center;width:100%;font-size:22px;color:#315600;margin-top:5px;font-weight:bold;">
+<div style="background-color:#d0d215;padding-bottom:20px;">
+    <div style="display:flex;flex-direction:row;align-items:center;justify-content:center;width:100%;font-size:22px;color:#315600;margin-top:10px;margin-bottom:10px;font-weight:bold;">
         {{items.[0].nick}}的画廊
     </div>
 <div class="content" style="margin-right:20px;margin-left:20px;background-color:#ebeca1;border-radius:5px;">
