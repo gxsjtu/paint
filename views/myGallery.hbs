@@ -77,6 +77,11 @@
   color: white;
 }
 
+.rotate{
+  transform: rotate(-45deg);
+  display: none;
+}
+
 </style>
 
 {{/extend}}
@@ -101,8 +106,17 @@
 <div class="content" style="padding-right:5px;">
   {{#each items}}
     <div class="itemContainer" onClick="gotoItem('{{this._id}}')">
-      <div>
+      <div style="position:relative;">
         <img src="https://painting.shtx.com.cn/images/upload/{{this.images.[0]}}" class="pic1" />
+        <!-- {{#if this.bids.length }}
+          <div style="width:172px;height:100px;">
+            <img src="/images/成交.png" style="width:100%;"/>
+          </div>
+          {{else}}
+          <div style="width:172px;height:100px;">
+            <img src="/images/流标.png" style="width:100%;"/>
+          </div>
+        {{/if}} -->
       </div>
       <div class="row rowContainer">
         <div class="col-xs-4 left">
@@ -143,16 +157,45 @@
         $.get("/myGallery/getMyGalleryByType/"+type+"?openId="+openId,function(data){
           console.log(data);
           $(".content").empty();
+          var width = $(document.body).width()/4;
           for (var i = 0; i < data.length; i++) {
             var itemContainer = $("<div onClick=\"gotoItem('"+data[i]._id+"')\"></div>");
             itemContainer.addClass("itemContainer");
 
             var pic1Container = $("<div></div>");
+            pic1Container.css("position","relative");
             var pic1 = $("<img />");
             pic1.addClass("pic1");
             pic1.attr("src","https://painting.shtx.com.cn/images/upload/"+data[i].images[0]);
 
             pic1Container.append(pic1);
+            if(type == 3){
+              //已结束的打上水印
+
+                var dealContainer = $("<div>");
+                dealContainer.css({width:width+'px'});
+                dealContainer.css("position","absolute");
+                dealContainer.css("top","50%");
+                dealContainer.css("left","50%");
+                var height = 100 * width / 172.0;
+                dealContainer.css("marginTop",parseFloat(0-height/2)+"px");
+                dealContainer.css("marginLeft",parseFloat(0-width/2)+"px");
+
+                var deal = $("<img>");
+                deal.css({width:width+'px'});
+                deal.addClass("rotate");
+                if(data[i].bids.length > 0){
+                  deal.attr("src","/images/成交.png");
+                }
+                else{
+                  deal.attr("src","/images/流标.png");
+                }
+                dealContainer.append(deal);
+                pic1Container.append(dealContainer);
+
+            }
+
+
             itemContainer.append(pic1Container);
 
             var row = $("<div></div>");
@@ -193,6 +236,7 @@
                   defaultContainerWidth: 500,
                   autoresize: true
                 });
+                $(".rotate").show();
               })
             })
 
