@@ -34,7 +34,7 @@ router.get('/', function(req, res, next) {
       res.render("sharePage", {
         items: data,
         jssdk: req.jssdk,
-           isFull: isCanFull
+        isFull: isCanFull
       });
     }).catch(err => res.json(new Result(Errors.GetItemsFailed, err)));
   }
