@@ -20,7 +20,7 @@ router.get('/', function(req, res, next) {
     })
   }else{
     var openId = req.query.openId;
-    itemSvc.getShareItemsByOpenId('o9nEBj8ZJ5qzbmWmP1Ypv3wm-CGw',2).then(data => {
+    itemSvc.getShareItemsByOpenId(openId,2).then(data => {
       res.render("sharePage", {
         items: data,
         jssdk: req.jssdk,

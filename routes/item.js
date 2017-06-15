@@ -141,7 +141,8 @@ router.get('/:itemId', oAuth.oAuth, function(req, res, next) {
             like: data[1],
             isMe: isMe,
             canBid: canBid,
-            openId: openId
+            jssdk: req.jssdk,
+            openId:openId
         });
     }).catch(err => {
         res.json(err);
