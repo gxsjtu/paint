@@ -210,6 +210,7 @@ wx.ready(function() {
         if (localIds.length > 0) {
           syncUpload(localIds, l);
         } else {
+          alert($("#txtDesc").val());
           $.ajax({
             url: '/sell/saveItem',
             type: 'POST',
