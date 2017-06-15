@@ -41,7 +41,6 @@ ItemSvc.prototype.getShareItemsByOpenId = function(openId, type) {
       }).sort({
         create_at: -1
       }).exec((err, data) => {
-        console.log(data);
         if (err) {
           return reject(err);
         }
@@ -65,7 +64,6 @@ ItemSvc.prototype.getShareItemsByOpenId = function(openId, type) {
       }).sort({
         create_at: -1
       }).exec((err, data) => {
-        console.log(data);
         if (err) {
           return reject(err);
         }
@@ -83,7 +81,6 @@ ItemSvc.prototype.getShareItemsByOpenId = function(openId, type) {
       }).sort({
         create_at: -1
       }).exec((err, data) => {
-        console.log(data);
         if (err) {
           return reject(err);
         }
@@ -106,7 +103,6 @@ ItemSvc.prototype.getShareItemsByOpenId = function(openId, type) {
       }).sort({
         create_at: -1
       }).exec((err, data) => {
-        console.log(data);
         if (err) {
           return reject(err);
         }
