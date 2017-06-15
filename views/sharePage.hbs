@@ -15,9 +15,9 @@
     <div style="display:flex;flex-direction:row;align-items:center;justify-content:center;width:100%;font-size:22px;color:#315600;margin-top:10px;margin-bottom:10px;font-weight:bold;">
         {{items.[0].nick}}的画廊
     </div>
-<div class="content" style="margin-right:20px;margin-left:20px;background-color:#ebeca1;border-radius:5px;">
+<div class="content" style="margin-right:20px;margin-left:20px;">
     {{#each items}}
-    <div class="row" style="margin-left:0px;margin-right:0px;padding-left:10px;padding-right:10px;">
+    <div class="row" style="margin-left:0px;margin-right:0px;padding-left:10px;padding-right:10px;background-color:#ebeca1;border-radius:5px;">
       <div style="display:flex;flex-direction:row;align-items:center;justify-content:center;width:100%;font-size:20px;color:#315600;padding-top:10px;font-weight:bold;">
         《{{this.name}}》
       </div>
@@ -38,7 +38,7 @@
     </div>
     {{/each}}
 </div>
-<div class="row" style="margin-left:20px;margin-right:20px;background-color:#fff;height:110px;">
+<div class="row" style="margin-left:20px;margin-right:20px;background-color:#fff;height:110px;margin-top:20px;">
   <div class="col-xs-4" style="padding:0px;display:flex;flex-direction:row;justify-content:center;align-items:center;">
     <img src="/qrcode.jpg" style="height:110px;"/>
   </div>
