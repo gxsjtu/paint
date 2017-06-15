@@ -22,7 +22,7 @@ PaySvc.prototype.getBrandWCPayRequestParams = function(openId, itemId, price, na
   return new Promise((resolve, reject) => {
     wxpay.getBrandWCPayRequestParams({
       openid: openId,
-      body: name + 'by' + author,
+      body: "《" + name + "》" + ' By 「' + author + "」",
       detail: '书画微展',
       out_trade_no: itemId + '_' + randomstring.generate(6),
       total_fee: price,
