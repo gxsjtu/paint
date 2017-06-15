@@ -30,7 +30,7 @@ router.get('/pay', Jssdk.jssdk, oAuth.oAuth, function(req, res, next) {
       var price = lastBids.price;
       var openId = req.query.openId;
       var payargs = '';
-      paySvc.getBrandWCPayRequestParams(openId, itemId, price * 100).then(data => {
+      paySvc.getBrandWCPayRequestParams(openId, itemId, price * 100,item.name,item.author).then(data => {
         res.render("wxpay", {
           payargs: data,
           item: item,
