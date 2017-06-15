@@ -21,7 +21,7 @@ body {
   width: 48%;
   text-align: center;
   /*color: #c4c4c4;*/
-  color: dimgray;
+  color: black;
 }
 
 .segmentSplit{
@@ -83,7 +83,8 @@ body {
   width: 20%;
 }
 .time{
-  color: #c4c4c4;
+  /*color: #c4c4c4;*/
+  color: crimson;
   width: 40%;
 }
 
