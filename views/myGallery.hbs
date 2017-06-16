@@ -162,12 +162,14 @@
         }],
         doneLabel:"取消",
         showStepNumbers:false,
-        showBullets:false
+        showBullets:false,
+        showButtons:false
       });
       intro.start();
       $(".introjs-helperLayer").hide();
-      $(".introjs-arrow").css("left","195px");
-      $(".introjs-tooltip").css("top","5px").css("margin-right","5px");
+      $(".introjs-arrow").css("left","195px").css("border","8px solid #d0ecfa");
+      $(".introjs-arrow.top").css("top","-16px").css("border-top-color","transparent").css("border-right-color","transparent").css("border-left-color","transparent").css("border-bottom-color","#doecfa");
+      $(".introjs-tooltip").css("top","15px").css("margin-right","5px").css("background-color", "#d0ecfa");
       $(".introjs-tooltipReferenceLayer").css("top","0px");
       $(".introjs-tooltiptext").css("font-size","18px");
     }
