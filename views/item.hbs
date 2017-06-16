@@ -437,7 +437,12 @@
                     price = data.data[0].price;
                   }
                   $("#currentPrice").text("￥"+price);
-                  myCurrentPrice = price;
+                  if(data.data.length > 0){
+                    myCurrentPrice = parseFloat(price) + 10;
+                  }
+                  else{
+                    myCurrentPrice = price;
+                  }
                   $("#myCurrentPrice").text("￥"+myCurrentPrice);
                   lastPrice = price;
               }
