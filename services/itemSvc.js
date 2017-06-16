@@ -162,7 +162,7 @@ ItemSvc.prototype.getLikes = function(id, openId) {
         });
       }
       var canLike = _.find(data.likes, x => {
-        return x.openId == openId;
+        return x == openId;
       })
 
       return resolve({
