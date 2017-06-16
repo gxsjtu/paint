@@ -285,16 +285,18 @@
           intro.setOptions({
             steps:[{
               element:'#stepDiv',
-              intro:'点击右上角，分享作品'
+              intro:'点击分享到好友或朋友圈，让更多的小伙伴看到您的作品吧！'
             }],
             doneLabel:"取消",
             showStepNumbers:false,
-            showBullets:false
+            showBullets:false,
+            overlayOpacity:1
           });
           intro.start();
           $(".introjs-helperLayer").hide();
-          $(".introjs-arrow").css("left","205px");
-          $(".introjs-tooltip").css("top","10px");
+          $(".introjs-arrow").css("left","195px");
+          $(".introjs-tooltip").css("top","10px").css("margin-right","5px");
+          $(".introjs-tooltiptext").css("font-size","18px");
           // introJs("#stepDiv").start();
         //   let tour = new Shepherd.Tour({
         //     defaults: {
