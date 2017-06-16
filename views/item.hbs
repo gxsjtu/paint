@@ -280,37 +280,32 @@
           })
         }
 
+        var isAlert = false;
         $(function() {
-          var intro = new introJs();
-          intro.setOptions({
-            steps:[{
-              element:'#stepDiv',
-              intro:'点击分享到好友或朋友圈，让更多的小伙伴看到您的作品吧！'
-            }],
-            doneLabel:"取消",
-            showStepNumbers:false,
-            showBullets:false,
-            overlayOpacity:1
-          });
-          intro.start();
-          $(".introjs-helperLayer").hide();
-          $(".introjs-arrow").css("left","195px");
-          $(".introjs-tooltip").css("top","10px").css("margin-right","5px");
-          $(".introjs-tooltiptext").css("font-size","18px");
-          // introJs("#stepDiv").start();
-        //   let tour = new Shepherd.Tour({
-        //     defaults: {
-        //       classes: 'shepherd-theme-arrows',
-        //       scrollTo: true
-        //     }
-        //   });
-        //   tour.addStep('stepID', {
-        //   title: 'Example Shepherd',
-        //   text: 'Creating a Shepherd is easy too! Just create ...',
-        //   attachTo: '#stepDiv bottom'
-        // });
+          var type = localStorage.getItem("firstItem");
+          if(!type){
+            localStorage.setItem("firstItem", "1");
+            isAlert = true;
+          }
 
-        // tour.start();
+          if(isAlert){
+            var intro = new introJs();
+            intro.setOptions({
+              steps:[{
+                element:'#stepDiv',
+                intro:'点击分享到好友或朋友圈，让更多的小伙伴看到您的作品吧！'
+              }],
+              doneLabel:"取消",
+              showStepNumbers:false,
+              showBullets:false,
+              overlayOpacity:1
+            });
+            intro.start();
+            $(".introjs-helperLayer").hide();
+            $(".introjs-arrow").css("left","195px");
+            $(".introjs-tooltip").css("top","10px").css("margin-right","5px");
+            $(".introjs-tooltiptext").css("font-size","18px");
+          }
 
           let option = {};
           if(images.length > 1){

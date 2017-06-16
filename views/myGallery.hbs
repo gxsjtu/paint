@@ -145,7 +145,15 @@
   <script src="/intro.js/minified/intro.min.js"></script>
   <script>
   var openId = '{{openId}}';
-    $(function() {
+  var isAlert = false;
+  $(function() {
+    var type = localStorage.getItem("firstMyGallery");
+    if(!type){
+      localStorage.setItem("firstMyGallery", "1");
+      isAlert = true;
+    }
+
+    if(isAlert){
       var intro = new introJs();
       intro.setOptions({
         steps:[{
@@ -162,6 +170,7 @@
       $(".introjs-tooltip").css("top","5px").css("margin-right","5px");
       $(".introjs-tooltipReferenceLayer").css("top","0px");
       $(".introjs-tooltiptext").css("font-size","18px");
+    }
       $(".pic1").each(function() {
         $(this).load(function() {
           $(".content").waterfall({
