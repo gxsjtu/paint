@@ -1,4 +1,5 @@
 {{#extend "stylesheets"}}
+<link rel='stylesheet' href='/intro.js/minified/introjs.min.css'/>
 <style>
 .nav>li>a{
   padding-top:5px;
@@ -91,6 +92,10 @@
   <li role="presentation" class="active" data-type="2"><a href="#">进行中</a></li>
   <li role="presentation" data-type="3"><a href="#">已结束</a></li>
 </ul> -->
+<div style="position:relative;">
+  <div style="position:absolute;right:5px;" id="stepDiv">
+  </div>
+
 <div class="menuContainer">
   <div class="menu" data-type="1">
     未开始
@@ -135,10 +140,27 @@
     </div>
   {{/each}}
 </div>
+</div>
 {{#extend "scripts"}}
+  <script src="/intro.js/minified/intro.min.js"></script>
   <script>
   var openId = '{{openId}}';
     $(function() {
+      var intro = new introJs();
+      intro.setOptions({
+        steps:[{
+          element:'#stepDiv',
+          intro:'点击右上角，分享作品'
+        }],
+        doneLabel:"取消",
+        showStepNumbers:false,
+        showBullets:false
+      });
+      intro.start();
+      $(".introjs-helperLayer").hide();
+      $(".introjs-arrow").css("left","205px");
+      $(".introjs-tooltip").css("top","5px");
+      $(".introjs-tooltipReferenceLayer").css("top","0px");
       $(".pic1").each(function() {
         $(this).load(function() {
           $(".content").waterfall({

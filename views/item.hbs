@@ -6,6 +6,8 @@
   <!-- <link rel='stylesheet' href="/javascripts/Ladda/dist/ladda-themeless.min.css" /> -->
   <link rel='stylesheet' href="/stylesheets/item.css" />
   <link rel='stylesheet' href="/stylesheets/style_less.css" />
+  <link rel='stylesheet' href='/tether-shepherd/dist/css/shepherd-theme-arrows.css'/>
+  <link rel='stylesheet' href='/intro.js/minified/introjs.min.css'/>
   <style>
     .flip-clock-label{
       display: none;
@@ -29,6 +31,8 @@
 
 
 <div style="position:relative;">
+  <div style="position:absolute;right:5px;" id="stepDiv">
+  </div>
   <div class="swiper-container" style="width:100%;height:50vw;">
     <div class="swiper-wrapper">
       {{#each item.images}}
@@ -206,6 +210,9 @@
   <script src="/javascripts/webPullToRefresh/lib/wptr.1.1.js"></script>
   <script src="/flipclock/compiled/flipclock.min.js"></script>
   <script src="/moment/moment.js"></script>
+  <script src="/tether-shepherd/dist/js/tether.js"></script>
+  <script src="/tether-shepherd/dist/js/shepherd.min.js"></script>
+  <script src="/intro.js/minified/intro.min.js"></script>
   <!-- <script src="/javascripts/Ladda/dist/spin.min.js"></script> -->
   <!-- <script src="/javascripts/Ladda/dist/ladda.min.js"></script> -->
 
@@ -274,6 +281,35 @@
         }
 
         $(function() {
+          var intro = new introJs();
+          intro.setOptions({
+            steps:[{
+              element:'#stepDiv',
+              intro:'点击右上角，分享作品'
+            }],
+            doneLabel:"取消",
+            showStepNumbers:false,
+            showBullets:false
+          });
+          intro.start();
+          $(".introjs-helperLayer").hide();
+          $(".introjs-arrow").css("left","205px");
+          $(".introjs-tooltip").css("top","10px");
+          // introJs("#stepDiv").start();
+        //   let tour = new Shepherd.Tour({
+        //     defaults: {
+        //       classes: 'shepherd-theme-arrows',
+        //       scrollTo: true
+        //     }
+        //   });
+        //   tour.addStep('stepID', {
+        //   title: 'Example Shepherd',
+        //   text: 'Creating a Shepherd is easy too! Just create ...',
+        //   attachTo: '#stepDiv bottom'
+        // });
+
+        // tour.start();
+
           let option = {};
           if(images.length > 1){
             option = {
