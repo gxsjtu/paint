@@ -78,7 +78,7 @@ wx.ready(function() {
     });
   });
   $("#btnSave").click(function() {
-    if (localIds.length < 0) {
+    if (localIds.length <= 0) {
       notie.alert({
         type: 3,
         text: "请至少选择一张图片！"
