@@ -22,6 +22,7 @@ var api = new WechatAPI(Global.appId, Global.appSecret, function(callback) {
       if (err) {
         console.log(err);
       }
+      return callback();
     });
   });
 
