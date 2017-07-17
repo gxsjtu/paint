@@ -8,6 +8,11 @@ const fs = require('fs');
 const moment = require('moment');
 const UserSvc = require('../services/userSvc.js');
 const api = require('../services/apiWrapper.js');
+var imageUri = __dirname + '/..' + '/public/images/upload/';
+const download = require('image-downloader');
+var cache = require('memory-cache');
+var images = require("images");
+const path = require('path');
 
 var ItemSvc = function() {
 
@@ -27,6 +32,103 @@ ItemSvc.prototype.getItemsByOpenId = function(openId) {
     });
   });
 };
+
+function getProfile(openId) {
+  return new Promise((resolve, reject) => {
+    var value = cache.get(openId);
+    if (!value) {
+      api.getUser(openId, (err, data) => {
+        if (err) {
+          return reject(err);
+        }
+        cache.put(openId, data);
+        return resolve(data);
+      })
+    } else {
+      return resolve(value);
+    }
+  });
+};
+
+function getQrCode(openId, itemId) {
+  return new Promise((resolve, reject) => {
+    api.shorturl(Global.server + '/item/' + itemId, (err, result) => {
+      api.createLimitQRCode(result.short_url, (err, result) => {
+        if (!err) {
+          var uri = api.showQRCodeURL(result.ticket);
+          download.image({
+              url: uri,
+              dest: imageUri + openId + '.qrcode'
+            })
+            .then(({
+              filename,
+              image
+            }) => {
+              return resolve();
+            }).catch((err) => {
+              return reject(err);
+            })
+        }
+      });
+    });
+  });
+};
+
+function getAvatar(openId) {
+  return new Promise((resolve, reject) => {
+    getProfile(openId).then(data => {
+      var uri = data.headimgurl;
+      download.image({
+          url: uri,
+          dest: imageUri + openId + '.avatar'
+        })
+        .then(({
+          filename,
+          image
+        }) => {
+          return resolve(data.nickname);
+        }).catch((err) => {
+          return resolve(data.nickname);
+        });
+    }).catch(err => {
+      return reject(err);
+    });
+  });
+};
+
+ItemSvc.prototype.sendShareCard = function(openId, itemId) {
+  //发送我的分享卡
+  return new Promise((resolve, reject) => {
+    Promise.all([getQrCode(openId, itemId), getAvatar(openId), this.getItemById(itemId)]).then(data => {
+      //生成二维码 + avatar + 背景
+      var background = images(path.normalize(imageUri + data[2].images[0]));
+      var qrcode = images(path.normalize(imageUri + openId + '.qrcode')).size(220);
+      var avatar;
+      try {
+        avatar = images(path.normalize(imageUri + openId + '.avatar')).size(60);
+      } catch (e) {
+        avatar = images(path.normalize(__dirname + '/..' + '/public/images/noavatar.jpeg')).size(60);
+      }
+      background.draw(qrcode, 60, 60).draw(avatar, 140, 140).saveAsync(path.normalize(imageUri + openId) + '.jpg', (err, result) => {
+        //发送客服消息到用户
+        //上传临时素材图片
+        api.uploadMedia(path.normalize(imageUri + openId) + '.jpg', "image", (err, result) => {
+          if (!err) {
+            api.sendImage(openId, result.media_id, (err, result) => {
+              if (err) {
+                return reject(err);
+              } else {
+                return resolve(data[1]);
+              }
+            });
+          }
+        });
+      });
+    }).catch(err => {
+      return reject(err);
+    });
+  });
+}
 
 ItemSvc.prototype.getShareItemsByOpenId = function(openId, type) {
   if (type == 1) {

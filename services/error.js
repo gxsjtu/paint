@@ -26,3 +26,7 @@ module.exports.GetMyBidsFailed = {
   status: 6,
   message: '获取我的出价失败！'
 };
+module.exports.CreateMenuFailed = {
+  code: 7,
+  message: '生成菜单失败'
+};
