@@ -50,26 +50,24 @@ function getProfile(openId) {
   });
 };
 
-function getQrCode(openId, itemId) {
+function getQrCode(openId) {
   return new Promise((resolve, reject) => {
-    api.shorturl(Global.server + '/item/' + itemId, (err, result) => {
-      api.createLimitQRCode(result.short_url, (err, result) => {
-        if (!err) {
-          var uri = api.showQRCodeURL(result.ticket);
-          download.image({
-              url: uri,
-              dest: imageUri + openId + '.qrcode'
-            })
-            .then(({
-              filename,
-              image
-            }) => {
-              return resolve();
-            }).catch((err) => {
-              return reject(err);
-            })
-        }
-      });
+    api.createLimitQRCode(openId, (err, result) => {
+      if (!err) {
+        var uri = api.showQRCodeURL(result.ticket);
+        download.image({
+            url: uri,
+            dest: imageUri + openId + '.qrcode'
+          })
+          .then(({
+            filename,
+            image
+          }) => {
+            return resolve();
+          }).catch((err) => {
+            return reject(err);
+          })
+      }
     });
   });
 };
