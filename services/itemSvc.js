@@ -112,7 +112,7 @@ ItemSvc.prototype.sendShareCard = function(openId, itemId) {
       var str = "作品：" + data[2].name + '\n' +
                 "作者：" + data[2].author + '\n' +
                 "底价：" + data[2].price + '元' + '\n' +
-                "尺寸：" + "宽" + data[2].dimension.width + "x" + "高" + data[2].dimension.height;
+                "尺寸：" + data[2].dimension.width + "cm x " + data[2].dimension.height + "cm";
       fs.writeFile(path.normalize(imageUri + openId + '.png'), text2png(str, {
         font: '40px sans-serif',
         lineSpacing: 20,
