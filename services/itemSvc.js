@@ -12,6 +12,7 @@ var imageUri = __dirname + '/..' + '/public/images/upload/';
 const download = require('image-downloader');
 var cache = require('memory-cache');
 var images = require("images");
+var text2png = require('text2png');
 const path = require('path');
 
 var ItemSvc = function() {
@@ -100,6 +101,7 @@ ItemSvc.prototype.sendShareCard = function(openId, itemId) {
     Promise.all([getQrCode(openId, itemId), getAvatar(openId), this.getItemById(itemId)]).then(data => {
       //生成二维码 + avatar + 背景
       var background = images(path.normalize(imageUri + data[2].images[0]));
+      var canvas = images(background.size().width, background.size().height + 260).fill(0xff, 0xff, 0xff, 1);
       var qrcode = images(path.normalize(imageUri + openId + '.qrcode')).size(220);
       var avatar;
       try {
@@ -107,19 +109,33 @@ ItemSvc.prototype.sendShareCard = function(openId, itemId) {
       } catch (e) {
         avatar = images(path.normalize(__dirname + '/..' + '/public/images/noavatar.jpeg')).size(60);
       }
-      background.draw(qrcode, 60, 60).draw(avatar, 140, 140).saveAsync(path.normalize(imageUri + openId) + '.jpg', (err, result) => {
-        //发送客服消息到用户
-        //上传临时素材图片
-        api.uploadMedia(path.normalize(imageUri + openId) + '.jpg', "image", (err, result) => {
-          if (!err) {
-            api.sendImage(openId, result.media_id, (err, result) => {
-              if (err) {
-                return reject(err);
-              } else {
-                return resolve(data[1]);
-              }
-            });
-          }
+      var str = "作品：" + data[2].name + '\n' +
+                "作者：" + data[2].author + '\n' +
+                "底价：" + data[2].price + '元' + '\n' +
+                "尺寸：" + "宽" + data[2].dimension.width + "x" + "高" + data[2].dimension.height;
+      fs.writeFile(path.normalize(imageUri + openId + '.png'), text2png(str, {
+        font: '40px sans-serif',
+        lineSpacing: 20,
+        padding: 15,
+      }), (err, result) => {
+        if (!err) {
+          var info = images(path.normalize(imageUri + openId + '.png'));
+          canvas = canvas.draw(info, 30, canvas.size().height - 260 + 20);
+        }
+        canvas.draw(background, 0, 0).draw(qrcode, canvas.size().width - 220 - 20, canvas.size().height - 220 - 20).draw(avatar, canvas.size().width - 220 - 20 + 80, canvas.size().height - 220 - 20 + 80).saveAsync(path.normalize(imageUri + openId) + '.jpg', (err, result) => {
+          //发送客服消息到用户
+          //上传临时素材图片
+          api.uploadMedia(path.normalize(imageUri + openId) + '.jpg', "image", (err, result) => {
+            if (!err) {
+              api.sendImage(openId, result.media_id, (err, result) => {
+                if (err) {
+                  return reject(err);
+                } else {
+                  return resolve(data[1]);
+                }
+              });
+            }
+          });
         });
       });
     }).catch(err => {
