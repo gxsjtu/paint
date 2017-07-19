@@ -101,7 +101,7 @@ ItemSvc.prototype.sendShareCard = function(openId, itemId) {
     Promise.all([getQrCode(openId, itemId), getAvatar(openId), this.getItemById(itemId)]).then(data => {
       //生成二维码 + avatar + 背景
       var background = images(path.normalize(imageUri + data[2].images[0]));
-      var canvas = images(background.size().width, background.size().height + 260).fill(0xff, 0xff, 0xff, 1);
+      var canvas = images(background.size().width, background.size().height + 260).fill(0xfe, 0xfb, 0xf0, 1);
       var qrcode = images(path.normalize(imageUri + openId + '.qrcode')).size(220);
       var avatar;
       try {
@@ -120,7 +120,7 @@ ItemSvc.prototype.sendShareCard = function(openId, itemId) {
       }), (err, result) => {
         if (!err) {
           var info = images(path.normalize(imageUri + openId + '.png'));
-          canvas = canvas.draw(info, 30, canvas.size().height - 260 + 20);
+          canvas = canvas.draw(info, 60, canvas.size().height - 260 + 10);
         }
         canvas.draw(background, 0, 0).draw(qrcode, canvas.size().width - 220 - 20, canvas.size().height - 220 - 20).draw(avatar, canvas.size().width - 220 - 20 + 80, canvas.size().height - 220 - 20 + 80).saveAsync(path.normalize(imageUri + openId) + '.jpg', (err, result) => {
           //发送客服消息到用户
