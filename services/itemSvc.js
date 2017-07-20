@@ -123,7 +123,7 @@ ItemSvc.prototype.sendShareCard = function(openId, itemId) {
           var info = images(path.normalize(imageUri + openId + '.png'));
           canvas = canvas.draw(info, 30, canvas.size().height - 320 + 10);
         }
-        canvas.draw(background, 0, 0).draw(qrcode, canvas.size().width - 220 - 20, canvas.size().height - 220 - 80).draw(avatar, canvas.size().width - 220 - 20 + 80, canvas.size().height - 220 - 80 + 80).draw(logo, 60, canvas.size().height - 50).saveAsync(path.normalize(imageUri + openId) + '.jpg', (err, result) => {
+        canvas.draw(background, 0, 0).draw(qrcode, canvas.size().width - 220 - 20, canvas.size().height - 220 - 80).draw(avatar, canvas.size().width - 220 - 20 + 80, canvas.size().height - 220 - 80 + 80).draw(logo, 60, canvas.size().height - logo.size().height - 10).saveAsync(path.normalize(imageUri + openId) + '.jpg', (err, result) => {
           //发送客服消息到用户
           //上传临时素材图片
           api.uploadMedia(path.normalize(imageUri + openId) + '.jpg', "image", (err, result) => {
