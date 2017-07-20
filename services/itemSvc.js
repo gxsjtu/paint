@@ -101,8 +101,9 @@ ItemSvc.prototype.sendShareCard = function(openId, itemId) {
     Promise.all([getQrCode(openId, itemId), getAvatar(openId), this.getItemById(itemId)]).then(data => {
       //生成二维码 + avatar + 背景
       var background = images(path.normalize(imageUri + data[2].images[0]));
-      var canvas = images(background.size().width, background.size().height + 260).fill(0xfe, 0xfb, 0xf0, 1);
+      var canvas = images(background.size().width, background.size().height + 320).fill(0xfe, 0xfb, 0xf0, 1);
       var qrcode = images(path.normalize(imageUri + openId + '.qrcode')).size(220);
+      var logo = images(path.normalize(__dirname + '/..' + '/public/logo.png'));
       var avatar;
       try {
         avatar = images(path.normalize(imageUri + openId + '.avatar')).size(60);
@@ -110,9 +111,9 @@ ItemSvc.prototype.sendShareCard = function(openId, itemId) {
         avatar = images(path.normalize(__dirname + '/..' + '/public/images/noavatar.jpeg')).size(60);
       }
       var str = "作品：" + data[2].name + '\n' +
-                "作者：" + data[2].author + '\n' +
-                "底价：" + data[2].price + '元' + '\n' +
-                "尺寸：" + data[2].dimension.width + "cm x " + data[2].dimension.height + "cm";
+        "作者：" + data[2].author + '\n' +
+        "底价：" + data[2].price + '元' + '\n' +
+        "尺寸：" + data[2].dimension.width + "cm x " + data[2].dimension.height + "cm";
       fs.writeFile(path.normalize(imageUri + openId + '.png'), text2png(str, {
         font: '40px STKaiti',
         lineSpacing: 20,
@@ -120,9 +121,9 @@ ItemSvc.prototype.sendShareCard = function(openId, itemId) {
       }), (err, result) => {
         if (!err) {
           var info = images(path.normalize(imageUri + openId + '.png'));
-          canvas = canvas.draw(info, 60, canvas.size().height - 260 + 10);
+          canvas = canvas.draw(info, 60, canvas.size().height - 320 + 10);
         }
-        canvas.draw(background, 0, 0).draw(qrcode, canvas.size().width - 220 - 20, canvas.size().height - 220 - 20).draw(avatar, canvas.size().width - 220 - 20 + 80, canvas.size().height - 220 - 20 + 80).saveAsync(path.normalize(imageUri + openId) + '.jpg', (err, result) => {
+        canvas.draw(background, 0, 0).draw(qrcode, canvas.size().width - 220 - 20, canvas.size().height - 220 - 80).draw(avatar, canvas.size().width - 220 - 20 + 80, canvas.size().height - 220 - 80 + 80).draw(logo, 60, canvas.size().height - 60  ).saveAsync(path.normalize(imageUri + openId) + '.jpg', (err, result) => {
           //发送客服消息到用户
           //上传临时素材图片
           api.uploadMedia(path.normalize(imageUri + openId) + '.jpg', "image", (err, result) => {
