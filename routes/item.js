@@ -124,7 +124,6 @@ router.get('/getItemBySearch/:key/:type/:catalog/:upOrDown/:creatAt', function(r
 });
 
 router.get('/:itemId', oAuth.oAuth, function(req, res, next) {
-  console.log('ddd');
   var itemId = req.params.itemId;
   var openId = req.query.openId;
   Promise.all([itemSvc.getItemById(itemId), itemSvc.getLikes(itemId, openId)]).then(data => {

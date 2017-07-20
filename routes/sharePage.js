@@ -11,7 +11,7 @@ router.use(Jssdk.jssdk);
 router.get('/', function(req, res, next) {
   var isCanFull = false;
   var option = req.query.option;
-  if(option == 'detail'){
+  if (option == 'detail') {
     var itemId = req.query.itemId;
     var datas = []
     itemSvc.getItemById(itemId).then(data => {
@@ -22,15 +22,14 @@ router.get('/', function(req, res, next) {
         isFull: true
       }).catch(err => res.json(new Result(Errors.GetItemsFailed, err)));
     })
-  }else{
+  } else {
     var openId = req.query.openId;
-    itemSvc.getShareItemsByOpenId(openId,2).then(data => {
-        if(data.length > 1)
-        {
-          isCanFull = false;
-        }else{
-          isCanFull = true;
-        }
+    itemSvc.getShareItemsByOpenId(openId, 2).then(data => {
+      if (data.length > 1) {
+        isCanFull = false;
+      } else {
+        isCanFull = true;
+      }
       res.render("sharePage", {
         items: data,
         jssdk: req.jssdk,
