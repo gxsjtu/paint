@@ -103,8 +103,8 @@ ItemSvc.prototype.sendShareCard = function(openId, itemId) {
       var background = images(path.normalize(imageUri + data[2].images[0]));
       var canvas = images(background.size().width, background.size().height * 1.3).fill(0xfe, 0xfb, 0xf0, 1);
       var qrcode = images(path.normalize(imageUri + openId + '.qrcode')).size(background.size().height * 0.2);
-      var logo = images(path.normalize(__dirname + '/..' + '/public/logo.png')).size(background.size().width * 0.5, (background.size().width * 0.5) * 82 / 1162);
-      var logo1 = images(path.normalize(__dirname + '/..' + '/public/logo1.png')).size(qrcode.size().width * 0.5, qrcode.size().width * 0.5 * 49 / 167);
+      var logo = images(path.normalize(__dirname + '/..' + '/public/logo.png')).size((background.size().height * 0.3 * 0.15) * 1162 / 82, background.size().height * 0.3 * 0.15);
+      var logo1 = images(path.normalize(__dirname + '/..' + '/public/logo1.png')).size(background.size().height * 0.3 * 0.1 * 167 / 49, background.size().height * 0.3 * 0.1);
       var avatar;
       try {
         avatar = images(path.normalize(imageUri + openId + '.avatar')).size(qrcode.size().width * 0.25);
@@ -122,8 +122,8 @@ ItemSvc.prototype.sendShareCard = function(openId, itemId) {
         if (!err) {
           var info = images(path.normalize(imageUri + openId + '.png'));
           var ratio = info.size().width / info.size().height;
-          info = info.size((background.size().height * 0.28 - logo.size().height) * ratio, background.size().height * 0.28 - logo.size().height);
-          canvas = canvas.draw(info, background.size().width * 0.05, background.size().height * 1.02);
+          info = info.size((background.size().height * 0.3 * 0.85) * ratio, background.size().height * 0.3 * 0.85);
+          canvas = canvas.draw(info, background.size().width * 0.05, background.size().height * 1);
         }
         canvas
           .draw(background, 0, 0)
