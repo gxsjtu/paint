@@ -117,7 +117,7 @@ ItemSvc.prototype.sendShareCard = function(openId, itemId) {
         "尺寸：" + data[2].dimension.width + "cm x " + data[2].dimension.height + "cm";
       fs.writeFile(path.normalize(imageUri + openId + '.png'), text2png(str, {
         font: '60px STKaiti',
-        lineSpacing: 15,
+        lineSpacing: 20,
       }), (err, result) => {
         if (!err) {
           var info = images(path.normalize(imageUri + openId + '.png'));
