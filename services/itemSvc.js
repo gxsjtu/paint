@@ -98,7 +98,7 @@ function getAvatar(openId) {
 ItemSvc.prototype.sendShareCard = function(openId, itemId) {
   //发送我的分享卡
   return new Promise((resolve, reject) => {
-    Promise.all([getQrCode(openId, itemId), getAvatar(openId), this.getItemById(itemId)]).then(data => {
+    Promise.all([getQrCode(openId), getAvatar(openId), this.getItemById(itemId)]).then(data => {
       //生成二维码 + avatar + 背景
       var background = images(path.normalize(imageUri + data[2].images[0]));
       var canvas = images(background.size().width, background.size().height + 320).fill(0xfe, 0xfb, 0xf0, 1);
@@ -121,9 +121,9 @@ ItemSvc.prototype.sendShareCard = function(openId, itemId) {
       }), (err, result) => {
         if (!err) {
           var info = images(path.normalize(imageUri + openId + '.png'));
-          canvas = canvas.draw(info, 50, canvas.size().height - 320 + 10);
+          canvas = canvas.draw(info, 30, canvas.size().height - 320 + 10);
         }
-        canvas.draw(background, 0, 0).draw(qrcode, canvas.size().width - 220 - 20, canvas.size().height - 220 - 80).draw(avatar, canvas.size().width - 220 - 20 + 80, canvas.size().height - 220 - 80 + 80).draw(logo, 60, canvas.size().height - 50  ).saveAsync(path.normalize(imageUri + openId) + '.jpg', (err, result) => {
+        canvas.draw(background, 0, 0).draw(qrcode, canvas.size().width - 220 - 20, canvas.size().height - 220 - 80).draw(avatar, canvas.size().width - 220 - 20 + 80, canvas.size().height - 220 - 80 + 80).draw(logo, 60, canvas.size().height - 50).saveAsync(path.normalize(imageUri + openId) + '.jpg', (err, result) => {
           //发送客服消息到用户
           //上传临时素材图片
           api.uploadMedia(path.normalize(imageUri + openId) + '.jpg', "image", (err, result) => {
