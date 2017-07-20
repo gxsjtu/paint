@@ -149,9 +149,12 @@
   <script type="text/javascript" src="/swiper/dist/js/swiper.min.js"></script>
   <script type="text/javascript" src="/bootstrap-datetime-picker/js/bootstrap-datetimepicker.min.js"></script>
   <script type="text/javascript" src="/bootstrap-datetime-picker/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+  <script src="/moment/moment.js"></script>
   <script type="text/javascript" src="/javascripts/sell/sell.js"></script>
   <script>
     $(function(){
+      var start = moment().add(1, 'h').format('YYYY-MM-DD HH:00');
+      var end = moment().add(1, 'h').add(2,'d').format('YYYY-MM-DD HH:00');
       $("#datetimepicker1,#datetimepicker2").datetimepicker({
         format: 'yyyy-mm-dd hh:00',
         autoclose: true,
@@ -159,6 +162,9 @@
         todayHighlight: true,
         language: 'zh-CN'
       });
+      $("#datetimepicker1").val(start);
+      $("#datetimepicker2").val(end);
+      $('#datetimepicker1,#datetimepicker2').datetimepicker('update');
 
         $(".select").on("click",function(){
           var items = $(this).find(".box-items");
