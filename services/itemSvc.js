@@ -104,6 +104,7 @@ ItemSvc.prototype.sendShareCard = function(openId, itemId) {
       var canvas = images(background.size().width, background.size().height + 320).fill(0xfe, 0xfb, 0xf0, 1);
       var qrcode = images(path.normalize(imageUri + openId + '.qrcode')).size(220);
       var logo = images(path.normalize(__dirname + '/..' + '/public/logo.png')).size(background.size().width - 60);
+      var logo1 = images(path.normalize(__dirname + '/..' + '/public/logo1.png'));
       var avatar;
       try {
         avatar = images(path.normalize(imageUri + openId + '.avatar')).size(60);
@@ -121,9 +122,9 @@ ItemSvc.prototype.sendShareCard = function(openId, itemId) {
       }), (err, result) => {
         if (!err) {
           var info = images(path.normalize(imageUri + openId + '.png'));
-          canvas = canvas.draw(info, 30, canvas.size().height - 320 + 10);
+          canvas = canvas.draw(info, 30, canvas.size().height - 320 + 20);
         }
-        canvas.draw(background, 0, 0).draw(qrcode, canvas.size().width - 220 - 20, canvas.size().height - 220 - 80).draw(avatar, canvas.size().width - 220 - 20 + 80, canvas.size().height - 220 - 80 + 80).draw(logo, 60, canvas.size().height - logo.size().height - 10).saveAsync(path.normalize(imageUri + openId) + '.jpg', (err, result) => {
+        canvas.draw(background, 0, 0).draw(qrcode, canvas.size().width - 220 - 20, canvas.size().height - 220 - 80).draw(avatar, canvas.size().width - 220 - 20 + 80, canvas.size().height - 220 - 80 + 80).draw(logo, 60, canvas.size().height - logo.size().height - 10).draw(logo1, canvas.size().width - 220 - 20 + 110 - logo1.size().width / 2, canvas.size().height - 220 - 80 + 220 ).saveAsync(path.normalize(imageUri + openId) + '.jpg', (err, result) => {
           //发送客服消息到用户
           //上传临时素材图片
           api.uploadMedia(path.normalize(imageUri + openId) + '.jpg', "image", (err, result) => {
