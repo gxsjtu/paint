@@ -23,7 +23,7 @@
       </div>
     {{#each this.images}}
       <div style="margin-top:15px;margin-bottom:15px;">
-        <img src="https://painting.shtx.com.cn/images/upload/{{this}}" style="width:100%;"/>
+        <img src="https://painting.shtx.com.cn/images/upload/{{this}}" style="width:100%;" data-src="{{items.[0].itemId}}" class="gotoItem"/>
       </div>
     {{/each}}
       <div style="width:100%;color:#315600;font-size:18px;">
@@ -52,3 +52,13 @@
   </div> -->
 </div>
 </div>
+{{#extend "scripts"}}
+<script>
+  $(function(){
+    $(".gotoItem").on("click",function(){
+      var src = "https://painting.shtx.com.cn/item/"+$(this).data("src");
+      window.location.href=src;
+    })
+  });
+</script>
+{{/extend}}
