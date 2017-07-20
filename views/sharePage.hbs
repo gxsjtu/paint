@@ -57,6 +57,7 @@
   $(function(){
     $(".gotoItem").on("click",function(){
       var src = "https://painting.shtx.com.cn/item/"+$(this).data("src");
+      console.log(src);
       window.location.href=src;
     })
   });
