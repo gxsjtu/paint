@@ -334,30 +334,13 @@ ItemSvc.prototype.bid = function(itemId, openId, price) {
           }, {
             new: true
           }).then(data => {
-            //推送模板消息给作者
-            var doc = {
-              "first": {
-                "value": "「" + name + "」" + "成功出价您的作品" + "「" + data.name + "」" + "，出价为" + price + '元。',
-                "color": "#173177"
-              },
-              "keyword1": {
-                "value": data.name,
-                "color": "#173177"
-              },
-              "keyword2": {
-                "value": data.valid.to,
-                "color": "#173177"
-              },
-              // "remark": {
-              //   "value": "欢迎再次购买！",
-              //   "color": "#173177"
-              // }
-            };
-            api.sendTemplate(data.openId, "A8Ofs9ct3CWj7-9LUOaT0lr97O-GFBDM-mSyog-lVQ0", "", doc, (err, result) => {
-              return resolve();
+            Promise.all([sendTemplate2Author(name, price, data), sendTemplate2Participants(name, data)]).then(data => {
+              return resolve(data);
+            }).catch(err => {
+              console.log(err);
+              resolve();
             });
           }).catch(err => {
-            console.log(err);
             return reject(err);
           });
         }).catch(err => {
@@ -367,6 +350,71 @@ ItemSvc.prototype.bid = function(itemId, openId, price) {
         return reject(new Error("出价无效！"));
       }
     });
+  });
+}
+
+function sendTemplate2Author(name, price, item) {
+  return new Promise((resolve, reject) => {
+    //推送模板消息给作者
+    var url = Global.server + '/item/' + item._id;
+    var doc = {
+      "first": {
+        "value": "「" + name + "」" + "成功出价您的作品" + "「" + item.name + "」" + "，出价为" + price + '元。',
+        "color": "#173177"
+      },
+      "keyword1": {
+        "value": item.name,
+        "color": "#173177"
+      },
+      "keyword2": {
+        "value": item.valid.to,
+        "color": "#173177"
+      }
+    };
+    api.sendTemplate(item.openId, "A8Ofs9ct3CWj7-9LUOaT0lr97O-GFBDM-mSyog-lVQ0", url, doc, (err, result) => {
+      if (err) {
+        return reject(err);
+      }
+      return resolve();
+    });
+  });
+}
+
+function sendTemplate2Participants(name, item) {
+  return new Promise((resolve, reject) => {
+    //找到目前的倒数第二个出价人
+    var bid;
+    if (item.bids.length >= 2) {
+      bid = item.bids[item.bids.length - 2];
+    }
+    if (bid) {
+      var url = Global.server + '/item/' + item._id;
+      var doc = {
+        "first": {
+          "value": "您的出价已经被" + "「" + name + "」" + "超越",
+          "color": "#173177"
+        },
+        "keyword1": {
+          "value": item.name,
+          "color": "#173177"
+        },
+        "keyword2": {
+          "value": item.bids[item.bids.length - 1].price + "元",
+          "color": "#173177"
+        },
+        "remark": {
+          "value": "拍卖截止时间：" + item.valid.to,
+          "color": "#173177"
+        },
+      };
+      api.sendTemplate(bid.openId, "MrG0VuEuOR99sr8pk9DGnLyhZaSje6XBPg0wSnKWLo4", url, doc, (err, result) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve();
+      });
+    }
+    return resolve();
   });
 }
 
