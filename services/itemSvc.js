@@ -76,23 +76,24 @@ function getQrCode(openId) {
 
 function getAvatar(openId) {
   return new Promise((resolve, reject) => {
-    getProfile(openId).then(data => {
-      var uri = data.headimgurl;
-      download.image({
-          url: uri,
-          dest: imageUri + openId + '.avatar'
-        })
-        .then(({
-          filename,
-          image
-        }) => {
-          return resolve(data.nickname);
-        }).catch((err) => {
-          return resolve(data.nickname);
-        });
-    }).catch(err => {
-      return reject(err);
-    });
+    return resolve();
+    // getProfile(openId).then(data => {
+    //   var uri = data.headimgurl;
+    //   download.image({
+    //       url: uri,
+    //       dest: imageUri + openId + '.avatar'
+    //     })
+    //     .then(({
+    //       filename,
+    //       image
+    //     }) => {
+    //       return resolve(data.nickname);
+    //     }).catch((err) => {
+    //       return resolve(data.nickname);
+    //     });
+    // }).catch(err => {
+    //   return reject(err);
+    // });
   });
 };
 
@@ -103,7 +104,7 @@ ItemSvc.prototype.sendShareCard = function(openId, itemId) {
       //生成二维码 + avatar + 背景
       var background = images(path.normalize(imageUri + data[2].images[0]));
       var canvas = images(background.size().width, background.size().height + 520).fill(0xfe, 0xfb, 0xf0, 1);
-      var qrcode = images(path.normalize(imageUri + openId + '.qrcode')).size(180);
+      var qrcode = images(path.normalize(__dirname + '/..' + '/public/logo.jpg')).size(180);
       var logo = images(path.normalize(__dirname + '/..' + '/public/logo.png')).size(40 * 1162 / 82, 40);
       var logo1 = images(path.normalize(__dirname + '/..' + '/public/logo1.png')).size(40 * 167 / 49, 40);
       var logo2 = images(path.normalize(__dirname + '/..' + '/public/logo2.png')).size(180);
