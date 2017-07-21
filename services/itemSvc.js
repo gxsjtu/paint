@@ -14,6 +14,7 @@ var cache = require('memory-cache');
 var images = require("images");
 var text2png = require('text2png');
 const path = require('path');
+const uuidv4 = require('uuid/v4');
 
 var ItemSvc = function() {
 
@@ -101,36 +102,28 @@ ItemSvc.prototype.sendShareCard = function(openId, itemId) {
     Promise.all([getQrCode(openId), getAvatar(openId), this.getItemById(itemId)]).then(data => {
       //生成二维码 + avatar + 背景
       var background = images(path.normalize(imageUri + data[2].images[0]));
-      var canvas = images(background.size().width, background.size().height * 1.3).fill(0xfe, 0xfb, 0xf0, 1);
-      var qrcode = images(path.normalize(imageUri + openId + '.qrcode')).size(background.size().height * 0.2);
-      var logo = images(path.normalize(__dirname + '/..' + '/public/logo.png')).size((background.size().height * 0.3 * 0.15) * 1162 / 82, background.size().height * 0.3 * 0.15);
-      var logo1 = images(path.normalize(__dirname + '/..' + '/public/logo1.png')).size(background.size().height * 0.3 * 0.1 * 167 / 49, background.size().height * 0.3 * 0.1);
-      var avatar;
-      try {
-        avatar = images(path.normalize(imageUri + openId + '.avatar')).size(qrcode.size().width * 0.25);
-      } catch (e) {
-        avatar = images(path.normalize(__dirname + '/..' + '/public/images/noavatar.jpeg')).size(60);
-      }
-      var str = "作品：" + "[" + data[2].type + "] " + data[2].name + '\n' +
-        "作者：" + data[2].author + '\n' +
-        "底价：" + data[2].price + '元' + '\n' +
-        "尺寸：" + data[2].dimension.width + "cm x " + data[2].dimension.height + "cm";
-      fs.writeFile(path.normalize(imageUri + openId + '.png'), text2png(str, {
-        font: '60px STKaiti',
-        lineSpacing: 20,
-      }), (err, result) => {
-        if (!err) {
-          var info = images(path.normalize(imageUri + openId + '.png'));
-          var ratio = info.size().width / info.size().height;
-          info = info.size((background.size().height * 0.3 * 0.85) * ratio, background.size().height * 0.3 * 0.85);
-          canvas = canvas.draw(info, background.size().width * 0.05, background.size().height * 1);
-        }
+      var canvas = images(background.size().width, background.size().height + 520).fill(0xfe, 0xfb, 0xf0, 1);
+      var qrcode = images(path.normalize(imageUri + openId + '.qrcode')).size(180);
+      var logo = images(path.normalize(__dirname + '/..' + '/public/logo.png')).size(40 * 1162 / 82, 40);
+      var logo1 = images(path.normalize(__dirname + '/..' + '/public/logo1.png')).size(40 * 167 / 49, 40);
+      var logo2 = images(path.normalize(__dirname + '/..' + '/public/logo2.png')).size(180);
+      var logo3 = images(path.normalize(__dirname + '/..' + '/public/logo3.png')).size(20);
+      //var avatar;
+      // try {
+      //   avatar = images(path.normalize(imageUri + openId + '.avatar')).size(60);
+      // } catch (e) {
+      //   avatar = images(path.normalize(__dirname + '/..' + '/public/images/noavatar.jpeg')).size(60);
+      // }
+      Promise.all([createText(data[2].name, 80), createText(data[2].author + ' 作品', 48), createText(data[2].type + '，' + data[2].dimension.width + 'cm x ' + data[2].dimension.height + 'cm，底价' + data[2].price + '元', 52)]).then(data => {
         canvas
           .draw(background, 0, 0)
-          .draw(qrcode, background.size().width - qrcode.size().width - background.size().width * 0.02, background.size().height * 1.02)
-          .draw(avatar, background.size().width - qrcode.size().width - background.size().width * 0.02 + (qrcode.size().width - avatar.size().width) / 2, background.size().height * 1.02 + (qrcode.size().width - avatar.size().width) / 2)
-          .draw(logo, (canvas.size().width - logo.size().width) / 2, canvas.size().height - logo.size().height)
-          .draw(logo1, canvas.size().width - qrcode.size().width - background.size().width * 0.02 + (qrcode.size().width - logo1.size().width) / 2, background.size().height * 1.02 + qrcode.size().height)
+          .draw(data[0], (background.size().width - data[0].size().width) / 2, background.size().height + 40)
+          .draw(data[1], (background.size().width - data[1].size().width) / 2, background.size().height + 150)
+          .draw(data[2], (background.size().width - data[2].size().width) / 2, background.size().height + 230)
+          .draw(qrcode, background.size().width / 2 + 60, background.size().height + 300)
+          .draw(logo3, background.size().width / 2, background.size().height + 300 + 40)
+          .draw(logo2, background.size().width / 2 - 60 - 160, background.size().height + 300 + 20)
+          .draw(logo1, background.size().width / 2 + 60 + (qrcode.size().width - logo1.size().width) / 2, background.size().height + 300 + 180)
           .saveAsync(path.normalize(imageUri + openId) + '.jpg', (err, result) => {
             //发送客服消息到用户
             //上传临时素材图片
@@ -146,12 +139,31 @@ ItemSvc.prototype.sendShareCard = function(openId, itemId) {
               }
             });
           });
+      }).catch(err => {
+        return reject(err);
       });
     }).catch(err => {
       return reject(err);
     });
   });
 }
+
+function createText(str, fontSize) {
+  return new Promise((resolve, reject) => {
+    var id = uuidv4();
+    fs.writeFile(path.normalize(imageUri + id + '.png'), text2png(str, {
+      font: fontSize + 'px STKaiti',
+      lineSpacing: 20,
+    }), (err, result) => {
+      if (!err) {
+        var info = images(path.normalize(imageUri + id + '.png'));
+        return resolve(info);
+      }
+      return reject(err);
+    });
+  });
+}
+
 
 ItemSvc.prototype.getShareItemsByOpenId = function(openId, type) {
   if (type == 1) {
