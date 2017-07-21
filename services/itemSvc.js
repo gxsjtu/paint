@@ -115,6 +115,7 @@ ItemSvc.prototype.sendShareCard = function(openId, itemId) {
       //   avatar = images(path.normalize(__dirname + '/..' + '/public/images/noavatar.jpeg')).size(60);
       // }
       Promise.all([createText(data[2].name, 80), createText(data[2].author + ' 作品', 48), createText(data[2].type + '，' + data[2].dimension.width + 'cm x ' + data[2].dimension.height + 'cm，底价' + data[2].price + '元', 52)]).then(data => {
+        data[2] = data[2].size(background.size().width * 0.68);
         canvas
           .draw(background, 0, 0)
           .draw(data[0], (background.size().width - data[0].size().width) / 2, background.size().height + 40)
