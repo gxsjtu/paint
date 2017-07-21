@@ -111,7 +111,7 @@ ItemSvc.prototype.sendShareCard = function(openId, itemId) {
       } catch (e) {
         avatar = images(path.normalize(__dirname + '/..' + '/public/images/noavatar.jpeg')).size(60);
       }
-      var str = "作品：" + data[2].name + '\n' +
+      var str = "作品：" + "[" + data[2].type + "] " + data[2].name + '\n' +
         "作者：" + data[2].author + '\n' +
         "底价：" + data[2].price + '元' + '\n' +
         "尺寸：" + data[2].dimension.width + "cm x " + data[2].dimension.height + "cm";
