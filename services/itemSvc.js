@@ -15,6 +15,7 @@ var images = require("images");
 var text2png = require('text2png');
 const path = require('path');
 const uuidv4 = require('uuid/v4');
+var QRCode = require('qrcode');
 
 var ItemSvc = function() {
 
@@ -52,24 +53,32 @@ function getProfile(openId) {
   });
 };
 
-function getQrCode(openId) {
+function getQrCode(openId, itemId) {
   return new Promise((resolve, reject) => {
-    api.createLimitQRCode(openId, (err, result) => {
-      if (!err) {
-        var uri = api.showQRCodeURL(result.ticket);
-        download.image({
-            url: uri,
-            dest: imageUri + openId + '.qrcode'
-          })
-          .then(({
-            filename,
-            image
-          }) => {
-            return resolve();
-          }).catch((err) => {
-            return reject(err);
-          })
+    // api.createLimitQRCode(openId, (err, result) => {
+    //   if (!err) {
+    //     var uri = api.showQRCodeURL(result.ticket);
+    //     download.image({
+    //         url: uri,
+    //         dest: imageUri + openId + '.qrcode'
+    //       })
+    //       .then(({
+    //         filename,
+    //         image
+    //       }) => {
+    //         return resolve();
+    //       }).catch((err) => {
+    //         return reject(err);
+    //       })
+    //   }
+    // });
+    QRCode.toFile(path.normalize(imageUri + openId + '.qrcode.png'), Global.server + "/item/" + itemId, {
+      type: 'image/png'
+    }, (err) => {
+      if (err) {
+        return reject(err);
       }
+      return resolve(err);
     });
   });
 };
@@ -77,43 +86,42 @@ function getQrCode(openId) {
 function getAvatar(openId) {
   return new Promise((resolve, reject) => {
     return resolve();
-    // getProfile(openId).then(data => {
-    //   var uri = data.headimgurl;
-    //   download.image({
-    //       url: uri,
-    //       dest: imageUri + openId + '.avatar'
-    //     })
-    //     .then(({
-    //       filename,
-    //       image
-    //     }) => {
-    //       return resolve(data.nickname);
-    //     }).catch((err) => {
-    //       return resolve(data.nickname);
-    //     });
-    // }).catch(err => {
-    //   return reject(err);
-    // });
+    getProfile(openId).then(data => {
+      var uri = data.headimgurl;
+      download.image({
+          url: uri,
+          dest: imageUri + openId + '.avatar'
+        })
+        .then(({
+          filename,
+          image
+        }) => {
+          return resolve(data.nickname);
+        }).catch((err) => {
+          return resolve(data.nickname);
+        });
+    }).catch(err => {
+      return reject(err);
+    });
   });
 };
 
 ItemSvc.prototype.sendShareCard = function(openId, itemId) {
   //发送我的分享卡
   return new Promise((resolve, reject) => {
-    Promise.all([getQrCode(openId), getAvatar(openId), this.getItemById(itemId)]).then(data => {
+    Promise.all([getQrCode(openId, itemId), getAvatar(openId), this.getItemById(itemId)]).then(data => {
       //生成二维码 + avatar + 背景
       var background = images(path.normalize(imageUri + data[2].images[0]));
       var canvas = images(background.size().width, background.size().height + 520).fill(0xfe, 0xfb, 0xf0, 1);
-      var qrcode = images(path.normalize(__dirname + '/..' + '/public/logo.jpg')).size(180);
-      var logo = images(path.normalize(__dirname + '/..' + '/public/logo.png')).size(40 * 1162 / 82, 40);
-      var logo1 = images(path.normalize(__dirname + '/..' + '/public/logo1.png')).size(40 * 167 / 49, 40);
+      var qrcode = images(path.normalize(imageUri + openId + '.qrcode.png')).size(180);
+      var logo1 = images(path.normalize(__dirname + '/..' + '/public/logo1.png')).size(126, 26);
       var logo2 = images(path.normalize(__dirname + '/..' + '/public/logo2.png')).size(180);
       var logo3 = images(path.normalize(__dirname + '/..' + '/public/logo3.png')).size(20);
-      //var avatar;
+      // var avatar;
       // try {
-      //   avatar = images(path.normalize(imageUri + openId + '.avatar')).size(60);
+      //   avatar = images(path.normalize(imageUri + openId + '.avatar')).size(50);
       // } catch (e) {
-      //   avatar = images(path.normalize(__dirname + '/..' + '/public/images/noavatar.jpeg')).size(60);
+      //   avatar = images(path.normalize(__dirname + '/..' + '/public/logo2.png')).size(50);
       // }
       Promise.all([createText(data[2].name, 80), createText(data[2].author + ' 作品', 48), createText(data[2].type + '，' + data[2].dimension.width + 'cm x ' + data[2].dimension.height + 'cm，底价' + data[2].price + '元', 52)]).then(data => {
         data[2] = data[2].size(background.size().width * 0.68);
@@ -123,6 +131,7 @@ ItemSvc.prototype.sendShareCard = function(openId, itemId) {
           .draw(data[1], (background.size().width - data[1].size().width) / 2, background.size().height + 150)
           .draw(data[2], (background.size().width - data[2].size().width) / 2, background.size().height + 230)
           .draw(qrcode, background.size().width / 2 + 60, background.size().height + 300)
+          // .draw(avatar, background.size().width / 2 + 60 + (qrcode.size().width - avatar.size().width) / 2, background.size().height + 300 + (qrcode.size().width - avatar.size().width) / 2)
           .draw(logo3, background.size().width / 2, background.size().height + 300 + 40)
           .draw(logo2, background.size().width / 2 - 60 - 160, background.size().height + 300 + 20)
           .draw(logo1, background.size().width / 2 + 60 + (qrcode.size().width - logo1.size().width) / 2, background.size().height + 300 + 180)
