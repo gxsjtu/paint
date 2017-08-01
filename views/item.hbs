@@ -339,7 +339,7 @@
           else{
             //还没到起拍时间
             flag = 0;
-            second = moment().diff(from,'seconds');
+            second = moment(from).diff(moment(),'seconds');
             $("#dateDesc").text("距开始");
           }
 
