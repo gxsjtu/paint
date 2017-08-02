@@ -483,6 +483,32 @@ ItemSvc.prototype.search = function(group, key) {
   })
 }
 
+ItemSvc.prototype.update = function(itemId, name, author, width, height, comment, type, catalog, price, images, from, to, avatar, nick, openId){
+    return new Promise((resolve, reject) => {
+        item.update(
+          {_id:itemId},
+          {
+            name:name,
+            author:author,
+            dimension:{width: width, height: height},
+            catalog: catalog,
+            type: type,
+            comment: comment,
+            price: price,
+            valid: { from: from, to: to},
+            avatar: avatar,
+            nick: nick,
+            openId: openId
+          },
+          {upsert: true}
+        ).then(data => {
+          resolve(data);
+        }).catch(err => {
+          return reject(false);
+        })
+    })
+}
+
 ItemSvc.prototype.save = function(name, author, width, height, comment, type, catalog, price, images, from, to, avatar, nick, openId) {
   var item = new Item();
   item.openId = openId;

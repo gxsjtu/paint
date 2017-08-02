@@ -4,6 +4,20 @@
   <link rel="stylesheet" href="/bootstrap-datetime-picker/css/bootstrap-datetimepicker.min.css" />
 
 {{/extend}}
+{{#if isEdit}}
+<div class="swiper-container" style="width:100%;height:50vw;">
+  <div class="swiper-wrapper">
+    {{#each item.images}}
+      <div class="swiper-slide" style="background:url(/images/upload/{{this}}) no-repeat;background-position:center center;background-size:100% auto;">
+      <!-- <div class="swiper-slide"> -->
+        <img src="/images/upload/{{this}}" alt="" style="width:100%;z-index:99999;opacity:0;"/>
+      </div>
+    {{/each}}
+  </div>
+  <div class="swiper-pagination"></div>
+</div>
+{{/if}}
+{{#unless isEdit}}
 <div class="swiper-container" style="position:relative">
   <div class="swiper-wrapper">
     <div id="defaultImgDiv" style="width:100%;height:100%;">
@@ -19,6 +33,7 @@
     <button id="btnAddImg" type="button" class="btn btn-info btn-circle btn-lg"><i class="fa fa-plus" aria-hidden="true"></i></button>
   </div>
 </div>
+{{/unless}}
 <div class="split"></div>
 <div class="my-box">
   <div class="box-name">
@@ -26,7 +41,7 @@
   </div>
   <div class="box-split"></div>
   <div class="box-element">
-    <input type="text" value="" placeholder="请输入作者名称" id="txtAuthorName" />
+    <input type="text" value="{{#if isEdit}}{{item.author}}{{/if}}" placeholder="请输入作者名称" id="txtAuthorName" />
   </div>
 </div>
 
@@ -36,7 +51,7 @@
   </div>
   <div class="box-split"></div>
   <div class="box-element">
-    <input type="text" value="" placeholder="请输入作品名称" id="txtImgName" />
+    <input type="text" value="{{#if isEdit}}{{item.name}}{{/if}}" placeholder="请输入作品名称" id="txtImgName" />
   </div>
 </div>
 
@@ -48,7 +63,7 @@
   <div class="box-element">
     <div class="my-select-container">
       <div class="my-select-name" id="typeTitle">
-        请选择
+        {{#if isEdit}}{{item.type}}{{/if}}{{#unless isEdit}}请选择{{/unless}}
       </div>
       <div class="my-select-arrow">
         <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
@@ -70,7 +85,7 @@
   <div class="box-element">
     <div class="my-select-container">
       <div class="my-select-name" id="catalogTitle">
-        请选择
+        {{#if isEdit}}{{item.catalog}}{{/if}}{{#unless isEdit}}请选择{{/unless}}
       </div>
       <div class="my-select-arrow">
         <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
@@ -91,14 +106,14 @@
     </div>
     <div class="box-split" style="width:calc((29%-2em)/4);"></div>
     <div class="box-element" style="width:60%;">
-      <input type="number" value="" placeholder="宽 ( 单位 : cm )" id="txtImgWidth"/>
+      <input type="number" value="{{#if isEdit}}{{item.dimension.width}}{{/if}}" placeholder="宽 ( 单位 : cm )" id="txtImgWidth"/>
     </div>
   </div>
   <div style="height:40px;line-height:40px;width:5%;text-align:center;color:#a5a5a5;">
     X
   </div>
   <div class="small-box" style="width:40%;">
-    <input type="number" value="" placeholder="高 ( 单位 : cm )" style="width:100%;outline:none;border:0px;margin-left:calc((38%-2em)/4);" id="txtImgHeight"/>
+    <input type="number" value="{{#if isEdit}}{{item.dimension.height}}{{/if}}" placeholder="高 ( 单位 : cm )" style="width:100%;outline:none;border:0px;margin-left:calc((38%-2em)/4);" id="txtImgHeight"/>
   </div>
 </div>
 <div style="display:flex;width:90%;height:40px;margin:10px auto 0;">
@@ -108,14 +123,14 @@
     </div>
     <div class="box-split" style="width:calc((29%-2em)/4);"></div>
     <div class="box-element" style="width:60%;">
-      <input id="datetimepicker1" type="text" placeholder="起始时间" readonly="readonly" style="font-size:smaller;"/>
+      <input value="{{#if isEdit}}{{item.valid.from}}{{/if}}" id="datetimepicker1" type="text" placeholder="起始时间" readonly="readonly" style="font-size:smaller;"/>
     </div>
   </div>
   <div style="height:40px;line-height:40px;width:5%;text-align:center;color:#a5a5a5;">
     -
   </div>
   <div class="small-box" style="width:40%;">
-    <input id="datetimepicker2" type="text" placeholder="结束时间" readonly="readonly" style="font-size:smaller;outline:none;border:0px;margin-left:calc((38%-2em)/4);width:100%;"/>
+    <input value="{{#if isEdit}}{{item.valid.to}}{{/if}}" id="datetimepicker2" type="text" placeholder="结束时间" readonly="readonly" style="font-size:smaller;outline:none;border:0px;margin-left:calc((38%-2em)/4);width:100%;"/>
   </div>
 </div>
 <div class="my-box">
@@ -124,7 +139,12 @@
   </div>
   <div class="box-split"></div>
   <div class="box-element">
+    <!-- {{#if isEdit}} -->
+    <input type="number" value="{{#if isEdit}}{{item.price}}{{/if}}" placeholder="请输入底价 ( 元 )" id="txtImgPrice" />
+    <!-- {{/if}}
+    {{#unless isEdit}}
     <input type="number" value="" placeholder="请输入底价 ( 元 )" id="txtImgPrice" />
+    {{/unless}} -->
   </div>
 </div>
 <div class="my-box" style="height:80px;">
@@ -133,7 +153,7 @@
   </div>
   <div class="box-split" style="height:40px;"></div>
   <div class="box-element">
-    <textarea placeholder="说点什么吧"  style="width:100%;outline:none;border:0px;" id="txtDesc"></textarea>
+    <textarea placeholder="说点什么吧"  style="width:100%;outline:none;border:0px;" id="txtDesc" value="{{#if isEdit}}{{item.comment}}{{/if}}"></textarea>
   </div>
 </div>
 
@@ -152,6 +172,8 @@
   <script src="/moment/moment.js"></script>
   <script type="text/javascript" src="/javascripts/sell/sell.js"></script>
   <script>
+  var isEdit = true;
+  var itemId = 0;
     $(function(){
       var start = moment().add(1, 'h').format('YYYY-MM-DD HH:00');
       var end = moment().add(1, 'h').add(2,'d').format('YYYY-MM-DD HH:00');
@@ -162,8 +184,14 @@
         todayHighlight: true,
         language: 'zh-CN'
       });
+      {{#if isEdit}}
+        itemId = {{item._id}};
+      {{/if}}
+      {{#unless isEdit}}
+      isEdit = false;
       $("#datetimepicker1").val(start);
       $("#datetimepicker2").val(end);
+      {{/unless}}
       $('#datetimepicker1,#datetimepicker2').datetimepicker('update');
 
         $(".select").on("click",function(){

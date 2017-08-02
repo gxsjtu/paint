@@ -201,8 +201,11 @@
             var pic1 = $("<img />");
             pic1.addClass("pic1");
             pic1.attr("src","https://painting.shtx.com.cn/images/upload/"+data[i].images[0]);
-
             pic1Container.append(pic1);
+            if(type == 1){
+              var editDiv = $("<div id=\"divE\" style=\"position:absolute;top:0;right:0;\" onClick=\"gotoEdit('"+data[i]._id+"')\"><img id='imgE' src=\"/edit.png\" style=\"height:50px;\"/></div>")
+              pic1Container.append(editDiv);
+            }
             if(type == 3){
               //已结束的打上水印
 
@@ -222,6 +225,8 @@
                   deal.attr("src","/images/成交.png");
                 }
                 else{
+                  var editDiv = $("<div id=\"divE\" style=\"position:absolute;top:0;right:0;\" onClick=\"gotoEdit('"+data[i]._id+"')\"><img id='imgE' src=\"/edit.png\" style=\"height:50px;\"/></div>")
+                  pic1Container.append(editDiv);
                   deal.attr("src","/images/流标.png");
                 }
                 dealContainer.append(deal);
@@ -283,7 +288,13 @@
     })
 
     function gotoItem(id) {
-      window.location.href = '/item/' + id;
+      if(window.event.target.id != "imgE"){
+        window.location.href = '/item/' + id;
+      }
+    }
+
+    function gotoEdit(id){
+      window.location.href = '/sell/' + id;
     }
 
     wx.ready(function() {

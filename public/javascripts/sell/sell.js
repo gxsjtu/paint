@@ -36,7 +36,6 @@ $(function() {
     // alert($("#typeTitle").text());
     $("#catalogTitle").text($(this).text());
   })
-
 });
 var getSwiperHeight = function() {
   // if (window.innerWidth) {
@@ -164,8 +163,11 @@ wx.ready(function() {
     }
     var l = Ladda.create(document.querySelector('#btnSave'));
     l.start();
-    // $(this).attr("disabled", "disabled");
-    syncUpload(localIds, l);
+    if(isEdit){
+      editItem(l);
+    }else{
+      syncUpload(localIds, l);
+    }
   });
 
   $("#btnRemoveImg").click(function() {
@@ -199,6 +201,7 @@ wx.ready(function() {
       }
     }
   })
+
 
   var syncUpload = function(localIds, l) {
     var localId = localIds.pop();
@@ -242,6 +245,41 @@ wx.ready(function() {
             }
           })
         }
+      }
+    })
+  }
+
+  var editItem = function(l){
+    $.ajax({
+      url: '/sell/editItem',
+      type: 'POST',
+      traditional: true,
+      dataType: "json",
+      data: {
+        itemId: itemId,
+        name: $("#txtImgName").val(),
+        author: $("#txtAuthorName").val(),
+        width: $("#txtImgWidth").val(),
+        height: $("#txtImgHeight").val(),
+        comment: $("#txtDesc").val(),
+        type: $("#typeTitle").text(),
+        price: $("#txtImgPrice").val(),
+        // images: serverIds,
+        catalog: $("#catalogTitle").text(),
+        auctionStartDate: $("#datetimepicker1").val(),
+        auctionEndDate: $("#datetimepicker2").val(),
+        openId:$("#hideOpenId").val()
+      },
+      success: function(data) {
+        //window.location = '/item/'+data.data._id;
+        location.replace('/item/'+data.data._id);
+      },
+      error: function(req, status, err) {
+          // $("#btnSave").removeAttr("disabled");
+          l.stop();
+      },
+      complete: function(res, status) {
+
       }
     })
   }
