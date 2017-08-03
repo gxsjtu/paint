@@ -139,12 +139,12 @@
   </div>
   <div class="box-split"></div>
   <div class="box-element">
-    <!-- {{#if isEdit}} -->
-    <input type="number" value="{{#if isEdit}}{{item.price}}{{/if}}" placeholder="请输入底价 ( 元 )" id="txtImgPrice" />
-    <!-- {{/if}}
+    {{#if isEdit}}
+    <input type="number" value="{{item.price}}" placeholder="请输入底价 ( 元 )" id="txtImgPrice" />
+    {{/if}}
     {{#unless isEdit}}
     <input type="number" value="" placeholder="请输入底价 ( 元 )" id="txtImgPrice" />
-    {{/unless}} -->
+    {{/unless}}
   </div>
 </div>
 <div class="my-box" style="height:80px;">

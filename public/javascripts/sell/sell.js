@@ -77,12 +77,14 @@ wx.ready(function() {
     });
   });
   $("#btnSave").click(function() {
-    if (localIds.length <= 0) {
-      notie.alert({
-        type: 3,
-        text: "请至少选择一张图片！"
-      });
-      return;
+    if(!isEdit){
+      if (localIds.length <= 0) {
+        notie.alert({
+          type: 3,
+          text: "请至少选择一张图片！"
+        });
+        return;
+      }
     }
     if ($("#txtAuthorName").val().trim() == "") {
       notie.alert({
