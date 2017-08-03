@@ -30,3 +30,7 @@ module.exports.CreateMenuFailed = {
   code: 7,
   message: '生成菜单失败'
 };
+module.exports.EditItemFailed = {
+  code: 8,
+  message: '更新失败'
+};

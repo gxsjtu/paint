@@ -55,23 +55,6 @@ function getProfile(openId) {
 
 function getQrCode(openId, itemId) {
   return new Promise((resolve, reject) => {
-    // api.createLimitQRCode(openId, (err, result) => {
-    //   if (!err) {
-    //     var uri = api.showQRCodeURL(result.ticket);
-    //     download.image({
-    //         url: uri,
-    //         dest: imageUri + openId + '.qrcode'
-    //       })
-    //       .then(({
-    //         filename,
-    //         image
-    //       }) => {
-    //         return resolve();
-    //       }).catch((err) => {
-    //         return reject(err);
-    //       })
-    //   }
-    // });
     QRCode.toFile(path.normalize(imageUri + openId + '.qrcode.png'), Global.server + "/item/" + itemId, {
       type: 'image/png'
     }, (err) => {
@@ -117,12 +100,7 @@ ItemSvc.prototype.sendShareCard = function(openId, itemId) {
       var logo1 = images(path.normalize(__dirname + '/..' + '/public/logo1.png')).size(126, 26);
       var logo2 = images(path.normalize(__dirname + '/..' + '/public/logo2.png')).size(180);
       var logo3 = images(path.normalize(__dirname + '/..' + '/public/logo3.png')).size(20);
-      // var avatar;
-      // try {
-      //   avatar = images(path.normalize(imageUri + openId + '.avatar')).size(50);
-      // } catch (e) {
-      //   avatar = images(path.normalize(__dirname + '/..' + '/public/logo2.png')).size(50);
-      // }
+
       Promise.all([createText(data[2].name, 80), createText(data[2].author + ' 作品', 48), createText(data[2].type + '，' + data[2].dimension.width + 'cm x ' + data[2].dimension.height + 'cm，底价' + data[2].price + '元', 52)]).then(data => {
         data[2] = data[2].size(background.size().width * 0.68);
         canvas

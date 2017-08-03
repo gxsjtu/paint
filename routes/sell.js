@@ -83,6 +83,9 @@ router.post('/editItem', function(req, res, next) {
       {
           res.json(new Result(Errors.Success, data));
       }
+      else{
+        res.json(new Result(Errors.EditItemFailed, data));
+      }
     }).catch(err => {
       res.json(new Result(Errors.SaveItemFailed, err));
     });
