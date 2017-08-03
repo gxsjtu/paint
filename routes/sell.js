@@ -78,15 +78,18 @@ router.post('/editItem', function(req, res, next) {
   }).catch(err => {
 
   }).finally(() => {
-    itemSvc.update(itemId,name, author, width, height, comment, type, catalog, price, from, to, avatar, nick, openId).then(data => {
-      res.json(new Result(Errors.Success, data));
+    itemSvc.update(itemId, name, author, width, height, comment, type, catalog, price, from, to, avatar, nick, openId).then(data => {
+      if(data.ok)
+      {
+          res.json(new Result(Errors.Success, data));
+      }
     }).catch(err => {
       res.json(new Result(Errors.SaveItemFailed, err));
     });
   });
 });
 
-router.get('/:itemId', function(req, res, next) {
+router.get('/:itemId', oAuth.oAuth, function(req, res, next) {
   var itemId = req.params.itemId;
   Promise.all([itemSvc.getType(), itemSvc.getCatalog(),itemSvc.getItemById(itemId)]).then(data => {
     res.render("sell", {

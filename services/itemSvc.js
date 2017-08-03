@@ -483,9 +483,9 @@ ItemSvc.prototype.search = function(group, key) {
   })
 }
 
-ItemSvc.prototype.update = function(itemId, name, author, width, height, comment, type, catalog, price, images, from, to, avatar, nick, openId){
+ItemSvc.prototype.update = function(itemId, name, author, width, height, comment, type, catalog, price, from, to, avatar, nick, openId){
     return new Promise((resolve, reject) => {
-        item.update(
+        Item.update(
           {_id:itemId},
           {
             name:name,

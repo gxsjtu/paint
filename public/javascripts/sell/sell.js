@@ -166,7 +166,7 @@ wx.ready(function() {
     var l = Ladda.create(document.querySelector('#btnSave'));
     l.start();
     if(isEdit){
-      editItem(l);
+      editItem(l, itemId);
     }else{
       syncUpload(localIds, l);
     }
@@ -251,7 +251,7 @@ wx.ready(function() {
     })
   }
 
-  var editItem = function(l){
+  var editItem = function(l,itemId){
     $.ajax({
       url: '/sell/editItem',
       type: 'POST',
@@ -274,7 +274,7 @@ wx.ready(function() {
       },
       success: function(data) {
         //window.location = '/item/'+data.data._id;
-        location.replace('/item/'+data.data._id);
+        location.replace('/item/' + itemId);
       },
       error: function(req, status, err) {
           // $("#btnSave").removeAttr("disabled");

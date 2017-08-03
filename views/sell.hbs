@@ -62,9 +62,14 @@
   <div class="box-split"></div>
   <div class="box-element">
     <div class="my-select-container">
+      {{#if isEdit}}
+      <div class="my-select-name" id="typeTitle" style="color: black;">{{item.type}}</div>
+      {{/if}}
+      {{#unless isEdit}}
       <div class="my-select-name" id="typeTitle">
-        {{#if isEdit}}{{item.type}}{{/if}}{{#unless isEdit}}请选择{{/unless}}
+        请选择
       </div>
+      {{/unless}}
       <div class="my-select-arrow">
         <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
       </div>
@@ -84,9 +89,14 @@
   <div class="box-split"></div>
   <div class="box-element">
     <div class="my-select-container">
+      {{#if isEdit}}
+      <div class="my-select-name" id="catalogTitle" style="color: black;">{{item.catalog}}</div>
+      {{/if}}
+      {{#unless isEdit}}
       <div class="my-select-name" id="catalogTitle">
-        {{#if isEdit}}{{item.catalog}}{{/if}}{{#unless isEdit}}请选择{{/unless}}
+        请选择
       </div>
+      {{/unless}}
       <div class="my-select-arrow">
         <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
       </div>
@@ -186,6 +196,17 @@
       });
       {{#if isEdit}}
         itemId = '{{item._id}}';
+        let option = {};
+        // if(images.length > 1){
+          option = {
+            autoplay: 2000,
+            autoplayDisableOnInteraction: false,
+            // loop: images.length > 1 ? true : false,
+            pagination: '.swiper-pagination',
+            paginationClickable: true
+          }
+        // }
+        var swiper = new Swiper('.swiper-container', option);
       {{/if}}
       {{#unless isEdit}}
       isEdit = false;
